@@ -1,13 +1,6 @@
-// Importa o módulo 'dgram' do Node.js, que é necessário para a comunicação UDP.
-const dgram = require('dgram');
-
-// Esta é a função principal que a Netlify irá executar.
-exports.handler = async (event, context) => {
-  // Pega o nome do domínio que o usuário digitou, que vem da URL.
-  // Ex: /api/check-domain?domain=meusite
+exports.handler = async (event) => {
   const domain = event.queryStringParameters.domain;
 
-  // Se o usuário não enviou um domínio, retorna um erro.
   if (!domain) {
     return {
       statusCode: 400,
@@ -15,52 +8,36 @@ exports.handler = async (event, context) => {
     };
   }
 
-  // O endereço do servidor de consulta do Registro.br.
-  const REGISTRO_BR_HOST = 'avail.registro.br';
-  // A porta do serviço, conforme a documentação.
-  const REGISTRO_BR_PORT = 43;
+  const fullDomain = `${domain}.com.br`;
+  const rdapUrl = `https://rdap.registro.br/domain/${fullDomain}`;
 
-  // Criamos uma "promessa" para lidar com a comunicação, que é assíncrona.
-  return new Promise((resolve, reject) => {
-    // Cria um socket UDP.
-    const socket = dgram.createSocket('udp4');
-    
-    // Constrói a consulta que será enviada. Precisa terminar com uma quebra de linha.
-    const query = `${domain}.com.br\r\n`;
+  try {
+    const response = await fetch(rdapUrl);
 
-    // Função para quando recebermos uma resposta do Registro.br.
-    socket.on('message', (msg, rinfo) => {
-      const response = msg.toString().trim();
-      socket.close(); // Fecha a conexão após receber a resposta.
-      
-      // Retorna uma resposta de sucesso com o status do domínio.
-      resolve({
+    // Se a resposta for 404 (Not Found), o domínio está DISPONÍVEL.
+    if (response.status === 404) {
+      return {
         statusCode: 200,
-        body: JSON.stringify({ response: response }),
-      });
-    });
+        body: JSON.stringify({ available: true }),
+      };
+    }
+    
+    // Se a resposta for 200 (OK), o domínio está em USO.
+    if (response.status === 200) {
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ available: false }),
+      };
+    }
 
-    // Função para caso ocorra algum erro de conexão.
-    socket.on('error', (err) => {
-      socket.close();
-      reject({
-        statusCode: 500,
-        body: JSON.stringify({ error: `Erro ao consultar o domínio: ${err.message}` }),
-      });
-    });
+    // Para qualquer outro caso, consideramos como um erro.
+    throw new Error(`Status inesperado: ${response.status}`);
 
-    // Envia a nossa consulta para o servidor do Registro.br.
-    socket.send(query, 0, query.length, REGISTRO_BR_PORT, REGISTRO_BR_HOST);
-
-    // Adiciona um tempo limite (timeout) de 5 segundos. Se não houver resposta, retorna erro.
-    setTimeout(() => {
-        try {
-            socket.close();
-            reject({
-                statusCode: 504, // Gateway Timeout
-                body: JSON.stringify({ error: 'O servidor do Registro.br não respondeu a tempo.' }),
-            });
-        } catch (e) { /* O socket pode já ter sido fechado, ignoramos o erro */ }
-    }, 5000);
-  });
+  } catch (error) {
+    console.error('Erro na consulta RDAP:', error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Falha ao consultar o serviço de domínios.' }),
+    };
+  }
 };
