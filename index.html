@@ -1153,16 +1153,15 @@ function performCheck() {
             return response.json(); // Converte a resposta em formato JSON
         })
         .then(data => {
-            // A resposta do Registro.br para "disponível" é "AVAILABLE"
-            if (data.response === 'AVAILABLE') {
-                resultMessage.innerHTML = `<span class="available">✓ <strong>${fullDomain}</strong> está disponível!</span>`;
-                createSiteBtn.style.display = "block";
-            } else {
-                // Qualquer outra resposta significa que não está disponível
-                resultMessage.innerHTML = `<span class="unavailable">✗ <strong>${fullDomain}</strong> já está em uso ou é inválido.</span>`;
-                createSiteBtn.style.display = "none";
-            }
-        })
+    // A nossa nova função retorna { available: true } ou { available: false }
+    if (data.available) {
+        resultMessage.innerHTML = `<span class="available">✓ <strong>${fullDomain}</strong> está disponível!</span>`;
+        createSiteBtn.style.display = "block";
+    } else {
+        resultMessage.innerHTML = `<span class="unavailable">✗ <strong>${fullDomain}</strong> já está em uso.</span>`;
+        createSiteBtn.style.display = "none";
+    }
+})
         .catch(error => {
             // Se algo der errado na comunicação, mostra uma mensagem de erro genérica
             console.error('Erro ao consultar domínio:', error);
