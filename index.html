@@ -1128,6 +1128,9 @@ function performCheck() {
     const domain = domainInput.value.trim();
     const fullDomain = `${domain}.com.br`;
 
+    // --- ESPIÃO #1: O que estamos pesquisando? ---
+    console.log('1. Pesquisando por:', fullDomain);
+
     if (!domain) {
         resultMessage.textContent = "Por favor, digite um nome de domínio";
         resultMessage.className = "result-message";
@@ -1135,41 +1138,35 @@ function performCheck() {
         return;
     }
 
-    // Desabilita o botão para evitar cliques múltiplos
     checkButton.disabled = true;
     checkButton.textContent = 'Verificando...';
-
-    // Mostrar estado de carregamento
     resultMessage.innerHTML = '<div class="loading"><div class="spinner"></div>Verificando disponibilidade...</div>';
     createSiteBtn.style.display = "none";
 
     // A MÁGICA ACONTECE AQUI: Chamada para a nossa "ponte" (Função Serverless)
+    // Usando o caminho relativo, que é a melhor prática após conectar o Git
     fetch(`/.netlify/functions/check-domain?domain=${domain}`)
-        .then(response => {
-            if (!response.ok) {
-                // Se a resposta do servidor não for "OK", lança um erro para ser pego pelo .catch()
-                throw new Error(`Erro na rede: ${response.statusText}`);
-            }
-            return response.json(); // Converte a resposta em formato JSON
-        })
+        .then(response => response.json())
         .then(data => {
-    // A nossa nova função retorna { available: true } ou { available: false }
-    if (data.available) {
-        resultMessage.innerHTML = `<span class="available">✓ <strong>${fullDomain}</strong> está disponível!</span>`;
-        createSiteBtn.style.display = "block";
-    } else {
-        resultMessage.innerHTML = `<span class="unavailable">✗ <strong>${fullDomain}</strong> já está em uso.</span>`;
-        createSiteBtn.style.display = "none";
-    }
-})
+            // --- ESPIÃO #2: O que o servidor respondeu? ---
+            console.log('2. Resposta recebida:', data);
+
+            // A nossa nova função retorna { available: true } ou { available: false }
+            if (data.available) {
+                resultMessage.innerHTML = `<span class="available">✓ <strong>${fullDomain}</strong> está disponível!</span>`;
+                createSiteBtn.style.display = "block";
+            } else {
+                resultMessage.innerHTML = `<span class="unavailable">✗ <strong>${fullDomain}</strong> já está em uso ou é inválido.</span>`;
+                createSiteBtn.style.display = "none";
+            }
+        })
         .catch(error => {
-            // Se algo der errado na comunicação, mostra uma mensagem de erro genérica
-            console.error('Erro ao consultar domínio:', error);
+            // --- ESPIÃO #3: Se der erro, qual foi? ---
+            console.error('3. Erro na comunicação:', error);
             resultMessage.innerHTML = `<span class="unavailable">Ocorreu um erro ao consultar. Tente novamente.</span>`;
             createSiteBtn.style.display = "none";
         })
         .finally(() => {
-            // Reabilita o botão e restaura o texto, não importa se deu certo ou errado
             checkButton.disabled = false;
             checkButton.textContent = 'Verificar Disponibilidade';
         });
