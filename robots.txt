@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://symphonious-trifle-a7dd87.netlify.app/sitemap.xml
