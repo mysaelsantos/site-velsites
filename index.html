@@ -1392,7 +1392,8 @@
         whatsappButton.addEventListener('click', toggleChatWindow);
 
         document.addEventListener('click', function(event) {
-            if (chatWindow.classList.contains('active') && !chatWindow.contains(event.target) && event.target !== whatsappButton) {
+            // CORREÇÃO: Usar .contains() para verificar se o clique foi dentro do botão
+            if (chatWindow.classList.contains('active') && !chatWindow.contains(event.target) && !whatsappButton.contains(event.target)) {
                 chatWindow.classList.remove('active');
             }
         });
