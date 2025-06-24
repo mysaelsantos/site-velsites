@@ -1,43 +1,33 @@
-
-
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Vel Sites - Criação de Sites Profissionais</title>
-	<meta name="description" content="A Vel Sites Cria seu Site Profissional com Domínio, E-mail Corporativo e te Entrega em Até 5 dias. Sem Mensalidades. Tudo Incluso a Partir de R$ 600.">
-	<!-- Open Graph para visualização em redes sociais -->
-<meta property="og:title" content="Vel Sites">
-<meta property="og:description" content="Seu cliente procura por você e não encontra nada? Está na hora de mudar isso.">
-<meta property="og:image" content="https://i.postimg.cc/ygrkWwKK/Subcabe-alho-37.png">
-<meta property="og:url" content="https://velsites.com.br">
-<meta property="og:type" content="website">
-
-<!-- Twitter Cards (opcional, mas recomendado) -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Vel Sites - Criação de Sites">
-<meta name="twitter:description" content="Seu cliente procura por você e não encontra nada? Está na hora de mudar isso.">
-<meta name="twitter:image" content="https://i.postimg.cc/ygrkWwKK/Subcabe-alho-37.png">
-
-	<!-- FAVICONS -->
-<link rel="icon" href="/favicon.ico" type="image/x-icon">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-
-<!-- Apple Touch Icon -->
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-
-<!-- Android Chrome -->
-<link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
-
-<!-- Web App Manifest -->
-<link rel="manifest" href="/site.webmanifest">
-
-	<meta name="theme-color" content="#0053C3">
-
+    <meta name="description" content="A Vel Sites Cria seu Site Profissional com Domínio, E-mail Corporativo e te Entrega em Até 5 dias. Sem Mensalidades. Tudo Incluso a Partir de R$ 600.">
+    <!-- Open Graph para visualização em redes sociais -->
+    <meta property="og:title" content="Vel Sites">
+    <meta property="og:description" content="Seu cliente procura por você e não encontra nada? Está na hora de mudar isso.">
+    <meta property="og:image" content="https://i.postimg.cc/ygrkWwKK/Subcabe-alho-37.png">
+    <meta property="og:url" content="https://velsites.com.br">
+    <meta property="og:type" content="website">
+    <!-- Twitter Cards (opcional, mas recomendado) -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Vel Sites - Criação de Sites">
+    <meta name="twitter:description" content="Seu cliente procura por você e não encontra nada? Está na hora de mudar isso.">
+    <meta name="twitter:image" content="https://i.postimg.cc/ygrkWwKK/Subcabe-alho-37.png">
+    <!-- FAVICONS -->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <!-- Android Chrome -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#0053C3">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -46,79 +36,53 @@
             scroll-behavior: smooth;
             -webkit-text-size-adjust: 100%;
         }
-
         .glass-effect {
             background: rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
-
         .gradient-bg {
             background: linear-gradient(135deg, #002e9e, #0078e8);
         }
-
         .gradient-text {
             background: linear-gradient(135deg, #002e9e, #0078e8);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
-
         .btn-primary {
             background: linear-gradient(135deg, #002e9e, #0078e8);
             transition: all 0.3s ease;
         }
-
         .btn-primary:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(0, 46, 158, 0.3);
         }
-
         .card {
             transition: all 0.3s ease;
         }
-
         .card:hover {
             transform: translateY(-10px);
         }
-
         #profession-rotator {
             transition: opacity 0.8s ease-in-out;
         }
-
         .testimonial-card {
             transition: all 0.3s ease;
         }
-
         .testimonial-card:hover {
             transform: scale(1.03);
         }
-        
         .hero-image {
             animation: fadeIn 1.5s ease-in-out;
             max-width: 100%;
             height: auto;
         }
-        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
-        /* Estilo modificado para o botão do WhatsApp */
-        .whatsapp-btn {
-            position: fixed !important;
-            bottom: 20px !important;
-            right: 20px !important;
-            z-index: 9999 !important;
-            display: block !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-            width: auto !important;
-            height: auto !important;
-        }
-        
         .mobile-menu {
             position: fixed;
             top: 0;
@@ -136,18 +100,15 @@
             justify-content: center;
             align-items: center;
         }
-        
         .mobile-menu.active {
             transform: translateY(0);
         }
-        
         .mobile-menu-link {
             margin: 15px 0;
             font-size: 1.25rem;
             color: white;
             position: relative;
         }
-        
         .mobile-menu-link::after {
             content: '';
             position: absolute;
@@ -158,11 +119,9 @@
             background-color: white;
             transition: width 0.3s ease;
         }
-        
         .mobile-menu-link:hover::after {
             width: 100%;
         }
-        
         .close-menu {
             position: absolute;
             top: 20px;
@@ -171,8 +130,6 @@
             color: white;
             cursor: pointer;
         }
-        
-        /* Estilos para o componente de consulta de domínios - VERSÃO SIMPLES */
         .domain-checker {
             background-color: white;
             border-radius: 16px;
@@ -184,7 +141,6 @@
             position: relative;
             z-index: 1;
         }
-        
         .domain-input-container {
             display: flex;
             align-items: center;
@@ -192,7 +148,6 @@
             margin-bottom: 1.5rem;
             width: 100%;
         }
-        
         .domain-input {
             flex: 1;
             padding: 1rem 1.5rem;
@@ -203,12 +158,10 @@
             transition: all 0.3s ease;
             height: 56px;
         }
-        
         .domain-input:focus {
             border-color: #002e9e;
             box-shadow: 0 0 0 4px rgba(0, 46, 158, 0.1);
         }
-        
         .domain-suffix {
             background-color: #f8faff;
             padding: 1rem 1.5rem;
@@ -222,7 +175,6 @@
             display: flex;
             align-items: center;
         }
-        
         .check-button {
             border-radius: 50px;
             padding: 1rem 2rem;
@@ -231,7 +183,6 @@
             box-shadow: 0 4px 10px rgba(0, 46, 158, 0.2);
             width: 100%;
         }
-        
         .result-container {
             background-color: #f8faff;
             border-radius: 16px;
@@ -243,28 +194,23 @@
             justify-content: center;
             margin-top: 1.5rem;
         }
-        
         .result-message {
             font-size: 1.2rem;
             font-weight: 500;
             margin-bottom: 1.2rem;
         }
-        
         .available {
             color: #10b981;
         }
-        
         .unavailable {
             color: #ef4444;
         }
-        
         .loading {
             color: #f59e0b;
             display: flex;
             align-items: center;
             gap: 12px;
         }
-        
         .spinner {
             width: 24px;
             height: 24px;
@@ -273,13 +219,11 @@
             border-top-color: #f59e0b;
             animation: spin 1s linear infinite;
         }
-        
         @keyframes spin {
             to {
                 transform: rotate(360deg);
             }
         }
-        
         .create-site-btn {
             display: none;
             margin-top: 1rem;
@@ -291,18 +235,14 @@
             font-weight: 600;
             box-shadow: 0 4px 10px rgba(0, 46, 158, 0.2);
         }
-        
-        /* Estilos para a seção de FAQ */
         .faq-container {
             max-width: 800px;
             margin: 0 auto;
         }
-        
         .faq-item {
             border-bottom: 1px solid #e5e7eb;
             overflow: hidden;
         }
-        
         .faq-question {
             display: flex;
             justify-content: space-between;
@@ -313,11 +253,9 @@
             color: #1f2937;
             transition: all 0.3s ease;
         }
-        
         .faq-question:hover {
             color: #002e9e;
         }
-        
         .faq-answer {
             max-height: 0;
             overflow: hidden;
@@ -326,12 +264,10 @@
             color: #4b5563;
             line-height: 1.6;
         }
-        
         .faq-item.active .faq-answer {
             max-height: 300px;
             padding-bottom: 1.5rem;
         }
-        
         .faq-icon {
             width: 24px;
             height: 24px;
@@ -339,7 +275,6 @@
             transition: transform 0.3s ease;
             flex-shrink: 0;
         }
-        
         .faq-icon::before,
         .faq-icon::after {
             content: '';
@@ -347,26 +282,21 @@
             background-color: #002e9e;
             transition: transform 0.3s ease;
         }
-        
         .faq-icon::before {
             width: 2px;
             height: 16px;
             top: 4px;
             left: 11px;
         }
-        
         .faq-icon::after {
             width: 16px;
             height: 2px;
             top: 11px;
             left: 4px;
         }
-        
         .faq-item.active .faq-icon::before {
             transform: rotate(90deg);
         }
-        
-        /* Indicador de progresso de rolagem */
         .scroll-progress {
             position: fixed;
             top: 0;
@@ -377,113 +307,302 @@
             width: 0%;
             transition: width 0.1s ease;
         }
-        
-        /* Efeito fade-in para seções */
         .fade-in-section {
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
         }
-        
         .fade-in-section.is-visible {
             opacity: 1;
             transform: translateY(0);
         }
-        
-        /* Estilo para a logo do rodapé */
         .footer-logo {
-            width: 144px; /* Reduzido em 20% de 180px */
+            width: 144px;
             height: auto;
         }
-        
-        /* Otimizações para mobile */
         @media (max-width: 640px) {
             .domain-checker {
                 padding: 1.5rem;
                 margin: 0 1rem;
             }
-            
             .domain-input-container {
                 flex-direction: row;
                 width: 100%;
             }
-            
             .domain-input {
                 font-size: 0.95rem;
                 padding: 0.8rem 1rem;
                 height: 50px;
-                width: 75%; /* Reduzido para 75% da largura em mobile */
-                min-width: 0; /* Permite que o elemento encolha abaixo da largura de conteúdo */
+                width: 75%;
+                min-width: 0;
             }
-            
             .domain-suffix {
                 font-size: 0.95rem;
                 padding: 0.8rem 1rem;
                 height: 50px;
             }
-            
             .check-button {
                 padding: 0.8rem 1.2rem;
                 font-size: 1rem;
             }
-            
             .result-container {
                 padding: 1.2rem;
             }
-            
             .result-message {
                 font-size: 1rem;
             }
-            
             .faq-question {
                 padding: 1rem 0;
                 font-size: 0.95rem;
             }
-            
             .faq-question span {
                 max-width: 85%;
             }
-            
             .hero-image {
                 max-width: 90%;
                 margin: 0 auto;
             }
-            
             h1 {
                 font-size: 1.8rem !important;
                 line-height: 1.3 !important;
             }
-            
             h2 {
                 font-size: 1.6rem !important;
             }
-            
-            .whatsapp-btn img {
-                width: 50px;
-                height: 50px;
-            }
         }
-        
-        /* Ajustes específicos para telas muito pequenas */
         @media (max-width: 360px) {
             .domain-input {
-                width: 70%; /* Ainda mais reduzido para telas muito pequenas */
+                width: 70%;
                 font-size: 0.85rem;
                 padding: 0.8rem 0.8rem;
             }
-            
             .domain-suffix {
                 font-size: 0.85rem;
                 padding: 0.8rem 0.8rem;
             }
-            
             h1 {
                 font-size: 1.6rem !important;
             }
-            
             h2 {
                 font-size: 1.4rem !important;
             }
+        }
+        /* --- ESTILOS DO WIDGET DE WHATSAPP --- */
+        .whatsapp-widget-container {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 1000;
+        }
+        #whatsapp-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #25D366;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        #whatsapp-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        #whatsapp-button svg {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #FF3B30;
+            color: white;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            border: 2px solid white;
+        }
+        .chat-window {
+            position: absolute;
+            bottom: calc(100% + 15px);
+            right: 0;
+            width: 340px;
+            border-radius: 18px; 
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            height: 500px;
+            transform: translateY(20px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            overflow: hidden; 
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+        }
+        .chat-window.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+        .chat-header {
+            display: flex;
+            align-items: center;
+            padding: 5px 15px;
+            flex-shrink: 0;
+            background: linear-gradient(135deg, #002e9e, #0078e8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .header-avatar {
+            width: 40px; 
+            height: 40px; 
+            background-color: white;
+            color: #002e9e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-weight: 700;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .header-info p {
+            color: #e0e0e0;
+            font-size: 13px;
+            line-height: 1.2;
+        }
+        .header-info strong {
+            display: block;
+            color: white;
+            font-weight: 600;
+            font-size: 17px;
+        }
+        .chat-messages {
+            flex-grow: 1;
+            padding: 20px 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: transparent;
+        }
+        .chat-message {
+            max-width: 85%;
+            padding: 10px 15px;
+            font-size: 14.5px;
+            line-height: 1.4;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.5s forwards;
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .agent-message {
+            background-color: #ffffff;
+            color: #1f2937;
+            align-self: flex-start;
+            border-radius: 12px;
+            border-top-left-radius: 0;
+        }
+        .agent-message::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -8px;
+            width: 0;
+            height: 0;
+            border-top: 15px solid #ffffff;
+            border-left: 10px solid transparent;
+        }
+        .typing-indicator {
+            align-self: flex-start;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+            padding: 12px 18px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            border-top-left-radius: 0;
+        }
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #9ca3af;
+            margin: 0 2px;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1.0); }
+        }
+        .final-action-area {
+            padding: 10px 15px;
+            background-color: transparent;
+            flex-shrink: 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .action-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-decoration: none;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 8px 8px 8px 20px;
+            border-radius: 50px;
+            font-size: 15px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        #typing-target::after {
+            content: '|';
+            animation: blink 1s step-end infinite;
+            opacity: 0;
+        }
+        #typing-target.typing-done::after {
+            animation: none;
+            opacity: 1;
+        }
+        @keyframes blink {
+            50% { opacity: 1; }
+        }
+        #typing-target {
+            color: #4b5563; 
+            min-height: 23px;
+        }
+        .send-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background-color: #128C7E;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+        }
+        .action-link:hover .send-icon {
+            transform: scale(1.1);
+            background-color: #075E54;
+        }
+        .send-icon svg {
+            width: 22px;
+            height: 22px;
         }
     </style>
 </head>
@@ -527,7 +646,7 @@
             <div class="flex space-x-4 mt-6">
                 <a href="https://www.instagram.com/velsites.com.br/" target="_blank" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/40 transition">
                     <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"></path>
+                        <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353-.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"></path>
                     </svg>
                 </a>
                 <a href="https://wa.me/5537984169386?text=Ol%C3%A1!%20Gostaria%20de%20fazer%20o%20or%C3%A7amento%20do%20meu%20site" target="_blank" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/40 transition">
@@ -626,13 +745,12 @@
         </div>
     </section>
 
-    <!-- Consulta de Domínios Section (VERSÃO SIMPLES) -->
+    <!-- Consulta de Domínios Section -->
     <section id="consulta-dominios" class="py-16 md:py-20 bg-blue-50 fade-in-section">
         <div class="container mx-auto px-4">
             <h2 class="text-2xl md:text-4xl font-bold text-center mb-6 gradient-text">Consulta de Domínios</h2>
             <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">Verifique a disponibilidade do seu domínio ideal e garanta sua presença online profissional.</p>
             
-            <!-- Consultor de domínios simplificado -->
             <div class="domain-checker mx-auto">
                 <h3 class="text-xl md:text-2xl font-bold mb-6 gradient-text">Encontre o domínio perfeito para seu negócio</h3>
                 
@@ -714,7 +832,7 @@
         </div>
     </section>
 
-    <!-- FAQ Section (movido para depois das avaliações) -->
+    <!-- FAQ Section -->
     <section id="faq" class="py-16 md:py-20 bg-gray-100 fade-in-section">
         <div class="container mx-auto px-4">
             <h2 class="text-2xl md:text-4xl font-bold text-center mb-12 md:mb-16 gradient-text">Perguntas Frequentes</h2>
@@ -888,7 +1006,7 @@
                                     </a>
                                     <a href="https://www.instagram.com/velsites.com.br/" target="_blank" class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/40 transition">
                                         <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                            <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"></path>
+                                            <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353-.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"></path>
                                         </svg>
                                     </a>
                                 </div>
@@ -937,10 +1055,36 @@
         </div>
     </footer>
 
-    <!-- Botão flutuante do WhatsApp - Versão simplificada sem animações -->
-    <a href="https://api.whatsapp.com/send/?phone=5537984169386&text=Ol%C3%A1%21+Gostaria+de+fazer+o+or%C3%A7amento+do+meu+site&type=phone_number&app_absent=0" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">
-        <img src="https://i.postimg.cc/D0Q5Lkgf/image.png" alt="WhatsApp" class="w-14 h-14 md:w-16 md:h-16">
-    </a>
+    <!-- Botão flutuante do WhatsApp -->
+    <div class="whatsapp-widget-container">
+        <div class="chat-window" id="chat-window">
+            <div class="chat-header">
+                <div class="header-avatar">Vel</div>
+                <div class="header-info">
+                    <p>
+                        <strong>Marcos Santos</strong>
+                        Comercial - Online
+                    </p>
+                </div>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <!-- Mensagens e indicador de "digitando" serão inseridos aqui pelo JavaScript -->
+            </div>
+            <div class="final-action-area" id="final-action">
+                 <a href="https://wa.me/5537984169386?text=Quero%20criar%20meu%20site%20agora" target="_blank" class="action-link">
+                    <span id="typing-target"></span> 
+                    <div class="send-icon">
+                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" /></svg>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div id="whatsapp-button">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.37 21.82 12.04 21.82C17.5 21.82 21.95 17.37 21.95 11.91C21.95 9.27 20.92 6.83 19.16 4.99C17.4 3.15 14.82 2 12.04 2ZM12.04 20.13C10.56 20.13 9.1 19.68 7.85 18.83L7.54 18.64L4.53 19.5L5.44 16.58L5.24 16.26C4.32 14.94 3.82 13.43 3.82 11.91C3.82 7.39 7.52 3.7 12.04 3.7C14.23 3.7 16.22 4.54 17.75 6.07C19.28 7.6 20.12 9.59 20.12 11.82C20.12 16.34 16.42 20.13 12.04 20.13ZM17.44 14.24C17.18 14.11 15.89 13.45 15.64 13.35C15.39 13.26 15.22 13.22 15.04 13.47C14.86 13.72 14.34 14.38 14.19 14.56C14.04 14.73 13.89 14.76 13.63 14.63C13.38 14.51 12.39 14.17 11.23 13.13C10.29 12.28 9.68 11.24 9.53 10.99C9.38 10.74 9.5 10.62 9.63 10.49C9.75 10.36 9.89 10.17 10.03 10C10.17 9.83 10.22 9.71 10.32 9.51C10.42 9.31 10.37 9.14 10.3 8.99C10.22 8.84 9.68 7.45 9.45 6.88C9.23 6.31 9 6.24 8.82 6.24C8.64 6.24 8.47 6.24 8.29 6.24C8.11 6.24 7.8 6.33 7.55 6.58C7.3 6.83 6.64 7.44 6.64 8.82C6.64 10.2 7.59 11.53 7.74 11.7C7.89 11.88 9.84 14.93 12.72 16.32C15.6 17.71 15.6 17.21 16.14 17.16C16.68 17.11 17.8 16.48 18.02 15.82C18.24 15.16 18.24 14.61 18.17 14.49C18.09 14.36 17.91 14.28 17.66 14.16L17.44 14.24Z"></path></svg>
+            <span>WhatsApp</span>
+            <div class="notification-badge">1</div>
+        </div>
+    </div>
 
     <script>
         // Indicador de progresso de rolagem
@@ -957,40 +1101,27 @@
         
         // Profissões rotativas com efeito de fade-in e fade-out
         const professions = [
-            "Advogado",
-            "Médico",
-            "Dentista",
-            "Psicólogo",
-            "Nutricionista",
-            "Fisioterapeuta",
-            "Contador",
-            "Arquiteto",
-            "Engenheiro",
-            "Fotógrafo",
-            "Personal Trainer",
-            "Consultor",
-            "Corretor",
-            "Empresário"
+            "Advogado", "Médico", "Dentista", "Psicólogo", "Nutricionista", "Fisioterapeuta",
+            "Contador", "Arquiteto", "Engenheiro", "Fotógrafo", "Personal Trainer",
+            "Consultor", "Corretor", "Empresário"
         ];
         
         let currentIndex = 0;
         const professionRotator = document.getElementById('profession-rotator');
         
-        function rotateProfession() {
-            professionRotator.style.opacity = 0;
-            
-            setTimeout(() => {
-                currentIndex = (currentIndex + 1) % professions.length;
-                professionRotator.textContent = professions[currentIndex];
-                professionRotator.style.opacity = 1;
-            }, 800);
+        if (professionRotator) {
+            function rotateProfession() {
+                professionRotator.style.opacity = 0;
+                
+                setTimeout(() => {
+                    currentIndex = (currentIndex + 1) % professions.length;
+                    professionRotator.textContent = professions[currentIndex];
+                    professionRotator.style.opacity = 1;
+                }, 800);
+            }
+            professionRotator.textContent = professions[0];
+            setInterval(rotateProfession, 3000);
         }
-        
-        // Iniciar com a primeira profissão
-        professionRotator.textContent = professions[0];
-        
-        // Rotacionar a cada 3 segundos
-        setInterval(rotateProfession, 3000);
         
         // Menu mobile
         const menuToggle = document.getElementById('menu-toggle');
@@ -998,235 +1129,274 @@
         const mobileMenu = document.getElementById('mobile-menu');
         const mobileLinks = document.querySelectorAll('.mobile-menu-link');
         
-        menuToggle.addEventListener('click', () => {
-            mobileMenu.classList.add('active');
-        });
-        
-        closeMenu.addEventListener('click', () => {
-            mobileMenu.classList.remove('active');
-        });
-        
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('active');
-            });
-        });
+        menuToggle.addEventListener('click', () => mobileMenu.classList.add('active'));
+        closeMenu.addEventListener('click', () => mobileMenu.classList.remove('active'));
+        mobileLinks.forEach(link => link.addEventListener('click', () => mobileMenu.classList.remove('active')));
         
         // FAQ accordion
         const faqItems = document.querySelectorAll('.faq-item');
-        
         faqItems.forEach(item => {
             const question = item.querySelector('.faq-question');
-            
             question.addEventListener('click', () => {
-                // Fechar todos os outros itens
-                faqItems.forEach(otherItem => {
-                    if (otherItem !== item && otherItem.classList.contains('active')) {
-                        otherItem.classList.remove('active');
-                    }
-                });
-                
-                // Alternar o estado do item atual
-                item.classList.toggle('active');
+                const isActive = item.classList.contains('active');
+                faqItems.forEach(other => other.classList.remove('active'));
+                if (!isActive) {
+                    item.classList.add('active');
+                }
             });
         });
         
         // Validação do formulário de contato
         const contactForm = document.getElementById('contact-form');
-        
         if (contactForm) {
             contactForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-                
                 let isValid = true;
+                const fields = [{id: 'name', errorId: 'name-error'}, {id: 'email', errorId: 'email-error', regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/}, {id: 'phone', errorId: 'phone-error', regex: /^[0-9\s\-\(\)]+$/, minLength: 10}, {id: 'message', errorId: 'message-error'}];
                 
-                // Validar nome
-                const nameInput = document.getElementById('name');
-                const nameError = document.getElementById('name-error');
-                
-                if (!nameInput.value.trim()) {
-                    nameError.classList.remove('hidden');
-                    isValid = false;
-                } else {
-                    nameError.classList.add('hidden');
-                }
-                
-                // Validar email
-                const emailInput = document.getElementById('email');
-                const emailError = document.getElementById('email-error');
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                
-                if (!emailRegex.test(emailInput.value)) {
-                    emailError.classList.remove('hidden');
-                    isValid = false;
-                } else {
-                    emailError.classList.add('hidden');
-                }
-                
-                // Validar telefone
-                const phoneInput = document.getElementById('phone');
-                const phoneError = document.getElementById('phone-error');
-                const phoneRegex = /^[0-9\s\-\(\)]+$/;
-                
-                if (!phoneRegex.test(phoneInput.value) || phoneInput.value.trim().length < 10) {
-                    phoneError.classList.remove('hidden');
-                    isValid = false;
-                } else {
-                    phoneError.classList.add('hidden');
-                }
-                
-                // Validar mensagem
-                const messageInput = document.getElementById('message');
-                const messageError = document.getElementById('message-error');
-                
-                if (!messageInput.value.trim()) {
-                    messageError.classList.remove('hidden');
-                    isValid = false;
-                } else {
-                    messageError.classList.add('hidden');
-                }
-                
-                // Se tudo estiver válido, mostrar mensagem de sucesso
+                fields.forEach(field => {
+                    const input = document.getElementById(field.id);
+                    const error = document.getElementById(field.errorId);
+                    let fieldValid = true;
+                    if (!input.value.trim()) fieldValid = false;
+                    if (field.regex && !field.regex.test(input.value)) fieldValid = false;
+                    if (field.minLength && input.value.trim().length < field.minLength) fieldValid = false;
+
+                    if (!fieldValid) {
+                        error.classList.remove('hidden');
+                        isValid = false;
+                    } else {
+                        error.classList.add('hidden');
+                    }
+                });
+
                 if (isValid) {
                     const formSuccess = document.getElementById('form-success');
                     formSuccess.classList.remove('hidden');
-                    
-                    // Limpar o formulário
                     contactForm.reset();
-                    
-                    // Esconder a mensagem após 5 segundos
-                    setTimeout(() => {
-                        formSuccess.classList.add('hidden');
-                    }, 5000);
+                    setTimeout(() => formSuccess.classList.add('hidden'), 5000);
                 }
             });
         }
         
-        // Consulta de domínios
+        // Consulta de domínios (assumindo que a função `performCheck` será definida em outro lugar ou já existe)
         const domainInput = document.getElementById('domain-input');
-        const checkButton = document.getElementById('check-button');
-        const resultMessage = document.getElementById('result-message');
-        const createSiteBtn = document.getElementById('create-site-btn');
-        
-// Converter texto para caixa baixa e filtrar caracteres inválidos ao digitar
-domainInput.addEventListener('input', function() {
-    this.value = this.value.toLowerCase().replace(/[^a-z0-9\-]/g, '');
-});
+        if (domainInput) {
+            domainInput.addEventListener('input', function() {
+                this.value = this.value.toLowerCase().replace(/[^a-z0-9\-]/g, '');
+            });
+            const checkButton = document.getElementById('check-button');
+            checkButton.addEventListener('click', performCheck);
+            domainInput.addEventListener('keyup', (event) => {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    performCheck();
+                }
+            });
+        }
 
-// Adiciona um listener para o clique no botão
-checkButton.addEventListener('click', function() {
-    performCheck();
-});
-
-// Adiciona um listener para a tecla "Enter" no campo de input
-domainInput.addEventListener('keyup', function(event) {
-    if (event.key === "Enter") {
-        event.preventDefault(); // Evita que o formulário seja submetido (se houver um)
-        performCheck();
-    }
-});
-
-function performCheck() {
-    const domain = domainInput.value.trim();
-    const fullDomain = `${domain}.com.br`;
-
-    // --- ESPIÃO #1: O que estamos pesquisando? ---
-    console.log('1. Pesquisando por:', fullDomain);
-
-    if (!domain) {
-        resultMessage.textContent = "Por favor, digite um nome de domínio";
-        resultMessage.className = "result-message";
-        createSiteBtn.style.display = "none";
-        return;
-    }
-
-    checkButton.disabled = true;
-    checkButton.textContent = 'Verificando...';
-    resultMessage.innerHTML = '<div class="loading"><div class="spinner"></div>Verificando disponibilidade...</div>';
-    createSiteBtn.style.display = "none";
-
-    // A MÁGICA ACONTECE AQUI: Chamada para a nossa "ponte" (Função Serverless)
-    // Usando o caminho relativo, que é a melhor prática após conectar o Git
-    fetch(`/.netlify/functions/check-domain?domain=${domain}`)
-        .then(response => response.json())
-        .then(data => {
-            // --- ESPIÃO #2: O que o servidor respondeu? ---
-            console.log('2. Resposta recebida:', data);
-
-            // A nossa nova função retorna { available: true } ou { available: false }
-            if (data.available) {
-                resultMessage.innerHTML = `<span class="available"> <strong>${fullDomain}</strong> está disponível!</span>`;
-                createSiteBtn.style.display = "block";
-            } else {
-                resultMessage.innerHTML = `<span class="unavailable"> <strong>${fullDomain}</strong> já está em uso.</span>`;
-                createSiteBtn.style.display = "none";
+        function performCheck() {
+            const domainInput = document.getElementById('domain-input');
+            const resultMessage = document.getElementById('result-message');
+            const createSiteBtn = document.getElementById('create-site-btn');
+            const checkButton = document.getElementById('check-button');
+            
+            const domain = domainInput.value.trim();
+            if (!domain) {
+                resultMessage.textContent = "Por favor, digite um nome de domínio";
+                return;
             }
-        })
-        .catch(error => {
-            // --- ESPIÃO #3: Se der erro, qual foi? ---
-            console.error('3. Erro na comunicação:', error);
-            resultMessage.innerHTML = `<span class="unavailable">Ocorreu um erro ao consultar. Tente novamente.</span>`;
+            const fullDomain = `${domain}.com.br`;
+
+            checkButton.disabled = true;
+            checkButton.textContent = 'Verificando...';
+            resultMessage.innerHTML = '<div class="loading"><div class="spinner"></div>Verificando...</div>';
             createSiteBtn.style.display = "none";
-        })
-        .finally(() => {
-            checkButton.disabled = false;
-            checkButton.textContent = 'Verificar Disponibilidade';
-        });
-}
+
+            fetch(`/.netlify/functions/check-domain?domain=${domain}`)
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok.');
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.available) {
+                        resultMessage.innerHTML = `<span class="available">✓ <strong>${fullDomain}</strong> está disponível!</span>`;
+                        createSiteBtn.style.display = "block";
+                    } else {
+                        resultMessage.innerHTML = `<span class="unavailable">✗ <strong>${fullDomain}</strong> já está em uso.</span>`;
+                        createSiteBtn.style.display = "none";
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao consultar domínio:', error);
+                    resultMessage.innerHTML = `<span class="unavailable">Ocorreu um erro ao consultar. Tente novamente.</span>`;
+                    createSiteBtn.style.display = "none";
+                })
+                .finally(() => {
+                    checkButton.disabled = false;
+                    checkButton.textContent = 'Verificar Disponibilidade';
+                });
+        }
         
         // Efeito de fade-in para seções ao rolar
         const fadeInSections = document.querySelectorAll('.fade-in-section');
-        
-        function checkFadeInSections() {
+        const checkFadeInSections = () => {
             fadeInSections.forEach(section => {
-                const sectionTop = section.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                
-                if (sectionTop < windowHeight * 0.85) {
+                if (section.getBoundingClientRect().top < window.innerHeight * 0.85) {
                     section.classList.add('is-visible');
                 }
             });
-        }
-        
-        // Verificar ao carregar a página
+        };
         window.addEventListener('load', checkFadeInSections);
-        
-        // Verificar ao rolar
         window.addEventListener('scroll', checkFadeInSections);
         
-        // Corrigir problemas de rolagem suave em dispositivos móveis
+        // Rolagem suave
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                
                 const targetId = this.getAttribute('href');
                 const targetElement = document.querySelector(targetId);
-                
                 if (targetElement) {
-                    // Fechar o menu mobile se estiver aberto
                     if (mobileMenu.classList.contains('active')) {
                         mobileMenu.classList.remove('active');
                     }
-                    
-                    // Rolagem suave com comportamento nativo
                     window.scrollTo({
-                        top: targetElement.offsetTop - 70, // Ajuste para o cabeçalho fixo
+                        top: targetElement.offsetTop - 70,
                         behavior: 'smooth'
                     });
                 }
             });
         });
-        
-        // Garantir que o botão do WhatsApp esteja sempre visível
-        document.addEventListener('DOMContentLoaded', function() {
-            // Forçar a exibição do botão do WhatsApp
-            const whatsappBtn = document.querySelector('.whatsapp-btn');
-            if (whatsappBtn) {
-                whatsappBtn.style.display = 'block';
-                whatsappBtn.style.visibility = 'visible';
-                whatsappBtn.style.opacity = '1';
+
+        // --- LÓGICA DO WIDGET DE WHATSAPP ---
+        const whatsappButton = document.getElementById('whatsapp-button');
+        const chatWindow = document.getElementById('chat-window');
+        const chatMessages = document.getElementById('chat-messages');
+        const finalAction = document.getElementById('final-action');
+        const typingTarget = document.getElementById('typing-target');
+
+        let chatHasStarted = false;
+
+        function simulateTypingAnimation() {
+            const actions = [
+                { type: 'type', text: 'Quero cirar', speed: 120 },
+                { type: 'pause', duration: 400 },
+                { type: 'delete', count: 5, speed: 100 },
+                { type: 'type', text: 'criar meu site adora', speed: 120 },
+                { type: 'pause', duration: 400 },
+                { type: 'delete', count: 5, speed: 100 },
+                { type: 'type', text: 'agora', speed: 120 },
+                { type: 'done' }
+            ];
+            
+            typingTarget.textContent = ''; 
+            typingTarget.classList.remove('typing-done');
+            let currentActionIndex = 0;
+            let currentText = '';
+
+            function executeAction() {
+                if (currentActionIndex >= actions.length) return;
+                
+                const action = actions[currentActionIndex];
+                
+                if (action.type === 'type') {
+                    let i = 0;
+                    const interval = setInterval(() => {
+                        if (i < action.text.length) {
+                            currentText += action.text.charAt(i);
+                            typingTarget.textContent = currentText;
+                            i++;
+                        } else {
+                            clearInterval(interval);
+                            currentActionIndex++;
+                            executeAction();
+                        }
+                    }, action.speed);
+                } else if (action.type === 'delete') {
+                    let i = 0;
+                    const interval = setInterval(() => {
+                        if (i < action.count) {
+                            currentText = currentText.slice(0, -1);
+                            typingTarget.textContent = currentText;
+                            i++;
+                        } else {
+                            clearInterval(interval);
+                            currentActionIndex++;
+                            executeAction();
+                        }
+                    }, action.speed);
+                } else if (action.type === 'pause') {
+                    setTimeout(() => {
+                        currentActionIndex++;
+                        executeAction();
+                    }, action.duration);
+                } else if (action.type === 'done') {
+                    typingTarget.classList.add('typing-done');
+                }
+            }
+            executeAction();
+        }
+
+        function startChatSimulation() {
+            if (chatHasStarted) return; 
+            chatHasStarted = true;
+
+            chatMessages.innerHTML = '';
+            typingTarget.textContent = ''; 
+
+            const messages = [
+                "Oi! Já pensou em ter um site pra atrair mais clientes?",
+                "Se quiser, a gente pode começar agora. Que acha?"
+            ];
+
+            let delay = 500;
+
+            messages.forEach((msg, index) => {
+                setTimeout(() => {
+                    const typingIndicator = document.createElement('div');
+                    typingIndicator.className = 'typing-indicator';
+                    typingIndicator.innerHTML = '<span></span><span></span><span></span>';
+                    chatMessages.appendChild(typingIndicator);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, delay);
+
+                delay += 1500;
+
+                setTimeout(() => {
+                    if(chatMessages.querySelector('.typing-indicator')) {
+                        chatMessages.querySelector('.typing-indicator').remove(); 
+                    }
+                    
+                    const messageElement = document.createElement('div');
+                    messageElement.className = 'chat-message agent-message';
+                    messageElement.textContent = msg;
+                    chatMessages.appendChild(messageElement);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                    if (index === messages.length - 1) {
+                        setTimeout(simulateTypingAnimation, 700);
+                    }
+                }, delay);
+
+                delay += 500;
+            });
+        }
+
+        function toggleChatWindow() {
+            chatWindow.classList.toggle('active');
+            if (chatWindow.classList.contains('active')) {
+                startChatSimulation();
+            }
+        }
+
+        whatsappButton.addEventListener('click', toggleChatWindow);
+
+        document.addEventListener('click', function(event) {
+            if (chatWindow.classList.contains('active') && !chatWindow.contains(event.target) && event.target !== whatsappButton) {
+                chatWindow.classList.remove('active');
             }
         });
+
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'95381ff325c78039',t:'MTc1MDU1NzM0MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
