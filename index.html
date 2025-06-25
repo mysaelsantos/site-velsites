@@ -5,27 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Vel Sites - Criação de Sites Profissionais</title>
     <meta name="description" content="A Vel Sites Cria seu Site Profissional com Domínio, E-mail Corporativo e te Entrega em Até 5 dias. Sem Mensalidades. Tudo Incluso a Partir de R$ 600.">
-    <!-- Open Graph para visualização em redes sociais -->
     <meta property="og:title" content="Vel Sites">
     <meta property="og:description" content="Seu cliente procura por você e não encontra nada? Está na hora de mudar isso.">
     <meta property="og:image" content="https://i.postimg.cc/ygrkWwKK/Subcabe-alho-37.png">
     <meta property="og:url" content="https://velsites.com.br">
     <meta property="og:type" content="website">
-    <!-- Twitter Cards (opcional, mas recomendado) -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Vel Sites - Criação de Sites">
     <meta name="twitter:description" content="Seu cliente procura por você e não encontra nada? Está na hora de mudar isso.">
     <meta name="twitter:image" content="https://i.postimg.cc/ygrkWwKK/Subcabe-alho-37.png">
-    <!-- FAVICONS -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <!-- Apple Touch Icon -->
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <!-- Android Chrome -->
     <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
     <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
-    <!-- Web App Manifest -->
     <link rel="manifest" href="/site.webmanifest">
     <meta name="theme-color" content="#0053C3">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -461,7 +455,8 @@
         .chat-header {
             display: flex;
             align-items: center;
-            padding: 5px 15px;
+            /* Alterado para aumentar a altura */
+            padding: 12px 15px;
             flex-shrink: 0;
             background: linear-gradient(135deg, #002e9e, #0078e8);
             border-bottom: 1px solid rgba(255, 255, 255, 0.3);
@@ -469,16 +464,11 @@
         .header-avatar {
             width: 40px; 
             height: 40px; 
-            background-color: white;
-            color: #002e9e;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             margin-right: 12px;
-            font-weight: 700;
-            font-size: 18px;
             flex-shrink: 0;
+            /* Adicionado para garantir que a imagem não distorça */
+            object-fit: cover;
         }
         .header-info p {
             color: #e0e0e0;
@@ -607,11 +597,8 @@
     </style>
 </head>
 <body class="bg-gray-50">
-    <!-- Indicador de progresso de rolagem -->
     <div class="scroll-progress"></div>
-    
-    <!-- Header com efeito de vidro e overlay escuro -->
-    <header class="fixed w-full z-50 glass-effect">
+        <header class="fixed w-full z-50 glass-effect">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center">
                 <img src="https://i.postimg.cc/GhjwNnkj/Design-sem-nome-87.png" alt="Vel Sites Logo" class="h-10 md:h-12">
@@ -629,9 +616,7 @@
             </button>
         </div>
     </header>
-    
-    <!-- Menu Mobile -->
-    <div id="mobile-menu" class="mobile-menu">
+        <div id="mobile-menu" class="mobile-menu">
         <span id="close-menu" class="close-menu">&times;</span>
         <a href="#inicio" class="mobile-menu-link">Início</a>
         <a href="#beneficios" class="mobile-menu-link">Benefícios</a>
@@ -659,7 +644,6 @@
         </div>
     </div>
 
-    <!-- Hero Section (sem margem inferior) -->
     <section id="inicio" class="pt-24 md:pt-28 pb-0 gradient-bg">
         <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
             <div class="md:w-1/2 text-white mb-10 md:mb-0">
@@ -676,11 +660,9 @@
         </div>
     </section>
 
-    <!-- Benefícios Section -->
     <section id="beneficios" class="py-16 md:py-20 fade-in-section">
         <div class="container mx-auto px-4">
             <h2 class="text-2xl md:text-4xl font-bold text-center mb-12 md:mb-16 gradient-text">Benefícios Exclusivos</h2>
-            
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                 <div class="card bg-white p-6 md:p-8 rounded-xl shadow-lg">
                     <div class="w-14 h-14 md:w-16 md:h-16 rounded-full gradient-bg flex items-center justify-center mb-6">
@@ -691,7 +673,6 @@
                     <h3 class="text-lg md:text-xl font-bold mb-3">Domínio próprio incluso</h3>
                     <p class="text-gray-600">Tenha seu endereço exclusivo na internet com um domínio profissional que representa sua marca.</p>
                 </div>
-                
                 <div class="card bg-white p-6 md:p-8 rounded-xl shadow-lg">
                     <div class="w-14 h-14 md:w-16 md:h-16 rounded-full gradient-bg flex items-center justify-center mb-6">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 md:h-8 md:w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -701,7 +682,6 @@
                     <h3 class="text-lg md:text-xl font-bold mb-3">E-mail profissional</h3>
                     <p class="text-gray-600">Comunique-se com seus clientes usando um e-mail personalizado com o nome da sua empresa.</p>
                 </div>
-                
                 <div class="card bg-white p-6 md:p-8 rounded-xl shadow-lg">
                     <div class="w-14 h-14 md:w-16 md:h-16 rounded-full gradient-bg flex items-center justify-center mb-6">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 md:h-8 md:w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -711,7 +691,6 @@
                     <h3 class="text-lg md:text-xl font-bold mb-3">Entrega em até 5 dias</h3>
                     <p class="text-gray-600">Não perca tempo! Tenha seu site no ar rapidamente para começar a atrair clientes.</p>
                 </div>
-                
                 <div class="card bg-white p-6 md:p-8 rounded-xl shadow-lg">
                     <div class="w-14 h-14 md:w-16 md:h-16 rounded-full gradient-bg flex items-center justify-center mb-6">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 md:h-8 md:w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -721,7 +700,6 @@
                     <h3 class="text-lg md:text-xl font-bold mb-3">Atendimento rápido</h3>
                     <p class="text-gray-600">Suporte ágil e eficiente para resolver suas dúvidas e necessidades.</p>
                 </div>
-                
                 <div class="card bg-white p-6 md:p-8 rounded-xl shadow-lg">
                     <div class="w-14 h-14 md:w-16 md:h-16 rounded-full gradient-bg flex items-center justify-center mb-6">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 md:h-8 md:w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -731,7 +709,6 @@
                     <h3 class="text-lg md:text-xl font-bold mb-3">Sem mensalidades</h3>
                     <p class="text-gray-600">Pague apenas uma vez e tenha seu site funcionando sem custos mensais recorrentes.</p>
                 </div>
-                
                 <div class="card bg-white p-6 md:p-8 rounded-xl shadow-lg">
                     <div class="w-14 h-14 md:w-16 md:h-16 rounded-full gradient-bg flex items-center justify-center mb-6">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 md:h-8 md:w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -745,15 +722,12 @@
         </div>
     </section>
 
-    <!-- Consulta de Domínios Section -->
     <section id="consulta-dominios" class="py-16 md:py-20 bg-blue-50 fade-in-section">
         <div class="container mx-auto px-4">
             <h2 class="text-2xl md:text-4xl font-bold text-center mb-6 gradient-text">Consulta de Domínios</h2>
             <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">Verifique a disponibilidade do seu domínio ideal e garanta sua presença online profissional.</p>
-            
             <div class="domain-checker mx-auto">
                 <h3 class="text-xl md:text-2xl font-bold mb-6 gradient-text">Encontre o domínio perfeito para seu negócio</h3>
-                
                 <div class="domain-input-container">
                     <input 
                         type="text" 
@@ -764,11 +738,9 @@
                     >
                     <span class="domain-suffix">.com.br</span>
                 </div>
-                
                 <button id="check-button" class="btn-primary text-white font-bold check-button">
                     Verificar Disponibilidade
                 </button>
-                
                 <div class="result-container">
                     <div id="result-message" class="result-message">
                         Digite um domínio para consultar
@@ -781,11 +753,9 @@
         </div>
     </section>
 
-    <!-- Avaliações Section -->
     <section id="avaliacoes" class="py-16 md:py-20 fade-in-section">
         <div class="container mx-auto px-4">
             <h2 class="text-2xl md:text-4xl font-bold text-center mb-12 md:mb-16 gradient-text">O que nossos clientes dizem</h2>
-            
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                 <div class="testimonial-card bg-white p-6 md:p-8 rounded-xl shadow-lg">
                     <div class="flex items-center mb-4">
@@ -800,7 +770,6 @@
                     <div class="mb-4 text-yellow-400">★★★★★</div>
                     <p class="text-gray-600">"Meu escritório de advocacia ganhou muito mais credibilidade com o site criado pela Vel Sites. O processo foi rápido e o resultado superou minhas expectativas."</p>
                 </div>
-                
                 <div class="testimonial-card bg-white p-6 md:p-8 rounded-xl shadow-lg">
                     <div class="flex items-center mb-4">
                         <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
@@ -814,7 +783,6 @@
                     <div class="mb-4 text-yellow-400">★★★★★</div>
                     <p class="text-gray-600">"Desde que lancei meu site com a Vel, minha agenda de consultas está sempre cheia. O design ficou lindo e profissional, exatamente como eu queria!"</p>
                 </div>
-                
                 <div class="testimonial-card bg-white p-6 md:p-8 rounded-xl shadow-lg">
                     <div class="flex items-center mb-4">
                         <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
@@ -832,11 +800,9 @@
         </div>
     </section>
 
-    <!-- FAQ Section -->
     <section id="faq" class="py-16 md:py-20 bg-gray-100 fade-in-section">
         <div class="container mx-auto px-4">
             <h2 class="text-2xl md:text-4xl font-bold text-center mb-12 md:mb-16 gradient-text">Perguntas Frequentes</h2>
-            
             <div class="faq-container">
                 <div class="faq-item">
                     <div class="faq-question">
@@ -847,7 +813,6 @@
                         <p>Sim, oferecemos. Nossas Landing Pages ou páginas de vendas são ofertadas por preços a partir de 600 reais. São soluções profissionais e completas para quem deseja iniciar sua presença online com qualidade e sem gastar muito.</p>
                     </div>
                 </div>
-                
                 <div class="faq-item">
                     <div class="faq-question">
                         <span>Quanto tempo leva para meu site ficar pronto?</span>
@@ -857,7 +822,6 @@
                         <p>Nosso prazo de entrega é de até 5 dias úteis após o envio de todo o material necessário (textos, imagens, etc). Para projetos mais complexos, o prazo pode variar, mas sempre mantemos você informado sobre o andamento do trabalho.</p>
                     </div>
                 </div>
-                
                 <div class="faq-item">
                     <div class="faq-question">
                         <span>O que está incluso no preço do site?</span>
@@ -867,7 +831,6 @@
                         <p>Nossos pacotes incluem: design responsivo (adaptado para celulares), registro de domínio próprio (.com.br), hospedagem por 1 ano, e-mail profissional, otimização para mecanismos de busca (SEO básico) e integração com redes sociais. Tudo isso sem mensalidades.</p>
                     </div>
                 </div>
-                
                 <div class="faq-item">
                     <div class="faq-question">
                         <span>Como funciona a renovação do domínio?</span>
@@ -877,7 +840,6 @@
                         <p>O domínio do seu site tem validade de 1 ano. Na aquisição do site, você tem a opção de escolher a renovação automática do domínio por até 3 anos com preços promocionais. Caso não opte pela renovação automática, sempre entraremos em contato com antecedência para alertar sobre o vencimento do domínio, garantindo que sua presença online não seja interrompida.</p>
                     </div>
                 </div>
-                
                 <div class="faq-item">
                     <div class="faq-question">
                         <span>Preciso pagar mensalidade após a criação do site?</span>
@@ -887,7 +849,6 @@
                         <p>Não! Nosso modelo de negócio é baseado em pagamento único. Você paga apenas uma vez pela criação do site e tem direito a um ano de hospedagem e domínio inclusos. Após esse período, há apenas uma taxa anual para renovação de hospedagem e domínio, que é bem acessível.</p>
                     </div>
                 </div>
-                
                 <div class="faq-item">
                     <div class="faq-question">
                         <span>Posso atualizar meu site depois de pronto?</span>
@@ -897,7 +858,6 @@
                         <p>Sim! Para qualquer atualização que você precise fazer no seu site após a entrega, basta entrar em contato conosco. Nossa equipe fará uma avaliação e enviará uma cotação para as alterações solicitadas. Trabalhamos com agilidade para manter seu site sempre atualizado conforme suas necessidades.</p>
                     </div>
                 </div>
-                
                 <div class="faq-item">
                     <div class="faq-question">
                         <span>O site ficará bem no celular?</span>
@@ -911,7 +871,6 @@
         </div>
     </section>
 
-    <!-- CTA Section (Dark Background) -->
     <section class="py-16 md:py-20 bg-gray-900 fade-in-section">
         <div class="container mx-auto px-4 text-center">
             <h2 class="text-2xl md:text-4xl font-bold text-white mb-6">Crie seu site profissional hoje mesmo</h2>
@@ -923,7 +882,6 @@
         </div>
     </section>
 
-    <!-- Contato Section -->
     <section id="contato" class="py-16 md:py-20 gradient-bg fade-in-section">
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-xl overflow-hidden">
@@ -931,7 +889,6 @@
                     <div class="md:w-1/2 p-6 md:p-12">
                         <h2 class="text-2xl md:text-3xl font-bold mb-6 gradient-text">Fale Conosco</h2>
                         <p class="text-gray-600 mb-6 md:mb-8">Preencha o formulário e entraremos em contato para criar o site perfeito para o seu negócio.</p>
-                        
                         <form id="contact-form" class="space-y-4 md:space-y-6">
                             <div>
                                 <label class="block text-gray-700 mb-2" for="name">Nome</label>
@@ -954,12 +911,10 @@
                                 <div class="text-sm text-red-500 hidden" id="message-error">Por favor, escreva uma mensagem</div>
                             </div>
                             <button type="submit" class="btn-primary text-white font-bold py-3 px-8 rounded-lg w-full">Enviar Mensagem</button>
-                            <!-- Feedback de sucesso -->
                             <div id="form-success" class="hidden bg-green-100 text-green-700 p-4 rounded-lg text-center">
                                 Mensagem enviada com sucesso! Entraremos em contato em breve.
                             </div>
                         </form>
-                        
                         <div class="mt-8 md:mt-10 pt-6 md:pt-8 border-t border-gray-200">
                             <h3 class="text-lg md:text-xl font-bold mb-4 gradient-text">Formulário Detalhado</h3>
                             <p class="text-gray-600 mb-6">Ajude-nos a criar o site perfeito para sua marca. Responda às perguntas abaixo com o máximo de detalhes — quanto mais soubermos, melhor entregaremos.</p>
@@ -1018,7 +973,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="bg-gray-900 text-white py-10 md:py-12">
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row justify-between items-center">
@@ -1055,11 +1009,10 @@
         </div>
     </footer>
 
-    <!-- Botão flutuante do WhatsApp -->
     <div class="whatsapp-widget-container">
         <div class="chat-window" id="chat-window">
             <div class="chat-header">
-                <div class="header-avatar">Vel</div>
+                <img src="https://i.postimg.cc/R0TNQ7T8/Subcabe-alho-45.png" alt="Avatar Vel Sites" class="header-avatar">
                 <div class="header-info">
                     <p>
                         <strong>Marcos Santos</strong>
@@ -1068,12 +1021,11 @@
                 </div>
             </div>
             <div class="chat-messages" id="chat-messages">
-                <!-- Mensagens e indicador de "digitando" serão inseridos aqui pelo JavaScript -->
-            </div>
+                </div>
             <div class="final-action-area" id="final-action">
                  <a href="https://wa.me/5537984169386?text=Quero%20criar%20meu%20site%20agora" target="_blank" class="action-link">
-                    <span id="typing-target"></span> 
-                    <div class="send-icon">
+                    <span id="typing-target"></span>
+                     <div class="send-icon">
                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" /></svg>
                     </div>
                 </a>
@@ -1085,34 +1037,28 @@
             <div class="notification-badge">1</div>
         </div>
     </div>
-
     <script>
         // Indicador de progresso de rolagem
         window.addEventListener('scroll', function() {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
             const scrolled = (winScroll / height) * 100;
-            
             const scrollProgress = document.querySelector('.scroll-progress');
             if (scrollProgress) {
                 scrollProgress.style.width = scrolled + "%";
             }
         });
-        
         // Profissões rotativas com efeito de fade-in e fade-out
         const professions = [
             "Advogado", "Médico", "Dentista", "Psicólogo", "Nutricionista", "Fisioterapeuta",
             "Contador", "Arquiteto", "Engenheiro", "Fotógrafo", "Personal Trainer",
             "Consultor", "Corretor", "Empresário"
         ];
-        
         let currentIndex = 0;
         const professionRotator = document.getElementById('profession-rotator');
-        
         if (professionRotator) {
             function rotateProfession() {
                 professionRotator.style.opacity = 0;
-                
                 setTimeout(() => {
                     currentIndex = (currentIndex + 1) % professions.length;
                     professionRotator.textContent = professions[currentIndex];
@@ -1122,17 +1068,14 @@
             professionRotator.textContent = professions[0];
             setInterval(rotateProfession, 3000);
         }
-        
         // Menu mobile
         const menuToggle = document.getElementById('menu-toggle');
         const closeMenu = document.getElementById('close-menu');
         const mobileMenu = document.getElementById('mobile-menu');
         const mobileLinks = document.querySelectorAll('.mobile-menu-link');
-        
         menuToggle.addEventListener('click', () => mobileMenu.classList.add('active'));
         closeMenu.addEventListener('click', () => mobileMenu.classList.remove('active'));
         mobileLinks.forEach(link => link.addEventListener('click', () => mobileMenu.classList.remove('active')));
-        
         // FAQ accordion
         const faqItems = document.querySelectorAll('.faq-item');
         faqItems.forEach(item => {
@@ -1145,7 +1088,6 @@
                 }
             });
         });
-        
         // Validação do formulário de contato
         const contactForm = document.getElementById('contact-form');
         if (contactForm) {
@@ -1153,7 +1095,6 @@
                 e.preventDefault();
                 let isValid = true;
                 const fields = [{id: 'name', errorId: 'name-error'}, {id: 'email', errorId: 'email-error', regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/}, {id: 'phone', errorId: 'phone-error', regex: /^[0-9\s\-\(\)]+$/, minLength: 10}, {id: 'message', errorId: 'message-error'}];
-                
                 fields.forEach(field => {
                     const input = document.getElementById(field.id);
                     const error = document.getElementById(field.errorId);
@@ -1178,7 +1119,6 @@
                 }
             });
         }
-        
         // Consulta de domínios (assumindo que a função `performCheck` será definida em outro lugar ou já existe)
         const domainInput = document.getElementById('domain-input');
         if (domainInput) {
@@ -1200,7 +1140,6 @@
             const resultMessage = document.getElementById('result-message');
             const createSiteBtn = document.getElementById('create-site-btn');
             const checkButton = document.getElementById('check-button');
-            
             const domain = domainInput.value.trim();
             if (!domain) {
                 resultMessage.textContent = "Por favor, digite um nome de domínio";
@@ -1237,7 +1176,6 @@
                     checkButton.textContent = 'Verificar Disponibilidade';
                 });
         }
-        
         // Efeito de fade-in para seções ao rolar
         const fadeInSections = document.querySelectorAll('.fade-in-section');
         const checkFadeInSections = () => {
@@ -1249,7 +1187,6 @@
         };
         window.addEventListener('load', checkFadeInSections);
         window.addEventListener('scroll', checkFadeInSections);
-        
         // Rolagem suave
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1288,7 +1225,6 @@
                 { type: 'type', text: 'agora', speed: 120 },
                 { type: 'done' }
             ];
-            
             typingTarget.textContent = ''; 
             typingTarget.classList.remove('typing-done');
             let currentActionIndex = 0;
@@ -1296,9 +1232,7 @@
 
             function executeAction() {
                 if (currentActionIndex >= actions.length) return;
-                
                 const action = actions[currentActionIndex];
-                
                 if (action.type === 'type') {
                     let i = 0;
                     const interval = setInterval(() => {
@@ -1343,7 +1277,6 @@
 
             chatMessages.innerHTML = '';
             typingTarget.textContent = ''; 
-
             const messages = [
                 "Oi! Já pensou em ter um site pra atrair mais clientes?",
                 "Se quiser, a gente pode começar agora. Que acha?"
@@ -1366,7 +1299,6 @@
                     if(chatMessages.querySelector('.typing-indicator')) {
                         chatMessages.querySelector('.typing-indicator').remove(); 
                     }
-                    
                     const messageElement = document.createElement('div');
                     messageElement.className = 'chat-message agent-message';
                     messageElement.textContent = msg;
@@ -1397,7 +1329,6 @@
                 chatWindow.classList.remove('active');
             }
         });
-
     </script>
 </body>
 </html>
