@@ -653,11 +653,11 @@
                     <span class="block animate-title-line">Não estar no Google é abrir</span>
                     <span class="block animate-title-line">caminho para a sua concorrência</span>
                 </h1>
-                <p class="text-xl mb-8">Seu cliente procura por você e não encontra nada? Está na hora de<br>mudar isso.</p>
-                <div class="text-xl md:text-2xl font-semibold mb-8">
+                <p class="text-xl mb-8 animate-on-scroll">Seu cliente procura por você e não encontra nada? Está na hora de<br>mudar isso.</p>
+                <div class="text-xl md:text-2xl font-semibold mb-8 animate-on-scroll">
                     A Vel Sites é perfeita pra você que é <span id="profession-rotator" class="text-yellow-300 font-bold">Profissional</span>
                 </div>
-                <a href="#contato" class="inline-block bg-white text-blue-700 font-bold py-3 px-8 rounded-full hover:bg-blue-50 transition transform hover:scale-105">Fale Conosco</a>
+                <a href="#contato" class="inline-block bg-white text-blue-700 font-bold py-3 px-8 rounded-full hover:bg-blue-50 transition transform hover:scale-105 animate-on-scroll">Fale Conosco</a>
             </div>
             <div class="md:w-1/2 flex justify-center">
                 <img src="https://i.postimg.cc/NfqvdtYP/Subcabe-alho-73.png" alt="Vel Sites" class="hero-image">
@@ -667,7 +667,7 @@
     <section id="beneficios" class="py-16 md:py-20">
         <div class="container mx-auto px-4">
             <h2 class="text-2xl md:text-4xl font-bold text-center mb-12 md:mb-16 gradient-text">Benefícios Exclusivos</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 stagger-container">
                 <div class="card bg-white p-6 md:p-8 rounded-xl shadow-lg animate-on-scroll">
                     <div class="w-14 h-14 md:w-16 md:h-16 rounded-full gradient-bg flex items-center justify-center mb-6">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 md:h-8 md:w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
@@ -717,7 +717,7 @@
         <div class="container mx-auto px-4">
             <h2 class="text-2xl md:text-4xl font-bold text-center mb-4 gradient-text">Nosso Processo</h2>
             <p class="text-center text-gray-600 mb-12 md:mb-16 max-w-2xl mx-auto">Transformamos sua ideia em um site de sucesso com um fluxo de trabalho simples, rápido e transparente.</p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 stagger-container">
                 <div class="text-center animate-on-scroll">
                     <div class="process-step-icon mx-auto">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
@@ -769,7 +769,7 @@
     <section id="avaliacoes" class="py-16 md:py-20 bg-blue-50">
         <div class="container mx-auto px-4">
             <h2 class="text-2xl md:text-4xl font-bold text-center mb-12 md:mb-16 gradient-text">O que nossos clientes dizem</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 stagger-container">
                 <div class="testimonial-card bg-white p-6 md:p-8 rounded-xl shadow-lg animate-on-scroll">
                     <div class="flex items-center mb-4">
                         <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4"><span class="text-2xl">👨‍⚖️</span></div>
@@ -1164,77 +1164,57 @@
                 });
             }
 
-            // --- NOVA ANIMAÇÃO (VERSÃO 3) - FLUIDEZ MÁXIMA SEM REPETIÇÃO ---
+            // --- ANIMAÇÕES FINAIS (VERSÃO 4) ---
             gsap.registerPlugin(ScrollTrigger);
 
-            // 1. Animação do Título Principal (Hero)
-            gsap.from(gsap.utils.toArray('.animate-title-line'), {
-                y: 100, opacity: 0, stagger: 0.1, duration: 1.2, ease: 'expo.out', delay: 0.5
+            // Animação para elementos que não estão em uma grade
+            const singleElements = gsap.utils.toArray('.hero-headline-gotham, h2.gradient-text, #inicio .animate-on-scroll');
+            singleElements.forEach(el => {
+                 // Apenas animar os elementos que não são o título principal, que já tem sua própria animação
+                if (!el.classList.contains('hero-headline-gotham')) {
+                    gsap.from(el, {
+                        y: 50,
+                        opacity: 0,
+                        duration: 1.2,
+                        ease: 'expo.out',
+                        scrollTrigger: {
+                            trigger: el,
+                            start: 'top 85%',
+                            toggleActions: 'play none none none',
+                        }
+                    });
+                }
+            });
+
+            // Animação inicial apenas para o título principal
+            gsap.from('.animate-title-line', {
+                y: 100,
+                opacity: 0,
+                stagger: 0.1,
+                duration: 1.2,
+                ease: 'expo.out',
+                delay: 0.5
             });
             
-            // 2. Animação dos Títulos das Seções
-            const sectionTitles = gsap.utils.toArray('h2.gradient-text');
-            sectionTitles.forEach(title => {
-                gsap.from(title, {
-                    y: 60,
+            // Animação para os contêineres com efeito dominó
+            const staggerContainers = gsap.utils.toArray('.stagger-container');
+            staggerContainers.forEach(container => {
+                const elementsToStagger = container.querySelectorAll('.animate-on-scroll');
+                gsap.from(elementsToStagger, {
+                    y: 70,
                     opacity: 0,
+                    scale: 0.95,
+                    rotation: -4,
+                    skewX: 8,
                     duration: 1,
                     ease: 'expo.out',
+                    stagger: 0.15,
                     scrollTrigger: {
-                        trigger: title,
-                        start: 'top 85%',
+                        trigger: container,
+                        start: 'top 80%',
                         toggleActions: 'play none none none'
                     }
                 });
-            });
-
-            // 3. Animação em "Efeito Dominó" para os Cards de Benefícios
-            const benefitCards = gsap.utils.toArray('#beneficios .animate-on-scroll');
-            gsap.from(benefitCards, {
-                opacity: 0,
-                y: 80,          // Movimento vertical
-                rotation: -5,   // Leve rotação inicial
-                skewX: 10,      // Leve inclinação para um efeito mais dinâmico
-                duration: 1,      // Duração da animação de cada card
-                ease: 'expo.out', // Suavização profissional
-                stagger: 0.15,    // Atraso entre a animação de cada card (o efeito dominó)
-                scrollTrigger: {
-                    trigger: '#beneficios', // O gatilho é a seção inteira
-                    start: 'top 75%',     // Começa quando a seção entra na tela
-                    toggleActions: 'play none none none' // Acontece SÓ UMA VEZ
-                }
-            });
-
-            // 4. Animação para os Passos do Processo
-            const processSteps = gsap.utils.toArray('#processo .animate-on-scroll');
-            gsap.from(processSteps, {
-                opacity: 0,
-                y: 80,
-                scale: 0.9,
-                duration: 1,
-                ease: 'expo.out',
-                stagger: 0.2,
-                scrollTrigger: {
-                    trigger: '#processo',
-                    start: 'top 75%',
-                    toggleActions: 'play none none none'
-                }
-            });
-
-            // 5. Animação para os Cards de Avaliações
-            const testimonialCards = gsap.utils.toArray('#avaliacoes .animate-on-scroll');
-            gsap.from(testimonialCards, {
-                opacity: 0,
-                y: 80,
-                scale: 0.9,
-                duration: 1,
-                ease: 'expo.out',
-                stagger: 0.15,
-                scrollTrigger: {
-                    trigger: '#avaliacoes',
-                    start: 'top 75%',
-                    toggleActions: 'play none none none'
-                }
             });
 
             // --- WHATSAPP WIDGET LOGIC ---
