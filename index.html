@@ -755,7 +755,7 @@
             <div class="text-container ml-2">
                 <!-- Texto (Fonte e estilo atualizados) -->
                 <p class="text-gray-800 text-xs font-roboto-bold">
-                    Vel Sites:&nbsp;&nbsp;Oi! Já pensou em ter um site pra atrair...ㅤ
+                    Vel Sites:&nbsp;&nbsp;Oi! Já pensou em ter um site pra atrair...
                 </p>
             </div>
         </div>
@@ -1034,6 +1034,56 @@
             const chatMessages = document.getElementById('chat-messages');
             const typingTarget = document.getElementById('typing-target');
             let chatHasStarted = false;
+            
+            // --- LÓGICA DO CHAT SIMULADO (ATUALIZADA) ---
+            function startChatSimulation() {
+                if (chatHasStarted) return;
+                chatHasStarted = true;
+                chatMessages.innerHTML = '';
+                typingTarget.textContent = '';
+
+                // Adiciona a primeira mensagem instantaneamente (ela terá o efeito de fade-in do CSS)
+                const firstMessageElement = document.createElement('div');
+                firstMessageElement.className = 'chat-message agent-message';
+                firstMessageElement.textContent = "Oi! Já pensou em ter um site pra atrair mais clientes?";
+                chatMessages.appendChild(firstMessageElement);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                // Resto das mensagens a serem animadas
+                const messages = ["Se quiser, a gente pode começar agora. Que acha?"];
+                let delay = 1000; // Um pouco mais de delay para a primeira mensagem "assentar"
+
+                messages.forEach((msg, index) => {
+                    setTimeout(() => {
+                        const typingIndicator = document.createElement('div');
+                        typingIndicator.className = 'typing-indicator';
+                        typingIndicator.innerHTML = '<span></span><span></span><span></span>';
+                        chatMessages.appendChild(typingIndicator);
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                    }, delay);
+
+                    delay += 1500; // Tempo que o indicador de digitação fica visível
+
+                    setTimeout(() => {
+                        if (chatMessages.querySelector('.typing-indicator')) {
+                            chatMessages.querySelector('.typing-indicator').remove();
+                        }
+                        const messageElement = document.createElement('div');
+                        messageElement.className = 'chat-message agent-message';
+                        messageElement.textContent = msg;
+                        chatMessages.appendChild(messageElement);
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                        // Após a última mensagem, inicia a simulação de digitação na caixa de texto
+                        if (index === messages.length - 1) {
+                            setTimeout(simulateTypingAnimation, 700);
+                        }
+                    }, delay);
+
+                    delay += 500;
+                });
+            }
+
             function simulateTypingAnimation() {
                 const actions = [
                     { type: 'type', text: 'Quero cirar', speed: 120 }, { type: 'pause', duration: 400 },
@@ -1074,38 +1124,7 @@
                 }
                 executeAction();
             }
-            function startChatSimulation() {
-                if (chatHasStarted) return;
-                chatHasStarted = true;
-                chatMessages.innerHTML = '';
-                typingTarget.textContent = '';
-                const messages = ["Oi! Já pensou em ter um site pra atrair mais clientes?", "Se quiser, a gente pode começar agora. Que acha?"];
-                let delay = 500;
-                messages.forEach((msg, index) => {
-                    setTimeout(() => {
-                        const typingIndicator = document.createElement('div');
-                        typingIndicator.className = 'typing-indicator';
-                        typingIndicator.innerHTML = '<span></span><span></span><span></span>';
-                        chatMessages.appendChild(typingIndicator);
-                        chatMessages.scrollTop = chatMessages.scrollHeight;
-                    }, delay);
-                    delay += 1500;
-                    setTimeout(() => {
-                        if (chatMessages.querySelector('.typing-indicator')) {
-                            chatMessages.querySelector('.typing-indicator').remove();
-                        }
-                        const messageElement = document.createElement('div');
-                        messageElement.className = 'chat-message agent-message';
-                        messageElement.textContent = msg;
-                        chatMessages.appendChild(messageElement);
-                        chatMessages.scrollTop = chatMessages.scrollHeight;
-                        if (index === messages.length - 1) {
-                            setTimeout(simulateTypingAnimation, 700);
-                        }
-                    }, delay);
-                    delay += 500;
-                });
-            }
+
             function toggleChatWindow() {
                 chatWindow.classList.toggle('active');
                 if (chatWindow.classList.contains('active')) {
