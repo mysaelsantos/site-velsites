@@ -1164,35 +1164,77 @@
                 });
             }
 
-            // --- NOVA ANIMAÇÃO (VERSÃO 2) COM SCRUB E SCALE ---
+            // --- NOVA ANIMAÇÃO (VERSÃO 3) - FLUIDEZ MÁXIMA SEM REPETIÇÃO ---
             gsap.registerPlugin(ScrollTrigger);
 
-            // 1. Animação do Título Principal (Hero) - Mantida para a entrada do site.
-            const titleLines = gsap.utils.toArray('.animate-title-line');
-            // Removemos os outros elementos do hero da animação de scroll para não conflitarem.
-            // Eles já são animados pelo keyframe 'fadeIn' do CSS.
-
-            gsap.from(titleLines, {
-                y: 100, opacity: 0, stagger: 0.1, duration: 0.8, ease: 'power3.out', delay: 0.5
+            // 1. Animação do Título Principal (Hero)
+            gsap.from(gsap.utils.toArray('.animate-title-line'), {
+                y: 100, opacity: 0, stagger: 0.1, duration: 1.2, ease: 'expo.out', delay: 0.5
             });
             
-            // 2. Animação dos elementos com EFEITO SCRUB ao rolar a página
-            const animatedElements = gsap.utils.toArray('.animate-on-scroll');
-            
-            animatedElements.forEach(element => {
-                gsap.from(element, {
-                    y: 70,       // Aumentamos um pouco o movimento vertical
-                    opacity: 0,    // Começa invisível
-                    scale: 0.95,   // << NOVO! Começa um pouco menor
-                    ease: 'power2.out',
+            // 2. Animação dos Títulos das Seções
+            const sectionTitles = gsap.utils.toArray('h2.gradient-text');
+            sectionTitles.forEach(title => {
+                gsap.from(title, {
+                    y: 60,
+                    opacity: 0,
+                    duration: 1,
+                    ease: 'expo.out',
                     scrollTrigger: {
-                        trigger: element,
-                        start: 'top 90%', // Começa a animar um pouco antes
-                        end: 'top 60%',   // Termina a animação quando o elemento chega a 60% do topo
-                        scrub: 1,         // << A MUDANÇA PRINCIPAL! Vincula a animação à rolagem com 1s de suavização.
-                        // markers: true, // Descomente para ver os marcadores enquanto desenvolve
+                        trigger: title,
+                        start: 'top 85%',
+                        toggleActions: 'play none none none'
                     }
                 });
+            });
+
+            // 3. Animação em "Efeito Dominó" para os Cards de Benefícios
+            const benefitCards = gsap.utils.toArray('#beneficios .animate-on-scroll');
+            gsap.from(benefitCards, {
+                opacity: 0,
+                y: 80,          // Movimento vertical
+                rotation: -5,   // Leve rotação inicial
+                skewX: 10,      // Leve inclinação para um efeito mais dinâmico
+                duration: 1,      // Duração da animação de cada card
+                ease: 'expo.out', // Suavização profissional
+                stagger: 0.15,    // Atraso entre a animação de cada card (o efeito dominó)
+                scrollTrigger: {
+                    trigger: '#beneficios', // O gatilho é a seção inteira
+                    start: 'top 75%',     // Começa quando a seção entra na tela
+                    toggleActions: 'play none none none' // Acontece SÓ UMA VEZ
+                }
+            });
+
+            // 4. Animação para os Passos do Processo
+            const processSteps = gsap.utils.toArray('#processo .animate-on-scroll');
+            gsap.from(processSteps, {
+                opacity: 0,
+                y: 80,
+                scale: 0.9,
+                duration: 1,
+                ease: 'expo.out',
+                stagger: 0.2,
+                scrollTrigger: {
+                    trigger: '#processo',
+                    start: 'top 75%',
+                    toggleActions: 'play none none none'
+                }
+            });
+
+            // 5. Animação para os Cards de Avaliações
+            const testimonialCards = gsap.utils.toArray('#avaliacoes .animate-on-scroll');
+            gsap.from(testimonialCards, {
+                opacity: 0,
+                y: 80,
+                scale: 0.9,
+                duration: 1,
+                ease: 'expo.out',
+                stagger: 0.15,
+                scrollTrigger: {
+                    trigger: '#avaliacoes',
+                    start: 'top 75%',
+                    toggleActions: 'play none none none'
+                }
             });
 
             // --- WHATSAPP WIDGET LOGIC ---
@@ -1261,7 +1303,7 @@
                     delay += 1500;
                     setTimeout(() => {
                         if (chatMessages.querySelector('.typing-indicator')) {
-                            chatMessages.querySelector('.typing-indicator').remove.bind(chatMessages.querySelector('.typing-indicator'))();
+                            chatMessages.querySelector('.typing-indicator').remove();
                         }
                         const messageElement = document.createElement('div');
                         messageElement.className = 'chat-message agent-message';
