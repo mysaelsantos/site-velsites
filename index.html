@@ -26,8 +26,13 @@
     <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png">
     <link rel="manifest" href="/site.webmanifest">
     <meta name="theme-color" content="#0053C3">
+    <!-- Fontes do Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="application/ld+json">
     {
@@ -100,6 +105,11 @@
             font-family: 'Poppins', sans-serif;
             scroll-behavior: var(--scroll-behavior);
             -webkit-text-size-adjust: 100%;
+        }
+        /* Classe para a nova fonte da notificação */
+        .font-roboto-bold {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
         }
         .glass-effect {
             background: rgba(0, 46, 158, 0.25);
@@ -733,22 +743,18 @@
 </head>
 <body class="bg-gray-50">
     
-    <!-- Container da Notificação Falsa (Adicionado z-index) -->
+    <!-- Container da Notificação Falsa (z-index atualizado) -->
     <div class="fixed top-0 left-0 w-full flex justify-center z-[60]">
         <!-- Notificação (Tamanho reduzido e largura aumentada) -->
         <div id="whatsapp-notification" class="items-center bg-white rounded-full shadow-xl p-1 mt-2 mx-4 max-w-sm">
             <div class="flex-shrink-0">
-                <!-- Ícone (Tamanho reduzido) -->
-                <div class="w-7 h-7 bg-green-500 rounded-full flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white">
-                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99 0-3.902-.539-5.625-1.53l-6.167 1.681zm6.473-3.841l.311.185c1.564.93 3.322 1.422 5.123 1.422 5.454 0 9.901-4.447 9.902-9.902-.002-5.454-4.448-9.901-9.902-9.901-5.455 0-9.901 4.447-9.902 9.901 0 1.832.509 3.59 1.424 5.123l.187.31-.935 3.417 3.417-.935z"/>
-                    </svg>
-                </div>
+                <!-- Ícone (Atualizado para imagem) -->
+                <img src="https://i.postimg.cc/mrYNncQ8/Subcabe-alho-74.png" alt="Ícone do WhatsApp" class="w-7 h-7 rounded-full">
             </div>
             <div class="text-container ml-2">
-                <!-- Texto (Tamanho reduzido) -->
-                <p class="text-gray-800 text-xs">
-                    <span class="font-bold">Vel Sites:</span> Oi! Já pensou em ter um site pra atrair...
+                <!-- Texto (Fonte e estilo atualizados) -->
+                <p class="text-gray-800 text-xs font-roboto-bold">
+                    Vel Sites: Oi! Já pensou em ter um site pra atrair...
                 </p>
             </div>
         </div>
@@ -821,8 +827,9 @@
                     notification.classList.add('show');
 
                     // 3. Vibra o celular com um padrão que simula o do WhatsApp (duas vibrações curtas)
+                    // Nota: A vibração pode não funcionar em todos os navegadores ou se o usuário não interagiu com a página primeiro.
                     if ('vibrate' in navigator) {
-                        navigator.vibrate([0, 150, 100, 150]);
+                        navigator.vibrate([150, 100, 150]);
                     }
 
                     // 4. Espera um pouco (800ms) e então expande a caixa de texto
