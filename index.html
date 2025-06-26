@@ -627,13 +627,12 @@
             height: 22px;
         }
         
-        /* --- ESTILOS DA NOTIFICAÇÃO FALSA --- */
+        /* --- ESTILOS DA NOTIFICAÇÃO FALSA (ATUALIZADO) --- */
         #whatsapp-notification {
             display: none;
             transform: translateY(-150%);
             opacity: 0;
             transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease;
-            z-index: 9999; /* Z-index alto para ficar sobre tudo */
         }
         @media (max-width: 768px) {
             #whatsapp-notification {
@@ -651,7 +650,7 @@
             transition: max-width 0.7s ease-in-out;
         }
         .text-container.expanded {
-            max-width: 300px;
+            max-width: 500px; /* Aumentado para caber o texto */
         }
 
         /* --- Media Queries Responsivas --- */
@@ -734,18 +733,21 @@
 </head>
 <body class="bg-gray-50">
     
-    <!-- Container da Notificação Falsa (Adicionado aqui) -->
-    <div class="fixed top-0 left-0 w-full flex justify-center">
-        <div id="whatsapp-notification" class="items-center bg-white rounded-full shadow-xl p-2 mt-2 mx-4 max-w-xs">
+    <!-- Container da Notificação Falsa (Adicionado z-index) -->
+    <div class="fixed top-0 left-0 w-full flex justify-center z-[60]">
+        <!-- Notificação (Tamanho reduzido e largura aumentada) -->
+        <div id="whatsapp-notification" class="items-center bg-white rounded-full shadow-xl p-1 mt-2 mx-4 max-w-sm">
             <div class="flex-shrink-0">
-                <div class="w-11 h-11 bg-green-500 rounded-full flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white">
+                <!-- Ícone (Tamanho reduzido) -->
+                <div class="w-7 h-7 bg-green-500 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="white">
                         <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.894 11.892-1.99 0-3.902-.539-5.625-1.53l-6.167 1.681zm6.473-3.841l.311.185c1.564.93 3.322 1.422 5.123 1.422 5.454 0 9.901-4.447 9.902-9.902-.002-5.454-4.448-9.901-9.902-9.901-5.455 0-9.901 4.447-9.902 9.901 0 1.832.509 3.59 1.424 5.123l.187.31-.935 3.417 3.417-.935z"/>
                     </svg>
                 </div>
             </div>
             <div class="text-container ml-2">
-                <p class="text-gray-800 text-sm">
+                <!-- Texto (Tamanho reduzido) -->
+                <p class="text-gray-800 text-xs">
                     <span class="font-bold">Vel Sites:</span> Oi! Já pensou em ter um site pra atrair...
                 </p>
             </div>
@@ -807,7 +809,7 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // --- CÓDIGO DA NOTIFICAÇÃO FALSA (ADICIONADO AQUI) ---
+            // --- CÓDIGO DA NOTIFICAÇÃO FALSA (ATUALIZADO) ---
             // Verifica se a tela é de um dispositivo móvel (largura <= 768px)
             if (window.innerWidth <= 768) {
                 const notification = document.getElementById('whatsapp-notification');
@@ -818,9 +820,9 @@
                     // 2. A notificação desce (mostrando apenas o ícone)
                     notification.classList.add('show');
 
-                    // 3. Vibra o celular com um padrão similar ao do WhatsApp
+                    // 3. Vibra o celular com um padrão que simula o do WhatsApp (duas vibrações curtas)
                     if ('vibrate' in navigator) {
-                        navigator.vibrate([100, 50, 100]);
+                        navigator.vibrate([0, 150, 100, 150]);
                     }
 
                     // 4. Espera um pouco (800ms) e então expande a caixa de texto
