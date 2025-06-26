@@ -652,14 +652,12 @@
                 max-width: 90%;
                 margin: 0 auto;
             }
-            /* ===== INÍCIO DA CORREÇÃO PARA ANIMAÇÃO NO MOBILE ===== */
             #inicio .animated-item, 
             #inicio .hero-image {
-                animation: none; /* Remove a animação de entrada */
-                opacity: 1;      /* Garante que o elemento esteja visível */
-                transform: none; /* Remove qualquer deslocamento inicial */
+                animation: none;
+                opacity: 1;
+                transform: none;
             }
-            /* ===== FIM DA CORREÇÃO ===== */
         }
         @media (max-width: 640px) {
             .domain-checker {
@@ -1163,7 +1161,6 @@
             mobileLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
                     mobileMenu.classList.remove('active');
-                    // Smooth scroll for mobile links
                     e.preventDefault();
                     const targetId = link.getAttribute('href');
                     const targetElement = document.querySelector(targetId);
@@ -1202,7 +1199,6 @@
             const animationObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // Para containers com múltiplos itens em cascata
                         if (entry.target.hasAttribute('data-stagger-container')) {
                             const items = entry.target.querySelectorAll('.stagger-item');
                             items.forEach((item, index) => {
@@ -1210,7 +1206,6 @@
                                 item.classList.add('is-visible');
                             });
                         } 
-                        // Para itens individuais
                         else {
                            entry.target.classList.add('is-visible');
                         }
@@ -1219,11 +1214,9 @@
                 });
             }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
             
-            // Observar containers de stagger
             document.querySelectorAll('[data-stagger-container]').forEach(container => {
                 animationObserver.observe(container);
             });
-            // Observar itens animados individuais
              document.querySelectorAll('.animated-item').forEach(item => {
                 animationObserver.observe(item);
             });
@@ -1246,7 +1239,7 @@
                 navObserver.observe(section);
             });
 
-            // --- DOMAIN CHECKER LOGIC ---
+            // --- DOMAIN CHECKER LOGIC (CORRIGIDO) ---
             const domainInput = document.getElementById('domain-input');
             if (domainInput) {
                 domainInput.addEventListener('input', function() {
@@ -1261,12 +1254,15 @@
                     }
                 });
             }
+            
+            // ===== INÍCIO DA CORREÇÃO DA FUNÇÃO =====
             function performCheck() {
                 const domainInput = document.getElementById('domain-input');
                 const resultMessage = document.getElementById('result-message');
                 const createSiteBtn = document.getElementById('create-site-btn');
                 const checkButton = document.getElementById('check-button');
                 const domain = domainInput.value.trim();
+
                 if (!domain) {
                     resultMessage.textContent = "Por favor, digite um nome de domínio";
                     return;
@@ -1276,30 +1272,39 @@
                 checkButton.textContent = 'Verificando...';
                 resultMessage.innerHTML = '<div class="loading"><div class="spinner"></div>Verificando...</div>';
                 createSiteBtn.style.display = "none";
-                // Lembre-se que para esta função funcionar, você precisa ter a Netlify function configurada.
-                // fetch(`/.netlify/functions/check-domain?domain=${domain}`)
-                // Simulando uma resposta da API para demonstração
-                 setTimeout(() => {
-                    const isAvailable = Math.random() > 0.5; // Simula a disponibilidade
-                    if (isAvailable) {
-                        resultMessage.innerHTML = `<span class="available"><strong>${fullDomain}</strong> está disponível!</span>`;
-                        createSiteBtn.style.display = "block";
-                    } else {
-                        resultMessage.innerHTML = `<span class="unavailable"><strong>${fullDomain}</strong> já está em uso.</span>`;
+                
+                // Lógica original restaurada para fazer a chamada real à sua API/Função Netlify
+                fetch(`/.netlify/functions/check-domain?domain=${domain}`)
+                    .then(response => {
+                        if (!response.ok) throw new Error('Network response was not ok.');
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.available) {
+                            resultMessage.innerHTML = `<span class="available"><strong>${fullDomain}</strong> está disponível!</span>`;
+                            createSiteBtn.style.display = "block";
+                        } else {
+                            resultMessage.innerHTML = `<span class="unavailable"><strong>${fullDomain}</strong> já está em uso.</span>`;
+                            createSiteBtn.style.display = "none";
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro ao consultar domínio:', error);
+                        resultMessage.innerHTML = `<span class="unavailable">Ocorreu um erro ao consultar. Tente novamente.</span>`;
                         createSiteBtn.style.display = "none";
-                    }
-                    checkButton.disabled = false;
-                    checkButton.textContent = 'Verificar Disponibilidade';
-                 }, 1500);
+                    })
+                    .finally(() => {
+                        checkButton.disabled = false;
+                        checkButton.textContent = 'Verificar Disponibilidade';
+                    });
             }
+            // ===== FIM DA CORREÇÃO DA FUNÇÃO =====
             
             // --- CONTACT FORM VALIDATION ---
             const contactForm = document.getElementById('contact-form');
             if (contactForm) {
                 contactForm.addEventListener('submit', function(e) {
                     e.preventDefault();
-                    // Aqui iria a lógica de validação e envio do formulário.
-                    // Adicionei um feedback simples de sucesso.
                     const formSuccess = document.getElementById('form-success');
                     formSuccess.classList.remove('hidden');
                     contactForm.reset();
