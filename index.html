@@ -23,6 +23,7 @@
     <link rel="manifest" href="/site.webmanifest">
     <meta name="theme-color" content="#0053C3">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
@@ -455,7 +456,6 @@
         .chat-header {
             display: flex;
             align-items: center;
-            /* Alterado para aumentar a altura */
             padding: 12px 15px;
             flex-shrink: 0;
             background: linear-gradient(135deg, #002e9e, #0078e8);
@@ -467,7 +467,6 @@
             border-radius: 50%;
             margin-right: 12px;
             flex-shrink: 0;
-            /* Adicionado para garantir que a imagem não distorça */
             object-fit: cover;
         }
         .header-info p {
@@ -594,11 +593,15 @@
             width: 22px;
             height: 22px;
         }
+        .hero-headline-gotham {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
     <div class="scroll-progress"></div>
-        <header class="fixed w-full z-50 glass-effect">
+    <header class="fixed w-full z-50 glass-effect">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center">
                 <img src="https://i.postimg.cc/GhjwNnkj/Design-sem-nome-87.png" alt="Vel Sites Logo" class="h-10 md:h-12">
@@ -616,7 +619,7 @@
             </button>
         </div>
     </header>
-        <div id="mobile-menu" class="mobile-menu">
+    <div id="mobile-menu" class="mobile-menu">
         <span id="close-menu" class="close-menu">&times;</span>
         <a href="#inicio" class="mobile-menu-link">Início</a>
         <a href="#beneficios" class="mobile-menu-link">Benefícios</a>
@@ -643,11 +646,10 @@
             </div>
         </div>
     </div>
-
     <section id="inicio" class="pt-24 md:pt-28 pb-0 gradient-bg">
         <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
             <div class="md:w-1/2 text-white mb-10 md:mb-0">
-                <h1 class="text-3xl md:text-5xl font-bold mb-6">Sua presença online começa com um site que transmite confiança</h1>
+                <h1 class="text-3xl md:text-5xl font-bold mb-6 hero-headline-gotham">Não estar no Google é abrir caminho para a sua concorrência</h1>
                 <p class="text-xl mb-8">Seu cliente procura por você e não encontra nada? Está na hora de<br>mudar isso.</p>
                 <div class="text-xl md:text-2xl font-semibold mb-8">
                     A Vel Sites é perfeita pra você que é <span id="profession-rotator" class="text-yellow-300 font-bold">Profissional</span>
@@ -659,7 +661,6 @@
             </div>
         </div>
     </section>
-
     <section id="beneficios" class="py-16 md:py-20 fade-in-section">
         <div class="container mx-auto px-4">
             <h2 class="text-2xl md:text-4xl font-bold text-center mb-12 md:mb-16 gradient-text">Benefícios Exclusivos</h2>
@@ -721,7 +722,6 @@
             </div>
         </div>
     </section>
-
     <section id="consulta-dominios" class="py-16 md:py-20 bg-blue-50 fade-in-section">
         <div class="container mx-auto px-4">
             <h2 class="text-2xl md:text-4xl font-bold text-center mb-6 gradient-text">Consulta de Domínios</h2>
@@ -729,13 +729,7 @@
             <div class="domain-checker mx-auto">
                 <h3 class="text-xl md:text-2xl font-bold mb-6 gradient-text">Encontre o domínio perfeito para seu negócio</h3>
                 <div class="domain-input-container">
-                    <input 
-                        type="text" 
-                        id="domain-input" 
-                        class="domain-input"
-                        placeholder="Pesquisar domínio"
-                        autocomplete="off"
-                    >
+                    <input type="text" id="domain-input" class="domain-input" placeholder="Pesquisar domínio" autocomplete="off">
                     <span class="domain-suffix">.com.br</span>
                 </div>
                 <button id="check-button" class="btn-primary text-white font-bold check-button">
@@ -752,7 +746,6 @@
             </div>
         </div>
     </section>
-
     <section id="avaliacoes" class="py-16 md:py-20 fade-in-section">
         <div class="container mx-auto px-4">
             <h2 class="text-2xl md:text-4xl font-bold text-center mb-12 md:mb-16 gradient-text">O que nossos clientes dizem</h2>
@@ -799,7 +792,6 @@
             </div>
         </div>
     </section>
-
     <section id="faq" class="py-16 md:py-20 bg-gray-100 fade-in-section">
         <div class="container mx-auto px-4">
             <h2 class="text-2xl md:text-4xl font-bold text-center mb-12 md:mb-16 gradient-text">Perguntas Frequentes</h2>
@@ -870,7 +862,6 @@
             </div>
         </div>
     </section>
-
     <section class="py-16 md:py-20 bg-gray-900 fade-in-section">
         <div class="container mx-auto px-4 text-center">
             <h2 class="text-2xl md:text-4xl font-bold text-white mb-6">Crie seu site profissional hoje mesmo</h2>
@@ -881,7 +872,6 @@
             </div>
         </div>
     </section>
-
     <section id="contato" class="py-16 md:py-20 gradient-bg fade-in-section">
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-xl overflow-hidden">
@@ -972,7 +962,6 @@
             </div>
         </div>
     </section>
-
     <footer class="bg-gray-900 text-white py-10 md:py-12">
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row justify-between items-center">
@@ -1008,7 +997,6 @@
             </div>
         </div>
     </footer>
-
     <div class="whatsapp-widget-container">
         <div class="chat-window" id="chat-window">
             <div class="chat-header">
@@ -1023,16 +1011,16 @@
             <div class="chat-messages" id="chat-messages">
                 </div>
             <div class="final-action-area" id="final-action">
-                 <a href="https://wa.me/5537984169386?text=Quero%20criar%20meu%20site%20agora" target="_blank" class="action-link">
+                <a href="https://wa.me/5537984169386?text=Quero%20criar%20meu%20site%20agora" target="_blank" class="action-link">
                     <span id="typing-target"></span>
-                     <div class="send-icon">
-                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" /></svg>
+                    <div class="send-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" /></svg>
                     </div>
                 </a>
             </div>
         </div>
         <div id="whatsapp-button">
-            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.37 21.82 12.04 21.82C17.5 21.82 21.95 17.37 21.95 11.91C21.95 9.27 20.92 6.83 19.16 4.99C17.4 3.15 14.82 2 12.04 2ZM12.04 20.13C10.56 20.13 9.1 19.68 7.85 18.83L7.54 18.64L4.53 19.5L5.44 16.58L5.24 16.26C4.32 14.94 3.82 13.43 3.82 11.91C3.82 7.39 7.52 3.7 12.04 3.7C14.23 3.7 16.22 4.54 17.75 6.07C19.28 7.6 20.12 9.59 20.12 11.82C20.12 16.34 16.42 20.13 12.04 20.13ZM17.44 14.24C17.18 14.11 15.89 13.45 15.64 13.35C15.39 13.26 15.22 13.22 15.04 13.47C14.86 13.72 14.34 14.38 14.19 14.56C14.04 14.73 13.89 14.76 13.63 14.63C13.38 14.51 12.39 14.17 11.23 13.13C10.29 12.28 9.68 11.24 9.53 10.99C9.38 10.74 9.5 10.62 9.63 10.49C9.75 10.36 9.89 10.17 10.03 10C10.17 9.83 10.22 9.71 10.32 9.51C10.42 9.31 10.37 9.14 10.3 8.99C10.22 8.84 9.68 7.45 9.45 6.88C9.23 6.31 9 6.24 8.82 6.24C8.64 6.24 8.47 6.24 8.29 6.24C8.11 6.24 7.8 6.33 7.55 6.58C7.3 6.83 6.64 7.44 6.64 8.82C6.64 10.2 7.59 11.53 7.74 11.7C7.89 11.88 9.84 14.93 12.72 16.32C15.6 17.71 15.6 17.21 16.14 17.16C16.68 17.11 17.8 16.48 18.02 15.82C18.24 15.16 18.24 14.61 18.17 14.49C18.09 14.36 17.91 14.28 17.66 14.16L17.44 14.24Z"></path></svg>
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.37 21.82 12.04 21.82C17.5 21.82 21.95 17.37 21.95 11.91C21.95 9.27 20.92 6.83 19.16 4.99C17.4 3.15 14.82 2 12.04 2ZM12.04 20.13C10.56 20.13 9.1 19.68 7.85 18.83L7.54 18.64L4.53 19.5L5.44 16.58L5.24 16.26C4.32 14.94 3.82 13.43 3.82 11.91C3.82 7.39 7.52 3.7 12.04 3.7C14.23 3.7 16.22 4.54 17.75 6.07C19.28 7.6 20.12 9.59 20.12 11.82C20.12 16.34 16.42 20.13 12.04 20.13ZM17.44 14.24C17.18 14.11 15.89 13.45 15.64 13.35C15.39 13.26 15.22 13.22 15.04 13.47C14.86 13.72 14.34 14.38 14.19 14.56C14.04 14.73 13.89 14.76 13.63 14.63C13.38 14.51 12.39 14.17 11.23 13.13C10.29 12.28 9.68 11.24 9.53 10.99C9.38 10.74 9.5 10.62 9.63 10.49C9.75 10.36 9.89 10.17 10.03 10C10.17 9.83 10.22 9.71 10.32 9.51C10.42 9.31 10.37 9.14 10.3 8.99C10.22 8.84 9.68 7.45 9.45 6.88C9.23 6.31 9 6.24 8.82 6.24C8.64 6.24 8.47 6.24 8.29 6.24C8.11 6.24 7.8 6.33 7.55 6.58C7.3 6.83 6.64 7.44 6.64 8.82C6.64 10.2 7.59 11.53 7.74 11.7C7.89 11.88 9.84 14.93 12.72 16.32C15.6 17.71 15.6 17.21 16.14 17.16C16.68 17.11 17.8 16.48 18.02 15.82C18.24 15.16 18.24 14.61 18.17 14.49C18.09 14.36 17.91 14.28 17.66 14.16L17.44 14.24Z"/></svg>
             <span>WhatsApp</span>
             <div class="notification-badge">1</div>
         </div>
@@ -1102,7 +1090,6 @@
                     if (!input.value.trim()) fieldValid = false;
                     if (field.regex && !field.regex.test(input.value)) fieldValid = false;
                     if (field.minLength && input.value.trim().length < field.minLength) fieldValid = false;
-
                     if (!fieldValid) {
                         error.classList.remove('hidden');
                         isValid = false;
@@ -1110,7 +1097,6 @@
                         error.classList.add('hidden');
                     }
                 });
-
                 if (isValid) {
                     const formSuccess = document.getElementById('form-success');
                     formSuccess.classList.remove('hidden');
@@ -1134,7 +1120,6 @@
                 }
             });
         }
-
         function performCheck() {
             const domainInput = document.getElementById('domain-input');
             const resultMessage = document.getElementById('result-message');
@@ -1146,12 +1131,10 @@
                 return;
             }
             const fullDomain = `${domain}.com.br`;
-
             checkButton.disabled = true;
             checkButton.textContent = 'Verificando...';
             resultMessage.innerHTML = '<div class="loading"><div class="spinner"></div>Verificando...</div>';
             createSiteBtn.style.display = "none";
-
             fetch(`/.netlify/functions/check-domain?domain=${domain}`)
                 .then(response => {
                     if (!response.ok) throw new Error('Network response was not ok.');
@@ -1204,16 +1187,13 @@
                 }
             });
         });
-
         // --- LÓGICA DO WIDGET DE WHATSAPP ---
         const whatsappButton = document.getElementById('whatsapp-button');
         const chatWindow = document.getElementById('chat-window');
         const chatMessages = document.getElementById('chat-messages');
         const finalAction = document.getElementById('final-action');
         const typingTarget = document.getElementById('typing-target');
-
         let chatHasStarted = false;
-
         function simulateTypingAnimation() {
             const actions = [
                 { type: 'type', text: 'Quero cirar', speed: 120 },
@@ -1225,11 +1205,10 @@
                 { type: 'type', text: 'agora', speed: 120 },
                 { type: 'done' }
             ];
-            typingTarget.textContent = ''; 
+            typingTarget.textContent = '';
             typingTarget.classList.remove('typing-done');
             let currentActionIndex = 0;
             let currentText = '';
-
             function executeAction() {
                 if (currentActionIndex >= actions.length) return;
                 const action = actions[currentActionIndex];
@@ -1270,20 +1249,16 @@
             }
             executeAction();
         }
-
         function startChatSimulation() {
-            if (chatHasStarted) return; 
+            if (chatHasStarted) return;
             chatHasStarted = true;
-
             chatMessages.innerHTML = '';
-            typingTarget.textContent = ''; 
+            typingTarget.textContent = '';
             const messages = [
                 "Oi! Já pensou em ter um site pra atrair mais clientes?",
                 "Se quiser, a gente pode começar agora. Que acha?"
             ];
-
             let delay = 500;
-
             messages.forEach((msg, index) => {
                 setTimeout(() => {
                     const typingIndicator = document.createElement('div');
@@ -1292,37 +1267,30 @@
                     chatMessages.appendChild(typingIndicator);
                     chatMessages.scrollTop = chatMessages.scrollHeight;
                 }, delay);
-
                 delay += 1500;
-
                 setTimeout(() => {
                     if(chatMessages.querySelector('.typing-indicator')) {
-                        chatMessages.querySelector('.typing-indicator').remove(); 
+                        chatMessages.querySelector('.typing-indicator').remove();
                     }
                     const messageElement = document.createElement('div');
                     messageElement.className = 'chat-message agent-message';
                     messageElement.textContent = msg;
                     chatMessages.appendChild(messageElement);
                     chatMessages.scrollTop = chatMessages.scrollHeight;
-
                     if (index === messages.length - 1) {
                         setTimeout(simulateTypingAnimation, 700);
                     }
                 }, delay);
-
                 delay += 500;
             });
         }
-
         function toggleChatWindow() {
             chatWindow.classList.toggle('active');
             if (chatWindow.classList.contains('active')) {
                 startChatSimulation();
             }
         }
-
         whatsappButton.addEventListener('click', toggleChatWindow);
-
         document.addEventListener('click', function(event) {
             // CORREÇÃO: Usar .contains() para verificar se o clique foi dentro do botão
             if (chatWindow.classList.contains('active') && !chatWindow.contains(event.target) && !whatsappButton.contains(event.target)) {
