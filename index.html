@@ -643,6 +643,7 @@
             transform: translateY(-150%);
             opacity: 0;
             transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease;
+            pointer-events: auto; /* Adicionado para permitir clique na notificação */
         }
         @media (max-width: 768px) {
             #whatsapp-notification {
@@ -743,10 +744,10 @@
 </head>
 <body class="bg-gray-50">
     
-    <!-- Container da Notificação Falsa (z-index atualizado) -->
-    <div class="fixed top-0 left-0 w-full flex justify-center z-[60]">
-        <!-- Notificação (Tamanho reduzido e largura aumentada) -->
-        <div id="whatsapp-notification" class="items-center bg-white rounded-full shadow-xl p-1 mt-2 mx-4 max-w-sm">
+    <!-- Container da Notificação Falsa (pointer-events-none para não bloquear o menu) -->
+    <div class="fixed top-0 left-0 w-full flex justify-center z-[60] pointer-events-none">
+        <!-- Notificação (pointer-events-auto para ser clicável) -->
+        <div id="whatsapp-notification" class="items-center bg-white rounded-full shadow-xl p-1 mt-2 mx-4 max-w-sm pointer-events-auto">
             <div class="flex-shrink-0">
                 <!-- Ícone (Atualizado para imagem) -->
                 <img src="https://i.postimg.cc/QNnqzKBJ/Subcabe-alho-75.png" alt="Ícone do WhatsApp" class="w-7 h-7 rounded-full">
@@ -754,7 +755,7 @@
             <div class="text-container ml-2">
                 <!-- Texto (Fonte e estilo atualizados) -->
                 <p class="text-gray-800 text-xs font-roboto-bold">
-                    Vel Sites:&nbsp;&nbsp;Oi! Já pensou em ter um site pra atrair...ㅤ
+                    Vel Sites:&nbsp;&nbsp;Oi! Já pensou em ter um site pra atrair...
                 </p>
             </div>
         </div>
@@ -821,13 +822,17 @@
                 const notification = document.getElementById('whatsapp-notification');
                 const textContainer = notification.querySelector('.text-container');
 
+                // Adiciona um listener para a primeira interação do usuário para habilitar a vibração
+                document.body.addEventListener('click', () => {
+                    // Função vazia apenas para registrar uma interação do usuário
+                }, { once: true });
+
                 // 1. Espera 7 segundos após o carregamento da página
                 setTimeout(() => {
                     // 2. A notificação desce (mostrando apenas o ícone)
                     notification.classList.add('show');
 
                     // 3. Vibra o celular com um padrão que simula o do WhatsApp (duas vibrações curtas)
-                    // Nota: A vibração pode não funcionar em todos os navegadores ou se o usuário não interagiu com a página primeiro.
                     if ('vibrate' in navigator) {
                         navigator.vibrate([150, 100, 150]);
                     }
