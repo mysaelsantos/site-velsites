@@ -110,7 +110,7 @@
             -webkit-text-size-adjust: 100%;
         }
         .glass-effect {
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 46, 158, 0.25);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
@@ -760,7 +760,7 @@
                     <div class="text-xl md:text-2xl font-semibold mb-8">
                         A Vel Sites é perfeita pra você que é <span id="profession-rotator" class="text-yellow-300 font-bold">Profissional</span>
                     </div>
-                    <a href="#contato" class="inline-block bg-white text-blue-700 font-bold py-3 px-8 rounded-full hover:bg-blue-50 transition transform hover:scale-105">Fale Conosco</a>
+                    <a href="https://wa.me/5537984169386?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20cria%C3%A7%C3%A3o%20de%20sites" target="_blank" class="inline-block bg-white text-blue-700 font-bold py-3 px-8 rounded-full hover:bg-blue-50 transition transform hover:scale-105">Fale Conosco</a>
                 </div>
                 <div class="md:w-1/2 flex justify-center">
                     <img src="https://i.postimg.cc/NfqvdtYP/Subcabe-alho-73.png" alt="Ilustração de computador e celular exibindo um site profissional da Vel Sites" class="hero-image">
@@ -981,7 +981,7 @@
                 <h2 class="text-2xl md:text-4xl font-bold text-white mb-6 animated-item">Crie seu site profissional hoje mesmo</h2>
                 <p class="text-lg md:text-xl text-gray-300 mb-8 md:mb-10 max-w-2xl mx-auto animated-item" style="transition-delay: 100ms;">Tudo incluso: domínio, e-mail, entrega rápida e sem mensalidades. A partir de R$ 600,00.</p>
                 <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-6 animated-item" style="transition-delay: 200ms;">
-                    <a href="#contato" class="btn-primary text-white font-bold py-3 md:py-4 px-8 md:px-10 rounded-full text-base md:text-lg w-full md:w-auto inline-block">Criar Site</a>
+                    <a href="https://wa.me/5537984169386?text=Ol%C3%A1!%20Gostaria%20de%20dar%20in%C3%ADcio%20%C3%A0%20cria%C3%A7%C3%A3o%20do%20meu%20site%20ainda%20hoje.%20Pode%20me%20informar%20os%20pr%C3%B3ximos%20passos%20e%20tudo%20o%20que%20preciso%20para%20come%C3%A7armos%20agora%3F" target="_blank" class="btn-primary text-white font-bold py-3 md:py-4 px-8 md:px-10 rounded-full text-base md:text-lg w-full md:w-auto inline-block">Criar Site</a>
                     <a href="#beneficios" class="border-2 border-white text-white font-bold py-3 md:py-4 px-8 md:px-10 rounded-full text-base md:text-lg hover:bg-white hover:text-gray-900 transition w-full md:w-auto inline-block">Ver Benefícios</a>
                 </div>
             </div>
@@ -1161,12 +1161,14 @@
             mobileLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
                     mobileMenu.classList.remove('active');
-                    e.preventDefault();
-                    const targetId = link.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        const offsetTop = targetElement.offsetTop - 70;
-                        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+                    const href = link.getAttribute('href');
+                    if (href.startsWith('#')) {
+                        e.preventDefault();
+                        const targetElement = document.querySelector(href);
+                        if (targetElement) {
+                            const offsetTop = targetElement.offsetTop - 70;
+                            window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+                        }
                     }
                 });
             });
@@ -1239,7 +1241,7 @@
                 navObserver.observe(section);
             });
 
-            // --- DOMAIN CHECKER LOGIC (CORRIGIDO) ---
+            // --- DOMAIN CHECKER LOGIC ---
             const domainInput = document.getElementById('domain-input');
             if (domainInput) {
                 domainInput.addEventListener('input', function() {
@@ -1255,7 +1257,6 @@
                 });
             }
             
-            // ===== INÍCIO DA CORREÇÃO DA FUNÇÃO =====
             function performCheck() {
                 const domainInput = document.getElementById('domain-input');
                 const resultMessage = document.getElementById('result-message');
@@ -1273,7 +1274,6 @@
                 resultMessage.innerHTML = '<div class="loading"><div class="spinner"></div>Verificando...</div>';
                 createSiteBtn.style.display = "none";
                 
-                // Lógica original restaurada para fazer a chamada real à sua API/Função Netlify
                 fetch(`/.netlify/functions/check-domain?domain=${domain}`)
                     .then(response => {
                         if (!response.ok) throw new Error('Network response was not ok.');
@@ -1298,7 +1298,6 @@
                         checkButton.textContent = 'Verificar Disponibilidade';
                     });
             }
-            // ===== FIM DA CORREÇÃO DA FUNÇÃO =====
             
             // --- CONTACT FORM VALIDATION ---
             const contactForm = document.getElementById('contact-form');
