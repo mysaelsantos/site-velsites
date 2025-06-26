@@ -755,7 +755,7 @@
             <div class="text-container ml-2">
                 <!-- Texto (Fonte e estilo atualizados) -->
                 <p class="text-gray-800 text-xs font-roboto-bold">
-                    Vel Sites:&nbsp;&nbsp;Oi! Já pensou em ter um site pra atrair...
+                    Vel Sites:&nbsp;&nbsp;Oi! Já pensou em ter um site pra atrair...ㅤ
                 </p>
             </div>
         </div>
@@ -811,7 +811,7 @@
         <!-- O resto do seu widget do WhatsApp -->
         <div class="chat-window" id="chat-window">            <div class="chat-header">                <img src="https://i.postimg.cc/R0TNQ7T8/Subcabe-alho-45.png" alt="Avatar de Marcos Santos, especialista da Vel Sites" class="header-avatar">                <div class="header-info">                    <p>                        <strong>Marcos Santos</strong>                        Comercial - Online                    </p>                </div>            </div>            <div class="chat-messages" id="chat-messages">                </div>            <div class="final-action-area" id="final-action">                 <a href="https://wa.me/5537984169386?text=Quero%20criar%20meu%20site%20agora" target="_blank" class="action-link">                    <span id="typing-target"></span>                     <div class="send-icon">                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" /></svg>                    </div>                </a>            </div>        </div>        <div id="whatsapp-button">            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.37 21.82 12.04 21.82C17.5 21.82 21.95 17.37 21.95 11.91C21.95 9.27 20.92 6.83 19.16 4.99C17.4 3.15 14.82 2 12.04 2ZM12.04 20.13C10.56 20.13 9.1 19.68 7.85 18.83L7.54 18.64L4.53 19.5L5.44 16.58L5.24 16.26C4.32 14.94 3.82 13.43 3.82 11.91C3.82 7.39 7.52 3.7 12.04 3.7C14.23 3.7 16.22 4.54 17.75 6.07C19.28 7.6 20.12 9.59 20.12 11.82C20.12 16.34 16.42 20.13 12.04 20.13ZM17.44 14.24C17.18 14.11 15.89 13.45 15.64 13.35C15.39 13.26 15.22 13.22 15.04 13.47C14.86 13.72 14.34 14.38 14.19 14.56C14.04 14.73 13.89 14.76 13.63 14.63C13.38 14.51 12.39 14.17 11.23 13.13C10.29 12.28 9.68 11.24 9.53 10.99C9.38 10.74 9.5 10.62 9.63 10.49C9.75 10.36 9.89 10.17 10.03 10C10.17 9.83 10.22 9.71 10.32 9.51C10.42 9.31 10.37 9.14 10.3 8.99C10.22 8.84 9.68 7.45 9.45 6.88C9.23 6.31 9 6.24 8.82 6.24C8.64 6.24 8.47 6.24 8.29 6.24C8.11 6.24 7.8 6.33 7.55 6.58C7.3 6.83 6.64 7.44 6.64 8.82C6.64 10.2 7.59 11.53 7.74 11.7C7.89 11.88 9.84 14.93 12.72 16.32C15.6 17.71 15.6 17.21 16.14 17.16C16.68 17.11 17.8 16.48 18.02 15.82C18.24 15.16 18.24 14.61 18.17 14.49C18.09 14.36 17.91 14.28 17.66 14.16L17.44 14.24Z"/></svg>
             <span>WhatsApp</span>
-            <div class="notification-badge">1</div>
+            <div id="notification-badge" class="notification-badge hidden">1</div>
         </div>
     </div>
     <script>
@@ -821,6 +821,7 @@
             if (window.innerWidth <= 768) {
                 const notification = document.getElementById('whatsapp-notification');
                 const textContainer = notification.querySelector('.text-container');
+                const notificationBadge = document.getElementById('notification-badge'); // Seleciona o selo
 
                 // Adiciona um listener para a primeira interação do usuário para habilitar a vibração
                 document.body.addEventListener('click', () => {
@@ -829,6 +830,11 @@
 
                 // 1. Espera 7 segundos após o carregamento da página
                 setTimeout(() => {
+                    // Mostra o selo de notificação no botão do WhatsApp
+                    if (notificationBadge) {
+                        notificationBadge.classList.remove('hidden');
+                    }
+                    
                     // 2. A notificação desce (mostrando apenas o ícone)
                     notification.classList.add('show');
 
