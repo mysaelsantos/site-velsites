@@ -747,6 +747,13 @@
         }
 
         /* --- Media Queries Responsivas --- */
+        /* ALTERAÇÃO: Aumenta a altura da seção inicial no desktop para preencher a tela */
+        @media (min-width: 768px) {
+            #inicio {
+                min-height: 111.2vh; /* Compensa o zoom de 90% */
+            }
+        }
+
         @media (max-width: 767px) {
             h1 {
                 font-size: 2.2rem !important; /* Ajustado */
@@ -887,9 +894,9 @@
 
     <main>
         <!-- ALTERAÇÃO: Altura da seção e espaçamento do conteúdo ajustados -->
-        <section id="inicio" class="min-h-screen flex items-center pt-24 md:pt-28 gradient-bg">
+        <section id="inicio" class="flex items-center pt-24 md:pt-28 gradient-bg">
             <div class="container mx-auto px-4 flex flex-col md:flex-row items-center max-w-7xl">
-                <div class="md:w-1/2 text-white mb-10 md:mb-0 md:mr-8 animated-item">
+                <div class="md:w-1/2 text-white mb-10 md:mb-0 md:mr-12 animated-item">
                     <h1 class="text-4xl md:text-5xl font-bold mb-6 hero-headline-gotham">Não estar no Google é abrir caminho para a sua concorrência</h1>
                     <p class="text-xl mb-8">Seu cliente procura por você e não encontra nada?<br>Está na hora de mudar isso.</p>
                     <div class="text-xl md:text-2xl font-semibold mb-8">
@@ -897,7 +904,7 @@
                     </div>
                     <a href="https://wa.me/5537984169386?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20cria%C3%A7%C3%A3o%20de%20sites" target="_blank" class="inline-block bg-white text-blue-700 font-bold py-3 px-8 rounded-full hover:bg-blue-50 transition transform hover:scale-105">Fale Conosco</a>
                 </div>
-                <div class="md:w-1/2 flex justify-center md:ml-8">
+                <div class="md:w-1/2 flex justify-center md:ml-12">
                     <img src="https://i.postimg.cc/NfqvdtYP/Subcabe-alho-73.png" alt="Ilustração de computador e celular exibindo um site profissional da Vel Sites" class="hero-image">
                 </div>
             </div>
