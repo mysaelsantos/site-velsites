@@ -80,23 +80,20 @@
             transform: translateY(0); /* Mostra o cabeçalho */
         }
 
-        /* Estilo da Navbar quando o menu está aberto */
+        /* Estilo da Navbar e Animação de Abertura */
+        nav {
+            /* A altura exata da nav bar fechada (logo h-14/56px + padding py-1/8px = 64px) */
+            max-height: 64px; 
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, border-radius 0.5s ease-in-out;
+        }
         nav.menu-open {
+            /* Uma altura grande o suficiente para o menu expandir */
+            max-height: 500px; 
             border-radius: 1.5rem;
         }
-        nav {
-            transition: border-radius 0.4s ease-in-out;
-        }
-        
-        /* Animação do Menu Mobile */
-        #mobile-menu {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-in-out;
-        }
-        #mobile-menu:not(.hidden) {
-            max-height: 400px; /* Altura suficiente para os links */
-        }
+
+        /* O #mobile-menu não precisa mais de animação própria */
 
         /* Animações e Efeitos */
         .plan-card, .bolsa-regua-card, .gallery-item img, .gallery-overlay {
@@ -1044,6 +1041,7 @@
 
 </body>
 </html>
+
 
 
 
