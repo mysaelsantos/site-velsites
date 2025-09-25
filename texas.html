@@ -1,0 +1,1000 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>VS Barbearia - Barbearia Premium em Nova Serrana</title>
+    <!-- SEO e Meta Tags -->
+    <meta name="description" content="VS Barbearia em Nova Serrana. Oferecemos cortes de cabelo, barba, planos mensais e um ambiente premium. Agende seu horário em uma de nossas unidades!">
+    <meta name="keywords" content="barbearia, nova serrana, corte de cabelo, barba, visagismo, vs barbearia, vanilton santos">
+    
+    <!-- Cor do Tema para Navegadores -->
+    <meta name="theme-color" content="#000000">
+
+    <!-- Favicons Configurados -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" href="https://i.postimg.cc/HsGR4vjW/Bigode-4.png">
+    <meta name="msapplication-TileColor" content="#000000">
+
+    <!-- Scripts e Estilos Externos -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <script>
+        // Configuração do Tailwind CSS
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#fbb62c',
+                        dark: '#111111',
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Importação da Fonte */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+        
+        /* Estilos Globais */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #000; /* Fundo preto padrão */
+        }
+
+        /* Esconder a barra de rolagem */
+        html {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        ::-webkit-scrollbar {
+            display: none; /* Chrome, Safari and Opera */
+        }
+
+        /* Animações de Rolagem */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Animações e Efeitos */
+        .plan-card, .bolsa-regua-card, .gallery-item img, .gallery-overlay {
+            transition: all 0.3s ease;
+        }
+        .plan-card:hover { transform: translateY(-10px); }
+        .bolsa-regua-card:hover { transform: rotate(0deg) scale(1.02); }
+        .gallery-item:hover img { transform: scale(1.05); }
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(251, 182, 44, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(251, 182, 44, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(251, 182, 44, 0); }
+        }
+        .location-marker { animation: pulse 2s infinite; }
+        
+        /* Fundo com Imagem */
+        .hero-background { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-image: url('https://i.postimg.cc/3RFCDCL1/image.png');
+            background-size: cover;
+            background-position: center;
+        }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); }
+        
+        /* Estilos de Componentes */
+        .bolsa-regua { background: linear-gradient(135deg, #111111 0%, #222222 100%); border-radius: 1rem; overflow: hidden; }
+        .bolsa-regua-card { transform: rotate(-5deg); }
+        .founder-section { background: linear-gradient(135deg, #111111 0%, #222222 100%); }
+        .gallery-item { overflow: hidden; position: relative; cursor: pointer; }
+        .gallery-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); opacity: 0; display: flex; align-items: center; justify-content: center; }
+        
+        /* Lightbox (Galeria) */
+        .lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); display: none; z-index: 1000; align-items: center; justify-content: center; }
+        .lightbox.active { display: flex; }
+        .lightbox-content { max-width: 90%; max-height: 80vh; position: relative; }
+        .lightbox-content img { max-width: 100%; max-height: 80vh; object-fit: contain; }
+        .lightbox-close { position: absolute; top: 20px; right: 20px; color: white; font-size: 30px; cursor: pointer; }
+        .lightbox-nav { position: absolute; top: 50%; width: 100%; display: flex; justify-content: space-between; padding: 0 20px; transform: translateY(-50%); }
+        .lightbox-nav button { background: rgba(0, 0, 0, 0.5); color: white; border: none; width: 50px; height: 50px; border-radius: 50%; font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        
+        /* Botão Flutuante do WhatsApp */
+        .whatsapp-float {
+            position: fixed;
+            width: auto;
+            height: 55px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+            padding: 0 20px;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.05);
+        }
+        .whatsapp-float i {
+            font-size: 28px;
+        }
+        .whatsapp-text {
+            font-size: 16px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        @media (max-width: 768px) {
+            .whatsapp-text {
+                display: none;
+            }
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+                padding: 0;
+            }
+            .whatsapp-float i {
+                font-size: 24px;
+            }
+        }
+
+        /* Seletor de Preços */
+        .price-toggle {
+            display: inline-flex;
+            background-color: #222;
+            border-radius: 9999px;
+            padding: 4px;
+            position: relative;
+        }
+        .price-toggle-btn {
+            padding: 8px 24px;
+            border: none;
+            background: transparent;
+            color: #ccc;
+            cursor: pointer;
+            position: relative;
+            z-index: 2;
+            transition: color 0.3s ease;
+            font-weight: 600;
+        }
+        .price-toggle-btn.active {
+            color: #111;
+        }
+        .price-toggle-bg {
+            position: absolute;
+            top: 4px;
+            height: calc(100% - 8px);
+            background-color: #fbb62c;
+            border-radius: 9999px;
+            transition: all 0.3s ease-in-out;
+            z-index: 1;
+        }
+        
+        .price-cards-container {
+            transition: opacity 0.3s ease-in-out;
+        }
+        
+        /* Animação de Scroll Down */
+        .scroll-down-indicator {
+            position: absolute;
+            bottom: 5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            animation: bounce 2s infinite;
+        }
+        .scroll-down-indicator span {
+            display: block;
+            width: 20px;
+            height: 20px;
+            border-bottom: 3px solid #fff;
+            border-right: 3px solid #fff;
+            transform: rotate(45deg);
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-20px);
+            }
+            60% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Estilo para notificação do formulário */
+        #form-status {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            color: white;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s, visibility 0.5s;
+            z-index: 2000;
+        }
+        #form-status.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        #form-status.success {
+            background-color: #16a34a; /* green-600 */
+        }
+        #form-status.error {
+            background-color: #dc2626; /* red-600 */
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full bg-black bg-opacity-90 z-50 border-b border-primary">
+        <div class="container mx-auto px-8 sm:px-16 lg:px-24 py-3 flex justify-between items-center">
+            <a href="#home" class="flex items-center">
+                <img src="https://i.postimg.cc/HsGR4vjW/Bigode-4.png" alt="Logotipo Texas Barbearia" class="h-10 mr-3">
+            </a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="text-white hover:text-primary transition">Home</a>
+                <a href="#services" class="text-white hover:text-primary transition">Serviços</a>
+                <a href="#plans" class="text-white hover:text-primary transition">Planos</a>
+                <a href="#locations" class="text-white hover:text-primary transition">Unidades</a>
+                <a href="#gallery" class="text-white hover:text-primary transition">Galeria</a>
+                <a href="#founder" class="text-white hover:text-primary transition">Fundador</a>
+                <a href="#contact" class="text-white hover:text-primary transition">Contato</a>
+            </div>
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-white focus:outline-none" aria-label="Abrir menu">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-black bg-opacity-95 border-t border-primary">
+            <div class="container mx-auto px-8 sm:px-16 lg:px-24 py-2 flex flex-col space-y-3">
+                <a href="#home" class="text-white hover:text-primary transition py-2">Home</a>
+                <a href="#services" class="text-white hover:text-primary transition py-2">Serviços</a>
+                <a href="#plans" class="text-white hover:text-primary transition py-2">Planos</a>
+                <a href="#locations" class="text-white hover:text-primary transition py-2">Unidades</a>
+                <a href="#gallery" class="text-white hover:text-primary transition py-2">Galeria</a>
+                <a href="#founder" class="text-white hover:text-primary transition py-2">Fundador</a>
+                <a href="#contact" class="text-white hover:text-primary transition py-2">Contato</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center pt-16">
+        <div class="hero-background">
+            <div class="hero-overlay"></div>
+        </div>
+        
+        <div class="container mx-auto px-8 sm:px-16 lg:px-24 py-16 relative z-20">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="w-full mb-10 md:mb-0 pt-20 md:pt-16 flex flex-col items-center md:items-start text-center md:text-left reveal">
+                    <img src="https://i.postimg.cc/HsGR4vjW/Bigode-4.png" alt="Logotipo grande da Texas Barbearia" class="w-32 h-32 mb-6">
+                    <h2 class="text-xl md:text-3xl font-semibold mb-4">Elevando a sua experiência</h2>
+                    <p class="text-sm md:text-lg mb-8 text-gray-300 max-w-lg">Um novo conceito de barbearia, uma empresa séria que busca sempre a satisfação do cliente!</p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="https://app.frizzar.com.br/p/vsbarbearia" target="_blank" class="bg-primary text-black font-bold py-3 px-8 rounded-md hover:bg-yellow-500 transition text-center">
+                            Agendar Agora
+                        </a>
+                        <a href="#plans" class="border-2 border-primary text-primary font-bold py-3 px-8 rounded-md hover:bg-primary hover:text-black transition text-center">
+                            Ver Planos
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Scroll Down Indicator -->
+        <a href="#services" class="scroll-down-indicator block md:hidden" aria-label="Rolar para baixo">
+            <span></span>
+        </a>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-black">
+        <div class="container mx-auto px-8 sm:px-16 lg:px-24">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Nossos <span class="text-primary">Serviços</span></h2>
+                <div class="w-24 h-1 bg-primary mx-auto"></div>
+                <p class="text-gray-300 mt-4 max-w-2xl mx-auto">Oferecemos diversos serviços de qualidade para cuidar da sua aparência. Selecione a unidade para ver os preços.</p>
+            </div>
+            
+            <!-- Seletor de Unidade -->
+            <div class="flex flex-col items-center mb-12 reveal">
+                <p class="text-sm text-gray-400 mb-2">Escolha a sua unidade</p>
+                <div class="price-toggle">
+                    <button id="btn-matriz" class="price-toggle-btn active">Pista De Cooper</button>
+                    <button id="btn-romeu" class="price-toggle-btn">Romeu Duarte</button>
+                    <div id="price-toggle-slider" class="price-toggle-bg"></div>
+                </div>
+            </div>
+            
+            <!-- Cards de Preços - Matriz -->
+            <div id="services-cards-matriz" class="price-cards-container">
+                <div class="bg-dark p-8 rounded-lg mb-12">
+                    <h3 class="text-2xl font-bold mb-8 text-center">Preços Promocionais</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="bg-black p-6 rounded-lg border border-primary relative pt-6">
+                            <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-black text-sm font-bold px-4 py-1 rounded-full">15% OFF</div>
+                            <h4 class="text-xl font-bold mb-3 text-primary">Promoção de Quinta a Sexta</h4>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center border-b border-gray-800 pb-2"><span>Corte de Cabelo</span><span class="text-primary font-bold">R$ 46,75</span></div>
+                                <div class="flex justify-between items-center border-b border-gray-800 pb-2"><span>Barba</span><span class="text-primary font-bold">R$ 46,75</span></div>
+                                <div class="flex justify-between items-center"><span>Cabelo + Barba</span><span class="text-primary font-bold">R$ 85,00</span></div>
+                            </div>
+                        </div>
+                        <div class="bg-black p-6 rounded-lg border border-gray-800">
+                            <h4 class="text-xl font-bold mb-3 text-primary">Preço Normal</h4>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center border-b border-gray-800 pb-2"><span>Corte de Cabelo</span><span class="text-primary font-bold">R$ 55,00</span></div>
+                                <div class="flex justify-between items-center border-b border-gray-800 pb-2"><span>Barba</span><span class="text-primary font-bold">R$ 55,00</span></div>
+                                <div class="flex justify-between items-center"><span>Cabelo + Barba</span><span class="text-primary font-bold">R$ 100,00</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 text-center">
+                        <a href="https://app.frizzar.com.br/p/vsbarbearia" target="_blank" class="bg-primary text-black font-bold py-3 px-8 rounded-md hover:bg-yellow-500 transition inline-block">Agendar Agora</a>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-dark p-6 rounded-lg border border-gray-800 hover:border-primary transition flex flex-col h-full">
+                        <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-6"><i class="fas fa-cut text-black text-2xl"></i></div>
+                        <h3 class="text-xl font-bold mb-3">Corte de Cabelo</h3>
+                        <p class="text-gray-400 mb-4 flex-grow">Cortes modernos e clássicos realizados por profissionais experientes que entendem o seu estilo.</p>
+                        <div>
+                            <p class="text-primary font-bold">R$ 55,00</p>
+                            <p class="text-sm text-gray-400">R$ 46,75 de Quinta a Sexta</p>
+                        </div>
+                    </div>
+                    <div class="bg-dark p-6 rounded-lg border border-gray-800 hover:border-primary transition flex flex-col h-full">
+                        <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-6"><i class="fas fa-user-alt text-black text-2xl"></i></div>
+                        <h3 class="text-xl font-bold mb-3">Barba</h3>
+                        <p class="text-gray-400 mb-4 flex-grow">Modelagem e aparagem de barba com toalha quente e finalização perfeita.</p>
+                        <div>
+                            <p class="text-primary font-bold">R$ 55,00</p>
+                            <p class="text-sm text-gray-400">R$ 46,75 de Quinta a Sexta</p>
+                        </div>
+                    </div>
+                    <div class="bg-dark p-6 rounded-lg border border-gray-800 hover:border-primary transition flex flex-col h-full">
+                        <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-6"><i class="fas fa-star text-black text-2xl"></i></div>
+                        <h3 class="text-xl font-bold mb-3">Combo Cabelo + Barba</h3>
+                        <p class="text-gray-400 mb-4 flex-grow">Economize com nosso combo completo para quem deseja cuidar do visual por completo.</p>
+                        <div>
+                            <p class="text-primary font-bold">R$ 100,00</p>
+                            <p class="text-sm text-gray-400">R$ 85,00 de Quinta a Sexta</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cards de Preços - Romeu Duarte -->
+            <div id="services-cards-romeu" class="hidden price-cards-container">
+                 <div class="bg-dark p-8 rounded-lg mb-12">
+                    <h3 class="text-2xl font-bold mb-8 text-center">Preços Promocionais</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="bg-black p-6 rounded-lg border border-primary relative pt-6">
+                            <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-black text-sm font-bold px-4 py-1 rounded-full">15% OFF</div>
+                            <h4 class="text-xl font-bold mb-3 text-primary">Promoção de Quinta a Sexta</h4>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center border-b border-gray-800 pb-2"><span>Corte de Cabelo</span><span class="text-primary font-bold">R$ 35,00</span></div>
+                                <div class="flex justify-between items-center border-b border-gray-800 pb-2"><span>Barba</span><span class="text-primary font-bold">R$ 40,00</span></div>
+                                <div class="flex justify-between items-center"><span>Cabelo + Barba</span><span class="text-primary font-bold">R$ 75,00</span></div>
+                            </div>
+                        </div>
+                        <div class="bg-black p-6 rounded-lg border border-gray-800">
+                            <h4 class="text-xl font-bold mb-3 text-primary">Preço Normal</h4>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center border-b border-gray-800 pb-2"><span>Corte de Cabelo</span><span class="text-primary font-bold">R$ 45,00</span></div>
+                                <div class="flex justify-between items-center border-b border-gray-800 pb-2"><span>Barba</span><span class="text-primary font-bold">R$ 45,00</span></div>
+                                <div class="flex justify-between items-center"><span>Cabelo + Barba</span><span class="text-primary font-bold">R$ 90,00</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 text-center">
+                        <a href="https://app.frizzar.com.br/p/vsbarbearia" target="_blank" class="bg-primary text-black font-bold py-3 px-8 rounded-md hover:bg-yellow-500 transition inline-block">Agendar Agora</a>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-dark p-6 rounded-lg border border-gray-800 hover:border-primary transition flex flex-col h-full">
+                        <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-6"><i class="fas fa-cut text-black text-2xl"></i></div>
+                        <h3 class="text-xl font-bold mb-3">Corte de Cabelo</h3>
+                        <p class="text-gray-400 mb-4 flex-grow">Cortes modernos e clássicos realizados por profissionais experientes que entendem o seu estilo.</p>
+                        <div>
+                            <p class="text-primary font-bold">R$ 45,00</p>
+                            <p class="text-sm text-gray-400">R$ 35,00 de Quinta a Sexta</p>
+                        </div>
+                    </div>
+                    <div class="bg-dark p-6 rounded-lg border border-gray-800 hover:border-primary transition flex flex-col h-full">
+                        <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-6"><i class="fas fa-user-alt text-black text-2xl"></i></div>
+                        <h3 class="text-xl font-bold mb-3">Barba</h3>
+                        <p class="text-gray-400 mb-4 flex-grow">Modelagem e aparagem de barba com toalha quente e finalização perfeita.</p>
+                        <div>
+                            <p class="text-primary font-bold">R$ 45,00</p>
+                            <p class="text-sm text-gray-400">R$ 40,00 de Quinta a Sexta</p>
+                        </div>
+                    </div>
+                    <div class="bg-dark p-6 rounded-lg border border-gray-800 hover:border-primary transition flex flex-col h-full">
+                        <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-6"><i class="fas fa-star text-black text-2xl"></i></div>
+                        <h3 class="text-xl font-bold mb-3">Combo Cabelo + Barba</h3>
+                        <p class="text-gray-400 mb-4 flex-grow">Economize com nosso combo completo para quem deseja cuidar do visual por completo.</p>
+                        <div>
+                            <p class="text-primary font-bold">R$ 90,00</p>
+                            <p class="text-sm text-gray-400">R$ 75,00 de Quinta a Sexta</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 text-center reveal">
+                <p class="text-gray-300 mb-6">Além destes, oferecemos diversos outros serviços como hidratação, pigmentação de barba, sobrancelha, hot towel e muito mais!</p>
+                <a href="https://app.frizzar.com.br/p/vsbarbearia" target="_blank" class="bg-primary text-black font-bold py-3 px-8 rounded-md hover:bg-yellow-500 transition inline-block">Ver Todos os Serviços</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plans Section -->
+    <section id="plans" class="py-20 bg-dark">
+        <div class="container mx-auto px-8 sm:px-16 lg:px-24">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Planos <span class="text-primary">Mensais</span></h2>
+                <div class="w-24 h-1 bg-primary mx-auto"></div>
+                <p class="text-gray-300 mt-4 max-w-2xl mx-auto">Economize com nossos planos mensais e aproveite serviços de qualidade em nossas duas unidades.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 reveal">
+                <!-- Plano Cabelo Limitado -->
+                <div class="plan-card bg-black rounded-xl overflow-hidden border border-gray-800 hover:border-primary flex flex-col">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold mb-2">Cabelo Limitado</h3>
+                        <div class="flex items-end mb-6"><span class="text-4xl font-bold text-primary">R$129,90</span><span class="text-gray-400 ml-2">/mês</span></div>
+                        <ul class="space-y-3 mb-8 flex-grow">
+                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>Plano mensal limitado para cabelo</span></li>
+                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>Válido nas duas unidades</span></li>
+                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>Economia de até 35%</span></li>
+                        </ul>
+                        <a href="https://wa.me/5537996719604?text=Gostaria%20de%20saber%20mais%20sobre%20o%20plano%20Cabelo%20Limitado" target="_blank" class="block w-full bg-primary text-black font-bold py-3 px-4 rounded-md hover:bg-yellow-500 transition text-center">Assinar Plano</a>
+                    </div>
+                </div>
+                <!-- Plano Barba Limitado -->
+                <div class="plan-card bg-black rounded-xl overflow-hidden border border-gray-800 hover:border-primary flex flex-col">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold mb-2">Barba Limitado</h3>
+                        <div class="flex items-end mb-6"><span class="text-4xl font-bold text-primary">R$129,90</span><span class="text-gray-400 ml-2">/mês</span></div>
+                        <ul class="space-y-3 mb-8 flex-grow">
+                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>Plano mensal limitado para barba</span></li>
+                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>Válido nas duas unidades</span></li>
+                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>Economia de até 35%</span></li>
+                        </ul>
+                        <a href="https://wa.me/5537996719604?text=Gostaria%20de%20saber%20mais%20sobre%20o%20plano%20Barba%20Limitado" target="_blank" class="block w-full bg-primary text-black font-bold py-3 px-4 rounded-md hover:bg-yellow-500 transition text-center">Assinar Plano</a>
+                    </div>
+                </div>
+                <!-- Plano Cabelo e Barba Limitado -->
+                <div class="plan-card bg-black rounded-xl overflow-hidden border-2 border-primary transform md:scale-105 shadow-lg shadow-primary/20 flex flex-col">
+                    <div class="bg-primary text-black text-center py-2 font-bold">MAIS POPULAR</div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold mb-2">Cabelo e Barba Limitado</h3>
+                        <div class="flex items-end mb-6"><span class="text-4xl font-bold text-primary">R$189,90</span><span class="text-gray-400 ml-2">/mês</span></div>
+                        <ul class="space-y-3 mb-8 flex-grow">
+                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>Plano mensal limitado para cabelo e barba</span></li>
+                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>Válido nas duas unidades</span></li>
+                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>Economia de até 40%</span></li>
+                        </ul>
+                        <a href="https://wa.me/5537996719604?text=Gostaria%20de%20saber%20mais%20sobre%20o%20plano%20Cabelo%20e%20Barba%20Limitado" target="_blank" class="block w-full bg-primary text-black font-bold py-3 px-4 rounded-md hover:bg-yellow-500 transition text-center">Assinar Plano</a>
+                    </div>
+                </div>
+                <!-- Plano Cabelo e Barba Ilimitado -->
+                <div class="plan-card bg-black rounded-xl overflow-hidden border border-gray-800 hover:border-primary flex flex-col">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold mb-2">Cabelo e Barba Ilimitado</h3>
+                        <div class="flex items-end mb-6"><span class="text-4xl font-bold text-primary">R$259,90</span><span class="text-gray-400 ml-2">/mês</span></div>
+                        <ul class="space-y-3 mb-8 flex-grow">
+                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>Plano mensal ilimitado para cabelo e barba</span></li>
+                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>Válido nas duas unidades</span></li>
+                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>Sem limite de uso</span></li>
+                        </ul>
+                        <a href="https://wa.me/5537996719604?text=Gostaria%20de%20saber%20mais%20sobre%20o%20plano%20Cabelo%20e%20Barba%20Ilimitado" target="_blank" class="block w-full bg-primary text-black font-bold py-3 px-4 rounded-md hover:bg-yellow-500 transition text-center">Assinar Plano</a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 text-center reveal">
+                <p class="text-gray-300 mb-6">Não tem certeza de qual plano escolher? Entre em contato conosco para uma consulta personalizada.</p>
+                <div class="flex flex-col sm:flex-row justify-center gap-8">
+                    <a href="https://app.frizzar.com.br/p/vsbarbearia" target="_blank" class="inline-block bg-primary text-black font-bold py-3 px-8 rounded-md hover:bg-yellow-500 transition">Agendar Horário</a>
+                    <a href="https://wa.me/5537996719604?text=Gostaria%20de%20saber%20mais%20sobre%20os%20planos%20da%20VS%20Barbearia" target="_blank" class="inline-block border-2 border-primary text-primary font-bold py-3 px-8 rounded-md hover:bg-primary hover:text-black transition">Fale Conosco</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Locations Section -->
+    <section id="locations" class="py-20 bg-black">
+        <div class="container mx-auto px-8 sm:px-16 lg:px-24">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Nossas <span class="text-primary">Unidades</span></h2>
+                <div class="w-24 h-1 bg-primary mx-auto"></div>
+                <p class="text-gray-300 mt-4 max-w-2xl mx-auto">Visite uma de nossas unidades estrategicamente localizadas em Nova Serrana.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 reveal">
+                <!-- Unidade Matriz -->
+                <div class="bg-dark rounded-xl overflow-hidden flex flex-col">
+                    <div class="h-64 bg-gray-800 relative">
+                        <img src="https://i.postimg.cc/1RvBySfj/Bigode-7.png" alt="Interior da Unidade Pista de Cooper" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold mb-2">Unidade Pista de Cooper</h3>
+                        <div class="space-y-3 mb-6 flex-grow">
+                            <p class="flex items-start"><i class="fas fa-map-pin text-primary mr-3 mt-1"></i><span>Avenida Coronel Pacífico Pinto da Fonseca, 236, Nova Serrana</span></p>
+                            <p class="flex items-start"><i class="fas fa-clock text-primary mr-3 mt-1"></i><span>Seg a Sáb: 8h às 20h</span></p>
+                        </div>
+                        <div class="flex flex-wrap gap-3">
+                            <a href="https://app.frizzar.com.br/p/vsbarbearia" target="_blank" class="inline-block bg-primary text-black font-bold py-2 px-6 rounded-md hover:bg-yellow-500 transition"><i class="fas fa-calendar-alt mr-2"></i>Agendar</a>
+                            <a href="https://maps.app.goo.gl/BoWbipiBj4Qi1Zd28" target="_blank" class="inline-block bg-blue-600 text-white font-bold py-2 px-6 rounded-md hover:bg-blue-700 transition"><i class="fas fa-map-marker-alt mr-2"></i>Ver Rota</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Unidade Romeu Duarte -->
+                <div class="bg-dark rounded-xl overflow-hidden flex flex-col">
+                    <div class="h-64 bg-gray-800 relative">
+                        <img src="https://i.postimg.cc/bN5VxnfP/Bigode-6.png" alt="Interior da Unidade Romeu Duarte da VS Barbearia" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold mb-2">Unidade Romeu Duarte</h3>
+                        <div class="space-y-3 mb-6 flex-grow">
+                            <p class="flex items-start"><i class="fas fa-map-pin text-primary mr-3 mt-1"></i><span>Rua Geraldo Pinto do Amaral, 562, Romeu Duarte, Nova Serrana</span></p>
+                             <p class="flex items-start"><i class="fas fa-clock text-primary mr-3 mt-1"></i><span>Seg a Sáb: 8h às 20h</span></p>
+                        </div>
+                        <div class="flex flex-wrap gap-3">
+                            <a href="https://app.frizzar.com.br/p/vsbarbearia" target="_blank" class="inline-block bg-primary text-black font-bold py-2 px-6 rounded-md hover:bg-yellow-500 transition"><i class="fas fa-calendar-alt mr-2"></i>Agendar</a>
+                            <a href="https://maps.app.goo.gl/aygQMpBSD8uLMiwP7" target="_blank" class="inline-block bg-blue-600 text-white font-bold py-2 px-6 rounded-md hover:bg-blue-700 transition"><i class="fas fa-map-marker-alt mr-2"></i>Ver Rota</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bolsa Régua Section -->
+    <section id="bolsa-regua" class="py-20 bg-dark">
+        <div class="container mx-auto px-8 sm:px-16 lg:px-24">
+             <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Projeto <span class="text-primary">Bolsa Régua</span></h2>
+                <div class="w-24 h-1 bg-primary mx-auto"></div>
+                <p class="text-gray-300 mt-4 max-w-2xl mx-auto">Uma campanha bem-humorada por um benefício que todo homem merece!</p>
+            </div>
+            <div class="bolsa-regua p-8 md:p-12 reveal">
+                <div class="flex flex-col md:flex-row items-center gap-10">
+                    <div class="md:w-1/2">
+                        <h3 class="text-2xl md:text-3xl font-bold mb-4">O governo tem vários benefícios, mas cadê o <span class="text-primary">Bolsa Régua</span>?</h3>
+                        <p class="text-gray-300 mb-6">Nossa missão é garantir que todo cidadão tenha direito a manter o visual impecável. Enquanto o benefício não vira lei, a VS Barbearia faz a sua parte com promoções e planos para manter você sempre na régua!</p>
+                        <a href="#plans" class="bg-primary text-black font-bold py-3 px-8 rounded-md hover:bg-yellow-500 transition inline-block">Garantir Meu Corte na Régua</a>
+                    </div>
+                    <div class="md:w-1/2 flex justify-center">
+                        <div class="bolsa-regua-card">
+                            <img src="https://i.postimg.cc/2yVsXX6B/Bigode-46.png" alt="Cartão fictício do programa Bolsa Régua" class="w-full max-w-md rounded-lg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20 bg-black">
+        <div class="container mx-auto px-8 sm:px-16 lg:px-24">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Nossos <span class="text-primary">Trabalhos</span></h2>
+                <div class="w-24 h-1 bg-primary mx-auto"></div>
+                <p class="text-gray-300 mt-4 max-w-2xl mx-auto">Confira alguns dos nossos melhores cortes e estilos.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 reveal">
+                <div class="gallery-item rounded-lg"><img src="https://i.postimg.cc/FR0KwsH0/Save-Clip-App-. . . -n.jpg" alt="Corte de cabelo masculino estilo degradê com risco na lateral." class="w-full h-96 object-cover"></div>
+                <div class="gallery-item rounded-lg"><img src="https://i.postimg.cc/3w4NCZMS/Save-Clip-App-. . . -n.jpg" alt="Homem com cabelo penteado para trás e barba bem aparada." class="w-full h-96 object-cover"></div>
+                <div class="gallery-item rounded-lg"><img src="https://i.postimg.cc/hPcJWxxv/Save-Clip-App-. . . -n.jpg" alt="Corte de cabelo curto com textura e finalização moderna." class="w-full h-96 object-cover"></div>
+                <div class="gallery-item rounded-lg"><img src="https://i.postimg.cc/c4hvsHMm/Save-Clip-App-. . . -n.jpg" alt="Corte de cabelo infantil masculino com degradê suave." class="w-full h-96 object-cover"></div>
+                <div class="gallery-item rounded-lg"><img src="https://i.postimg.cc/t4gY7jBH/Save-Clip-App-. . . -n.jpg" alt="Close-up de um corte de cabelo com degradê navalhado perfeito." class="w-full h-96 object-cover"></div>
+                <div class="gallery-item rounded-lg"><img src="https://i.postimg.cc/66L303SX/Save-Clip-App-. . . -n.jpg" alt="Barba modelada e alinhada com precisão." class="w-full h-96 object-cover"></div>
+                <div class="gallery-item rounded-lg"><img src="https://i.postimg.cc/GtQmh7Y2/Save-Clip-App-. . . -n.jpg" alt="Corte de cabelo com finalização pompadour e barba cheia." class="w-full h-96 object-cover"></div>
+                <div class="gallery-item rounded-lg"><img src="https://i.postimg.cc/L5RsSKJw/Save-Clip-App-. . 295740606770-n.jpg" alt="Cliente satisfeito mostrando seu novo corte de cabelo na cadeira da barbearia." class="w-full h-96 object-cover"></div>
+            </div>
+            <div class="mt-12 text-center reveal">
+                <a href="https://www.instagram.com/vsbarbearians" target="_blank" class="inline-flex items-center bg-dark border-2 border-primary text-primary font-bold py-3 px-8 rounded-md hover:bg-primary hover:text-black transition">
+                    <i class="fab fa-instagram mr-2 text-xl"></i>Siga-nos no Instagram
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Lightbox (Galeria Modal) -->
+    <div id="lightbox" class="lightbox">
+        <div class="lightbox-content">
+            <img id="lightbox-img" src="" alt="Imagem da galeria em tamanho ampliado">
+            <div class="lightbox-nav">
+                <button id="prev-img" aria-label="Imagem anterior"><i class="fas fa-chevron-left"></i></button>
+                <button id="next-img" aria-label="Próxima imagem"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+        <button id="lightbox-close" class="lightbox-close" aria-label="Fechar galeria"><i class="fas fa-times"></i></button>
+    </div>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-dark">
+        <div class="container mx-auto px-8 sm:px-16 lg:px-24">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Sobre a <span class="text-primary">VS Barbearia</span></h2>
+                <div class="w-24 h-1 bg-primary mx-auto"></div>
+            </div>
+            <div class="flex flex-col md:flex-row items-center gap-10 reveal">
+                <div class="md:w-1/2">
+                    <div class="relative">
+                        <div class="w-full h-80 bg-gray-800 rounded-lg overflow-hidden flex items-center justify-center">
+                            <img src="https://i.postimg.cc/28q5gTbm/Design-sem-nome-76.png" alt="Fachada da unidade matriz da VS Barbearia" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-bold mb-4">Tradição e Qualidade</h3>
+                    <p class="text-gray-300 mb-6">A VS Barbearia nasceu da paixão por oferecer serviços de alta qualidade para homens e mulheres que valorizam cuidados pessoais premium. Rapidamente nos tornamos referência em cortes em Nova Serrana.</p>
+                    <p class="text-gray-300 mb-6">Com duas unidades estrategicamente localizadas, oferecemos serviços de barbearia de excelência com profissionais altamente qualificados para garantir sua satisfação.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founder Section -->
+    <section id="founder" class="py-20 bg-black">
+        <div class="container mx-auto px-8 sm:px-16 lg:px-24">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Nosso <span class="text-primary">Fundador</span></h2>
+                <div class="w-24 h-1 bg-primary mx-auto"></div>
+                <p class="text-gray-300 mt-4 max-w-2xl mx-auto">Conheça a história de determinação por trás da VS Barbearia.</p>
+            </div>
+            <div class="founder-section p-8 md:p-12 rounded-xl reveal">
+                <div class="flex flex-col md:flex-row items-center gap-10">
+                    <div class="md:w-1/3 text-center">
+                        <img src="https://i.postimg.cc/pT3ScnBb/482320646-1375134203841648-765763137701876086-n.jpg" alt="Retrato de Vanilton Santos, fundador da VS Barbearia" class="w-48 h-48 mx-auto rounded-full object-cover border-4 border-primary mb-4">
+                        <h3 class="text-2xl font-bold">Vanilton Santos</h3>
+                        <p class="text-primary">Fundador & Visagista</p>
+                    </div>
+                    <div class="md:w-2/3">
+                        <h3 class="text-2xl font-bold mb-6">Uma Jornada de Determinação</h3>
+                        <p class="text-gray-300">Aos 35 anos, Vanilton Santos é o exemplo de como determinação e trabalho duro transformam sonhos em realidade. Sua história começou em 2010, ao chegar em Nova Serrana com um sonho e muita vontade de vencer, precisando vender sua moto para dar o primeiro passo.</p>
+                        <div class="mt-8 bg-black bg-opacity-50 p-6 rounded-lg border border-primary">
+                            <p class="italic text-gray-300">"Acredito que o sucesso vem da dedicação e do compromisso com a excelência. Cada cliente satisfeito é uma vitória pessoal."</p>
+                            <p class="text-right text-primary font-bold mt-2">- Vanilton Santos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-dark">
+        <div class="container mx-auto px-8 sm:px-16 lg:px-24">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Entre em <span class="text-primary">Contato</span></h2>
+                <div class="w-24 h-1 bg-primary mx-auto"></div>
+                <p class="text-gray-300 mt-4 max-w-2xl mx-auto">Tem alguma dúvida ou sugestão? Envie uma mensagem ou fale conosco pelo WhatsApp.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-start reveal">
+                <div class="bg-black p-8 rounded-xl">
+                    <h3 class="text-xl font-bold mb-6">Envie uma mensagem</h3>
+                    <form id="contact-form" action="https://formspree.io/f/YOUR_UNIQUE_ID" method="POST" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium mb-2">Nome</label>
+                            <input type="text" id="name" name="name" required class="w-full bg-dark border border-gray-700 rounded-md py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium mb-2">Email</label>
+                            <input type="email" id="email" name="email" required class="w-full bg-dark border border-gray-700 rounded-md py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-sm font-medium mb-2">Telefone</label>
+                            <input type="tel" id="phone" name="phone" required class="w-full bg-dark border border-gray-700 rounded-md py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium mb-2">Mensagem</label>
+                            <textarea id="message" name="message" rows="4" required class="w-full bg-dark border border-gray-700 rounded-md py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
+                        </div>
+                        <div>
+                            <button type="submit" class="w-full bg-primary text-black font-bold py-3 px-4 rounded-md hover:bg-yellow-500 transition">
+                                Enviar Mensagem
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="bg-black p-8 rounded-xl">
+                    <h3 class="text-xl font-bold mb-6">Informações</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mr-4 text-black text-xl"><i class="fas fa-phone-alt"></i></div>
+                            <div>
+                                <p class="font-medium">Telefone/WhatsApp</p>
+                                <a href="https://wa.me/5537996719604" target="_blank" class="text-gray-300 hover:text-primary transition">(37) 99671-9604</a>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                             <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mr-4 text-black text-xl"><i class="fab fa-instagram"></i></div>
+                            <div>
+                                <p class="font-medium">Instagram</p>
+                                <a href="https://www.instagram.com/vsbarbearians" target="_blank" class="text-gray-300 hover:text-primary transition">@vsbarbearians</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="bg-black border-t border-gray-800">
+        <div class="container mx-auto px-8 sm:px-16 lg:px-24 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-8">
+                <div>
+                    <a href="#home" class="flex items-center justify-center md:justify-start">
+                       <img src="https://i.postimg.cc/HsGR4vjW/Bigode-4.png" alt="Logotipo Texas Barbearia" class="h-10 mr-2">
+                    </a>
+                    <p class="text-gray-400 text-sm mt-2">Estilo e precisão em cada corte.</p>
+                </div>
+                <div class="hidden lg:flex space-x-6">
+                    <a href="#home" class="text-gray-300 hover:text-primary transition">Home</a>
+                    <a href="#about" class="text-gray-300 hover:text-primary transition">Sobre</a>
+                    <a href="#services" class="text-gray-300 hover:text-primary transition">Serviços</a>
+                    <a href="#gallery" class="text-gray-300 hover:text-primary transition">Galeria</a>
+                    <a href="#contact" class="text-gray-300 hover:text-primary transition">Contato</a>
+                </div>
+                <div>
+                    <a href="https://app.frizzar.com.br/p/vsbarbearia" target="_blank" class="bg-primary text-black font-bold py-3 px-6 rounded-md hover:bg-yellow-500 transition inline-flex items-center">
+                        <i class="fab fa-whatsapp mr-2"></i>Agendar
+                    </a>
+                </div>
+            </div>
+            <hr class="border-gray-700 my-6">
+            <div class="text-center text-gray-500 text-sm">
+                <p>&copy; <span id="current-year"></span> VS Barbearia. Todos os direitos reservados.</p>
+            </div>
+            <div class="flex justify-center items-center mt-6">
+                <span class="text-gray-500 text-sm mr-2">Criado por</span>
+                <a href="https://velsites.com.br/" target="_blank">
+                    <img src="https://i.postimg.cc/D0pp6j3q/Subcabe-alho-39.png" alt="Desenvolvido por Vel SITES" class="h-10">
+                </a>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Botão Flutuante do WhatsApp -->
+    <a href="https://wa.me/5537996719604?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20agendar%20um%20servi%C3%A7o" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco pelo WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+        <span class="whatsapp-text">WhatsApp</span>
+    </a>
+
+    <!-- Notificação para status do formulário -->
+    <div id="form-status"></div>
+
+    <!-- SCRIPTS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // --- ANIMAÇÃO DE ROLAGEM ---
+            const revealElements = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            revealElements.forEach(elem => {
+                observer.observe(elem);
+            });
+
+            // --- MENU MÓVEL ---
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navLinks = mobileMenu.querySelectorAll('a');
+            
+            menuToggle.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                const icon = menuToggle.querySelector('i');
+                if(mobileMenu.classList.contains('hidden')) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                } else {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    const icon = menuToggle.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                });
+            });
+
+            // --- SELETOR DE PREÇOS ---
+            const btnMatriz = document.getElementById('btn-matriz');
+            const btnRomeu = document.getElementById('btn-romeu');
+            const slider = document.getElementById('price-toggle-slider');
+            const cardsMatriz = document.getElementById('services-cards-matriz');
+            const cardsRomeu = document.getElementById('services-cards-romeu');
+            
+            function moveSlider(button) {
+                if (button && slider) {
+                    slider.style.width = button.offsetWidth + 'px';
+                    slider.style.left = button.offsetLeft + 'px';
+                }
+            }
+            
+            function switchPriceCards(showCards, hideCards) {
+                if (showCards.classList.contains('hidden')) {
+                    hideCards.style.opacity = '0';
+                    setTimeout(() => {
+                        hideCards.classList.add('hidden');
+                        showCards.classList.remove('hidden');
+                        requestAnimationFrame(() => {
+                            showCards.style.opacity = '1';
+                        });
+                    }, 300);
+                }
+            }
+
+            if (btnMatriz && btnRomeu && slider && cardsMatriz && cardsRomeu) {
+                cardsRomeu.style.opacity = '0';
+                
+                window.addEventListener('resize', () => moveSlider(document.querySelector('.price-toggle-btn.active')), { passive: true });
+                moveSlider(btnMatriz);
+
+                btnMatriz.addEventListener('click', () => {
+                    if (btnMatriz.classList.contains('active')) return;
+                    moveSlider(btnMatriz);
+                    btnMatriz.classList.add('active');
+                    btnRomeu.classList.remove('active');
+                    switchPriceCards(cardsMatriz, cardsRomeu);
+                });
+                
+                btnRomeu.addEventListener('click', () => {
+                    if (btnRomeu.classList.contains('active')) return;
+                    moveSlider(btnRomeu);
+                    btnRomeu.classList.add('active');
+                    btnMatriz.classList.remove('active');
+                    switchPriceCards(cardsRomeu, cardsMatriz);
+                });
+            }
+
+
+            // --- LIGHTBOX DA GALERIA ---
+            const lightbox = document.getElementById('lightbox');
+            if (lightbox) {
+                const lightboxImg = document.getElementById('lightbox-img');
+                const galleryItems = document.querySelectorAll('.gallery-item');
+                let currentIndex = 0;
+                
+                const images = Array.from(galleryItems).map(item => item.querySelector('img').src);
+
+                function showImage(index) {
+                    lightboxImg.src = images[index];
+                    currentIndex = index;
+                    lightbox.classList.add('active');
+                }
+
+                galleryItems.forEach((item, index) => {
+                    item.addEventListener('click', () => showImage(index));
+                });
+
+                function closeLightbox() {
+                    lightbox.classList.remove('active');
+                }
+                
+                document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+                document.getElementById('next-img').addEventListener('click', () => showImage((currentIndex + 1) % images.length));
+                document.getElementById('prev-img').addEventListener('click', () => showImage((currentIndex - 1 + images.length) % images.length));
+
+                lightbox.addEventListener('click', (e) => {
+                    if (e.target === lightbox) {
+                        closeLightbox();
+                    }
+                });
+            }
+
+            // --- MANIPULAÇÃO DO FORMULÁRIO DE CONTATO ---
+            const contactForm = document.getElementById('contact-form');
+            if(contactForm) {
+                contactForm.addEventListener('submit', async function(event) {
+                    event.preventDefault();
+                    
+                    const form = event.target;
+                    const data = new FormData(form);
+                    const statusDiv = document.getElementById('form-status');
+
+                    try {
+                        const response = await fetch(form.action, {
+                            method: form.method,
+                            body: data,
+                            headers: { 'Accept': 'application/json' }
+                        });
+
+                        if (response.ok) {
+                            showStatusMessage('Mensagem enviada com sucesso!', 'success');
+                            form.reset();
+                        } else {
+                             const responseData = await response.json();
+                             if (Object.prototype.hasOwnProperty.call(responseData, 'errors')) {
+                                 const errorMessage = responseData.errors.map(error => error.message).join(', ');
+                                 showStatusMessage(`Erro: ${errorMessage}`, 'error');
+                             } else {
+                                 showStatusMessage('Ocorreu um erro ao enviar a mensagem.', 'error');
+                             }
+                        }
+                    } catch (error) {
+                        showStatusMessage('Ocorreu um erro na rede. Tente novamente.', 'error');
+                    }
+                });
+            }
+
+            function showStatusMessage(message, type) {
+                const statusDiv = document.getElementById('form-status');
+                statusDiv.textContent = message;
+                statusDiv.className = '';
+                statusDiv.classList.add(type, 'show');
+                
+                setTimeout(() => {
+                    statusDiv.classList.remove('show');
+                }, 4000);
+            }
+
+            // --- ATUALIZA ANO NO RODAPÉ ---
+            const yearSpan = document.getElementById('current-year');
+            if (yearSpan) {
+                yearSpan.textContent = new Date().getFullYear();
+            }
+        });
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
