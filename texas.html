@@ -300,25 +300,32 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="relative min-h-screen flex items-start md:items-center pt-16">
+    <section id="home" class="relative min-h-screen flex flex-col pt-16">
         <div class="hero-background">
             <div class="hero-overlay"></div>
         </div>
         
-        <div class="container mx-auto px-8 sm:px-16 lg:px-24 py-16 relative z-20">
-            <div class="flex flex-col md:flex-row items-center">
-                <div class="w-full mb-10 md:mb-0 pt-8 md:pt-16 flex flex-col items-center md:items-start text-center md:text-left reveal">
-                    <img src="https://i.postimg.cc/HsGR4vjW/Bigode-4.png" alt="Logotipo grande da Texas Barbearia" class="w-40 h-40 md:w-32 md:h-32 mb-6">
-                    <h2 class="text-lg md:text-3xl font-semibold mb-4">Barba, cabelo, bigode e amigos..</h2>
-                    <p class="text-sm md:text-lg mb-8 text-gray-300 max-w-lg">Um novo conceito de barbearia, uma empresa séria que busca sempre a satisfação do cliente!</p>
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="https://app.frizzar.com.br/p/vsbarbearia" target="_blank" class="bg-primary text-black font-bold py-3 px-8 rounded-lg hover:bg-yellow-500 transition text-center">
-                            Agendar Agora
-                        </a>
-                        <a href="#plans" class="border-2 border-primary text-primary font-bold py-3 px-8 rounded-lg hover:bg-primary hover:text-black transition text-center">
-                            Ver Planos
-                        </a>
+        <div class="container mx-auto px-8 sm:px-16 lg:px-24 py-8 md:py-16 relative z-20 flex-grow flex">
+            <div class="w-full flex flex-col md:flex-row items-center">
+                <div class="w-full flex-grow flex flex-col justify-between items-center md:items-start md:justify-center text-center md:text-left reveal">
+                    
+                    <!-- Logo Wrapper -->
+                    <img src="https://i.postimg.cc/HsGR4vjW/Bigode-4.png" alt="Logotipo grande da Texas Barbearia" class="w-48 h-48 md:w-32 md:h-32 md:mb-6">
+
+                    <!-- Text and Buttons Wrapper -->
+                    <div class="mb-10 md:mb-0">
+                        <h2 class="text-lg md:text-3xl font-semibold mb-4">Barba, cabelo, bigode e amigos..</h2>
+                        <p class="text-sm md:text-lg mb-8 text-gray-300 max-w-lg">Um novo conceito de barbearia, uma empresa séria que busca sempre a satisfação do cliente!</p>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <a href="https://app.frizzar.com.br/p/vsbarbearia" target="_blank" class="bg-primary text-black font-bold py-3 px-8 rounded-lg hover:bg-yellow-500 transition text-center">
+                                Agendar Agora
+                            </a>
+                            <a href="#plans" class="border-2 border-primary text-primary font-bold py-3 px-8 rounded-lg hover:bg-primary hover:text-black transition text-center">
+                                Ver Planos
+                            </a>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -1014,4 +1021,5 @@
 
 </body>
 </html>
+
 
