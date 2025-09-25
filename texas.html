@@ -72,6 +72,15 @@
             transform: translateY(0);
         }
 
+        /* Estilos para o cabeçalho fixo */
+        nav.fixed {
+            transition: transform 0.4s ease-in-out;
+            transform: translateY(-100%); /* Começa escondido */
+        }
+        nav.fixed.show-nav {
+            transform: translateY(0); /* Mostra o cabeçalho */
+        }
+
         /* Animações e Efeitos */
         .plan-card, .bolsa-regua-card, .gallery-item img, .gallery-overlay {
             transition: all 0.3s ease;
@@ -804,6 +813,25 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
 
+            // --- CONTROLE DE VISIBILIDADE DO CABEÇALHO ---
+            const mainNav = document.querySelector('nav');
+            const servicesSection = document.getElementById('services');
+
+            if (mainNav && servicesSection) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        // Se o usuário rolar até a seção de serviços ou passar dela, mostra o cabeçalho
+                        if (entry.isIntersecting || entry.boundingClientRect.top < 0) {
+                            mainNav.classList.add('show-nav');
+                        } else {
+                            mainNav.classList.remove('show-nav');
+                        }
+                    });
+                }, { threshold: 0 });
+
+                observer.observe(servicesSection);
+            }
+
             // --- ANIMAÇÃO DE ROLAGEM ---
             const revealElements = document.querySelectorAll('.reveal');
             const observer = new IntersectionObserver((entries) => {
@@ -987,6 +1015,7 @@
 
 </body>
 </html>
+
 
 
 
