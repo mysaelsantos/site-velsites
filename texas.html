@@ -74,10 +74,10 @@
         /* Estilos para o cabeçalho flutuante */
         nav.fixed {
             transition: transform 0.4s ease-in-out;
-            transform: translateX(-50%) translateY(-150%); /* Começa escondido e centralizado */
+            transform: translateY(-150%); /* Começa escondido */
         }
         nav.fixed.show-nav {
-            transform: translateX(-50%) translateY(0); /* Mostra o cabeçalho e centraliza */
+            transform: translateY(0); /* Mostra o cabeçalho */
         }
 
         #mobile-menu:not(.hidden) {
@@ -279,10 +279,10 @@
 <body class="bg-black text-white">
 
     <!-- Navbar -->
-    <nav class="fixed top-6 left-1/2 bg-black/60 backdrop-blur-lg z-50 border border-white/10 rounded-full">
+    <nav class="fixed top-6 left-6 right-6 bg-black/60 backdrop-blur-lg z-50 border border-white/10 rounded-full">
         <div class="px-6 py-1 flex justify-between items-center">
             <a href="#home" class="flex items-center">
-                <img src="https://i.postimg.cc/HsGR4vjW/Bigode-4.png" alt="Logotipo Texas Barbearia" class="h-14 mr-3">
+                <img src="https://i.postimg.cc/HsGR4vjW/Bigode-4.png" alt="Logotipo VS Barbearia" class="h-14 mr-3">
             </a>
             <div class="hidden md:flex space-x-6">
                 <a href="#home" class="text-white hover:text-primary transition">Home</a>
@@ -319,15 +319,15 @@
             <div class="hero-overlay"></div>
         </div>
         
-        <div class="container mx-auto px-8 sm:px-16 lg:px-24 py-8 md:py-16 relative z-20 flex-grow flex">
+        <div class="container mx-auto px-8 sm:px-16 lg:px-24 md:py-16 relative z-20 flex-grow flex">
             <div class="w-full flex flex-col md:flex-row items-center">
-                <div class="w-full flex-grow flex flex-col justify-between items-center md:items-start md:justify-center text-center md:text-left reveal">
+                <div class="w-full flex-grow flex flex-col justify-between items-center md:items-start md:justify-center text-center md:text-left">
                     
                     <!-- Logo Wrapper -->
-                    <img src="https://i.postimg.cc/HsGR4vjW/Bigode-4.png" alt="Logotipo grande da Texas Barbearia" class="w-48 h-48 md:w-32 md:h-32 md:mb-6">
+                    <img src="https://i.postimg.cc/HsGR4vjW/Bigode-4.png" alt="Logotipo grande da Texas Barbearia" class="w-48 h-48 md:w-32 md:h-32 md:mb-6 reveal">
 
                     <!-- Text and Buttons Wrapper -->
-                    <div class="mb-10 md:mb-0">
+                    <div class="pb-10 md:pb-0 mb-10 md:mb-0 reveal">
                         <h2 class="text-lg md:text-3xl font-semibold mb-4">Barba, cabelo, bigode e amigos..</h2>
                         <p class="text-sm md:text-lg mb-8 text-gray-300 max-w-lg">Um novo conceito de barbearia, uma empresa séria que busca sempre a satisfação do cliente!</p>
                         <div class="flex flex-col sm:flex-row gap-4">
@@ -1035,6 +1035,8 @@
 
 </body>
 </html>
+
+
 
 
 
