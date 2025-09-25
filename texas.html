@@ -80,18 +80,22 @@
             transform: translateY(0); /* Mostra o cabeçalho */
         }
 
-        #mobile-menu:not(.hidden) {
-            position: fixed;
-            top: 6.5rem;
-            left: 5vw;
-            width: 90vw;
+        /* Estilo da Navbar quando o menu está aberto */
+        nav.menu-open {
             border-radius: 1.5rem;
-            background-color: rgba(20, 20, 20, 0.8);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 0.5rem;
-            padding-bottom: 0.5rem;
+        }
+        nav {
+            transition: border-radius 0.4s ease-in-out;
+        }
+        
+        /* Animação do Menu Mobile */
+        #mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        #mobile-menu:not(.hidden) {
+            max-height: 400px; /* Altura suficiente para os links */
         }
 
         /* Animações e Efeitos */
@@ -301,14 +305,17 @@
         </div>
         <!-- Mobile menu -->
         <div id="mobile-menu" class="hidden md:hidden">
-            <div class="container mx-auto px-8 sm:px-16 lg:px-24 py-2 flex flex-col space-y-3">
-                <a href="#home" class="text-white hover:text-primary transition py-2">Home</a>
-                <a href="#services" class="text-white hover:text-primary transition py-2">Serviços</a>
-                <a href="#plans" class="text-white hover:text-primary transition py-2">Planos</a>
-                <a href="#locations" class="text-white hover:text-primary transition py-2">Unidades</a>
-                <a href="#gallery" class="text-white hover:text-primary transition py-2">Galeria</a>
-                <a href="#founder" class="text-white hover:text-primary transition py-2">Fundador</a>
-                <a href="#contact" class="text-white hover:text-primary transition py-2">Contato</a>
+            <div class="px-6 pt-2 pb-4 flex flex-col items-center text-center space-y-2">
+                <a href="#home" class="text-white hover:text-primary transition py-2 w-full">Home</a>
+                <a href="#services" class="text-white hover:text-primary transition py-2 w-full">Serviços</a>
+                <a href="#plans" class="text-white hover:text-primary transition py-2 w-full">Planos</a>
+                <a href="#locations" class="text-white hover:text-primary transition py-2 w-full">Unidades</a>
+                <a href="#gallery" class="text-white hover:text-primary transition py-2 w-full">Galeria</a>
+                <a href="#founder" class="text-white hover:text-primary transition py-2 w-full">Fundador</a>
+                <a href="#contact" class="text-white hover:text-primary transition py-2 w-full">Contato</a>
+                <a href="https://www.instagram.com/vsbarbearians" target="_blank" class="text-white hover:text-primary transition py-2 w-full inline-flex items-center justify-center">
+                    <i class="fab fa-instagram mr-2"></i>Instagram
+                </a>
             </div>
         </div>
     </nav>
@@ -854,7 +861,7 @@
 
             // --- ANIMAÇÃO DE ROLAGEM ---
             const revealElements = document.querySelectorAll('.reveal');
-            const observer = new IntersectionObserver((entries) => {
+            const revealObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
@@ -865,7 +872,7 @@
             });
 
             revealElements.forEach(elem => {
-                observer.observe(elem);
+                revealObserver.observe(elem);
             });
 
             // --- MENU MÓVEL ---
@@ -874,6 +881,7 @@
             const navLinks = mobileMenu.querySelectorAll('a');
             
             menuToggle.addEventListener('click', () => {
+                mainNav.classList.toggle('menu-open');
                 mobileMenu.classList.toggle('hidden');
                 const icon = menuToggle.querySelector('i');
                 if(mobileMenu.classList.contains('hidden')) {
@@ -887,6 +895,7 @@
 
             navLinks.forEach(link => {
                 link.addEventListener('click', () => {
+                    mainNav.classList.remove('menu-open');
                     mobileMenu.classList.add('hidden');
                     const icon = menuToggle.querySelector('i');
                     icon.classList.remove('fa-times');
@@ -1035,6 +1044,7 @@
 
 </body>
 </html>
+
 
 
 
