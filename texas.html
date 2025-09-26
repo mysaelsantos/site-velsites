@@ -31,6 +31,10 @@
                 extend: {
                     colors: {
                         primary: '#fbb62c',
+                        'brand-bg': '#F5F5F3',
+                        'brand-text': '#3D2B1F',
+                        'brand-card': '#FFFFFF',
+                        'brand-section': '#FFFFFF',
                         dark: '#111111',
                     },
                     fontFamily: {
@@ -48,7 +52,7 @@
         /* Estilos Globais */
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: #000; /* Fundo preto padrão */
+            background-color: #F5F5F3; /* Fundo Cinza Pedra */
         }
 
         /* Esconder a barra de rolagem */
@@ -122,14 +126,14 @@
             background-size: cover;
             background-position: center;
         }
-        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(61, 43, 31, 0.4); }
         
         /* Estilos de Componentes */
-        .bolsa-regua { background: linear-gradient(135deg, #111111 0%, #222222 100%); border-radius: 1rem; overflow: hidden; }
+        .bolsa-regua { background: #FFFFFF; border-radius: 1rem; overflow: hidden; border: 1px solid #EAE8E3; }
         .bolsa-regua-card { transform: rotate(-5deg); }
-        .founder-section { background: linear-gradient(135deg, #111111 0%, #222222 100%); }
+        .founder-section { background: #FFFFFF; border: 1px solid #EAE8E3;}
         .gallery-item { overflow: hidden; position: relative; cursor: pointer; }
-        .gallery-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); opacity: 0; display: flex; align-items: center; justify-content: center; }
+        .gallery-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(61, 43, 31, 0.6); opacity: 0; display: flex; align-items: center; justify-content: center; }
         
         /* Lightbox (Galeria) */
         .lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); display: none; z-index: 1000; align-items: center; justify-content: center; }
@@ -171,6 +175,9 @@
             margin-left: 10px;
         }
         @media (max-width: 768px) {
+            .hero-background {
+                background-position: 40% 50%; /* Desloca a imagem para a esquerda no mobile */
+            }
             .whatsapp-text {
                 display: none;
             }
@@ -189,7 +196,7 @@
         /* Seletor de Preços */
         .price-toggle {
             display: inline-flex;
-            background-color: #222;
+            background-color: #EAE8E3;
             border-radius: 9999px;
             padding: 4px;
             position: relative;
@@ -198,7 +205,7 @@
             padding: 8px 20px; /* Diminuí o preenchimento horizontal */
             border: none;
             background: transparent;
-            color: #ccc;
+            color: #A0785A;
             cursor: pointer;
             position: relative;
             z-index: 2;
@@ -207,7 +214,7 @@
             white-space: nowrap; /* Impede a quebra de linha */
         }
         .price-toggle-btn.active {
-            color: #111;
+            color: #3D2B1F;
         }
         .price-toggle-bg {
             position: absolute;
@@ -278,25 +285,25 @@
         }
     </style>
 </head>
-<body class="bg-black text-white">
+<body class="bg-brand-bg text-brand-text">
 
     <!-- Navbar -->
-    <nav class="fixed top-6 left-6 right-6 bg-black/60 backdrop-blur-lg z-50 border border-white/10 rounded-full">
+    <nav class="fixed top-6 left-6 right-6 bg-[#3D2B1F]/70 backdrop-blur-lg z-50 border border-white/10 rounded-full">
         <div class="px-6 py-1 flex justify-between items-center">
             <a href="#home" class="flex items-center">
                 <img src="https://i.postimg.cc/HsGR4vjW/Bigode-4.png" alt="Logotipo Texas Barbearia" class="h-14 mr-3">
             </a>
             <div class="hidden md:flex space-x-6">
-                <a href="#home" class="text-white hover:text-primary transition">Home</a>
-                <a href="#services" class="text-white hover:text-primary transition">Serviços</a>
-                <a href="#plans" class="text-white hover:text-primary transition">Pacotes</a>
-                <a href="#locations" class="text-white hover:text-primary transition">Unidades</a>
-                <a href="#gallery" class="text-white hover:text-primary transition">Galeria</a>
-                <a href="#founder" class="text-white hover:text-primary transition">Fundador</a>
-                <a href="#contact" class="text-white hover:text-primary transition">Contato</a>
+                <a href="#home" class="text-gray-200 hover:text-primary transition">Home</a>
+                <a href="#services" class="text-gray-200 hover:text-primary transition">Serviços</a>
+                <a href="#plans" class="text-gray-200 hover:text-primary transition">Pacotes</a>
+                <a href="#locations" class="text-gray-200 hover:text-primary transition">Unidades</a>
+                <a href="#gallery" class="text-gray-200 hover:text-primary transition">Galeria</a>
+                <a href="#founder" class="text-gray-200 hover:text-primary transition">Fundador</a>
+                <a href="#contact" class="text-gray-200 hover:text-primary transition">Contato</a>
             </div>
             <div class="md:hidden">
-                <button id="menu-toggle" class="text-white focus:outline-none" aria-label="Abrir menu">
+                <button id="menu-toggle" class="text-gray-200 focus:outline-none" aria-label="Abrir menu">
                     <i class="fas fa-bars text-2xl"></i>
                 </button>
             </div>
@@ -304,14 +311,14 @@
         <!-- Mobile menu -->
         <div id="mobile-menu" class="hidden md:hidden">
             <div class="px-6 pt-2 pb-4 flex flex-col items-center text-center space-y-2">
-                <a href="#home" class="text-white hover:text-primary transition py-2 w-full">Home</a>
-                <a href="#services" class="text-white hover:text-primary transition py-2 w-full">Serviços</a>
-                <a href="#plans" class="text-white hover:text-primary transition py-2 w-full">Pacotes</a>
-                <a href="#locations" class="text-white hover:text-primary transition py-2 w-full">Unidades</a>
-                <a href="#gallery" class="text-white hover:text-primary transition py-2 w-full">Galeria</a>
-                <a href="#founder" class="text-white hover:text-primary transition py-2 w-full">Fundador</a>
-                <a href="#contact" class="text-white hover:text-primary transition py-2 w-full">Contato</a>
-                <a href="https://www.instagram.com/texasbarber_shopp?igsh=MW1yN3dtZDltb2RkeQ==" target="_blank" class="text-white hover:text-primary transition py-2 w-full inline-flex items-center justify-center">
+                <a href="#home" class="text-gray-200 hover:text-primary transition py-2 w-full">Home</a>
+                <a href="#services" class="text-gray-200 hover:text-primary transition py-2 w-full">Serviços</a>
+                <a href="#plans" class="text-gray-200 hover:text-primary transition py-2 w-full">Pacotes</a>
+                <a href="#locations" class="text-gray-200 hover:text-primary transition py-2 w-full">Unidades</a>
+                <a href="#gallery" class="text-gray-200 hover:text-primary transition py-2 w-full">Galeria</a>
+                <a href="#founder" class="text-gray-200 hover:text-primary transition py-2 w-full">Fundador</a>
+                <a href="#contact" class="text-gray-200 hover:text-primary transition py-2 w-full">Contato</a>
+                <a href="https://www.instagram.com/texasbarber_shopp?igsh=MW1yN3dtZDltb2RkeQ==" target="_blank" class="text-gray-200 hover:text-primary transition py-2 w-full inline-flex items-center justify-center">
                     <i class="fab fa-instagram mr-2"></i>Instagram
                 </a>
             </div>
@@ -333,13 +340,13 @@
 
                     <!-- Text and Buttons Wrapper -->
                     <div class="pb-10 md:pb-0 mb-10 md:mb-0 reveal">
-                        <h2 class="text-lg md:text-3xl font-semibold mb-4">Barba, cabelo, bigode e amigos..</h2>
-                        <p class="text-sm md:text-lg mb-8 text-gray-300 max-w-lg">Um novo conceito de barbearia, uma empresa séria que busca sempre a satisfação do cliente!</p>
+                        <h2 class="text-lg md:text-3xl font-semibold mb-4 text-white">Barba, cabelo, bigode e amigos..</h2>
+                        <p class="text-sm md:text-lg mb-8 text-gray-200 max-w-lg">Um novo conceito de barbearia, uma empresa séria que busca sempre a satisfação do cliente!</p>
                         <div class="flex flex-col items-center sm:flex-row gap-4">
-                            <a href="#" id="open-booking-modal" class="bg-primary text-black font-bold py-3 w-56 sm:w-auto text-base sm:py-3 sm:px-8 rounded-full hover:bg-yellow-500 transition text-center">
+                            <a href="#" id="open-booking-modal" class="bg-primary text-brand-text font-bold py-3 w-56 sm:w-auto text-base sm:py-3 sm:px-8 rounded-full hover:bg-yellow-500 transition text-center">
                                 Agendar Agora
                             </a>
-                            <a href="#plans" class="border-2 border-primary text-primary font-bold py-3 w-56 sm:w-auto text-base sm:py-3 sm:px-8 rounded-full hover:bg-primary hover:text-black transition text-center">
+                            <a href="#plans" class="border-2 border-primary text-primary font-bold py-3 w-56 sm:w-auto text-base sm:py-3 sm:px-8 rounded-full hover:bg-primary hover:text-brand-text transition text-center">
                                 Pacotes Mensais
                             </a>
                         </div>
@@ -355,17 +362,17 @@
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="py-20 bg-black">
+    <section id="services" class="py-20 bg-brand-bg">
         <div class="container mx-auto px-8 sm:px-16 lg:px-24">
             <div class="text-center mb-12 reveal">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">Nossos <span class="text-primary">Serviços</span></h2>
                 <div class="w-24 h-1 bg-primary mx-auto"></div>
-                <p class="text-gray-300 mt-4 max-w-2xl mx-auto">Oferecemos diversos serviços de qualidade para cuidar da sua aparência. Selecione a unidade para ver os preços.</p>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Oferecemos diversos serviços de qualidade para cuidar da sua aparência. Selecione a unidade para ver os preços.</p>
             </div>
             
             <!-- Seletor de Unidade -->
             <div class="flex flex-col items-center mb-12 reveal">
-                <p class="text-sm text-gray-400 mb-2">Escolha a sua unidade</p>
+                <p class="text-sm text-gray-500 mb-2">Escolha a sua unidade</p>
                 <div class="price-toggle">
                     <button id="btn-matriz" class="price-toggle-btn active">Pista De Cooper</button>
                     <button id="btn-romeu" class="price-toggle-btn">Romeu Duarte</button>
@@ -375,57 +382,57 @@
             
             <!-- Cards de Preços - Matriz -->
             <div id="services-cards-matriz" class="price-cards-container">
-                <div class="bg-dark p-8 rounded-lg mb-12">
+                <div class="bg-brand-card p-8 rounded-lg mb-12 border border-gray-200">
                     <h3 class="text-2xl font-bold mb-8 text-center">Preços Promocionais</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="bg-black p-6 rounded-lg border border-primary relative pt-6">
-                            <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-black text-sm font-bold px-4 py-1 rounded-full">15% OFF</div>
+                        <div class="bg-brand-bg p-6 rounded-lg border border-primary relative pt-6">
+                            <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-brand-text text-sm font-bold px-4 py-1 rounded-full">15% OFF</div>
                             <h4 class="text-xl font-bold mb-3 text-primary">De Quinta a Sexta</h4>
                             <div class="space-y-4">
-                                <div class="flex justify-between items-center border-b border-gray-800 pb-2"><span>Corte de Cabelo</span><span class="text-primary font-bold">R$ 46,75</span></div>
-                                <div class="flex justify-between items-center border-b border-gray-800 pb-2"><span>Barba</span><span class="text-primary font-bold">R$ 46,75</span></div>
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2"><span>Corte de Cabelo</span><span class="text-primary font-bold">R$ 46,75</span></div>
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2"><span>Barba</span><span class="text-primary font-bold">R$ 46,75</span></div>
                                 <div class="flex justify-between items-center"><span>Cabelo + Barba</span><span class="text-primary font-bold">R$ 85,00</span></div>
                             </div>
                         </div>
-                        <div class="bg-black p-6 rounded-lg border border-gray-800">
+                        <div class="bg-brand-bg p-6 rounded-lg border border-gray-200">
                             <h4 class="text-xl font-bold mb-3 text-primary">Preço Normal</h4>
                             <div class="space-y-4">
-                                <div class="flex justify-between items-center border-b border-gray-800 pb-2"><span>Corte de Cabelo</span><span class="text-primary font-bold">R$ 55,00</span></div>
-                                <div class="flex justify-between items-center border-b border-gray-800 pb-2"><span>Barba</span><span class="text-primary font-bold">R$ 55,00</span></div>
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2"><span>Corte de Cabelo</span><span class="text-primary font-bold">R$ 55,00</span></div>
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2"><span>Barba</span><span class="text-primary font-bold">R$ 55,00</span></div>
                                 <div class="flex justify-between items-center"><span>Cabelo + Barba</span><span class="text-primary font-bold">R$ 100,00</span></div>
                             </div>
                         </div>
                     </div>
                     <div class="mt-8 text-center">
-                        <a href="https://booksy.com/pt-br/376589_texas-barbearia-filial-pista-de-cooper_barbearias_494153_nova-serrana?do=invite#ba_s=dl_1" target="_blank" class="bg-primary text-black font-bold py-3 px-8 rounded-lg hover:bg-yellow-500 transition inline-block">Agendar Agora</a>
+                        <a href="https://booksy.com/pt-br/376589_texas-barbearia-filial-pista-de-cooper_barbearias_494153_nova-serrana?do=invite#ba_s=dl_1" target="_blank" class="bg-primary text-brand-text font-bold py-3 px-8 rounded-lg hover:bg-yellow-500 transition inline-block">Agendar Agora</a>
                     </div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="bg-dark p-6 rounded-lg border border-gray-800 hover:border-primary transition flex flex-col h-full">
-                        <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-6"><i class="fas fa-cut text-black text-2xl"></i></div>
+                    <div class="bg-brand-card p-6 rounded-lg border border-gray-200 hover:border-primary transition flex flex-col h-full">
+                        <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-6"><i class="fas fa-cut text-brand-text text-2xl"></i></div>
                         <h3 class="text-xl font-bold mb-3">Corte de Cabelo</h3>
-                        <p class="text-gray-400 mb-4 flex-grow">Cortes modernos e clássicos realizados por profissionais experientes que entendem o seu estilo.</p>
+                        <p class="text-gray-600 mb-4 flex-grow">Cortes modernos e clássicos realizados por profissionais experientes que entendem o seu estilo.</p>
                         <div>
                             <p class="text-primary font-bold">R$ 55,00</p>
-                            <p class="text-sm text-gray-400">R$ 46,75 de Quinta a Sexta</p>
+                            <p class="text-sm text-gray-500">R$ 46,75 de Quinta a Sexta</p>
                         </div>
                     </div>
-                    <div class="bg-dark p-6 rounded-lg border border-gray-800 hover:border-primary transition flex flex-col h-full">
-                        <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-6"><i class="fas fa-user-alt text-black text-2xl"></i></div>
+                    <div class="bg-brand-card p-6 rounded-lg border border-gray-200 hover:border-primary transition flex flex-col h-full">
+                        <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-6"><i class="fas fa-user-alt text-brand-text text-2xl"></i></div>
                         <h3 class="text-xl font-bold mb-3">Barba</h3>
-                        <p class="text-gray-400 mb-4 flex-grow">Modelagem e aparagem de barba com toalha quente e finalização perfeita.</p>
+                        <p class="text-gray-600 mb-4 flex-grow">Modelagem e aparagem de barba com toalha quente e finalização perfeita.</p>
                         <div>
                             <p class="text-primary font-bold">R$ 55,00</p>
-                            <p class="text-sm text-gray-400">R$ 46,75 de Quinta a Sexta</p>
+                            <p class="text-sm text-gray-500">R$ 46,75 de Quinta a Sexta</p>
                         </div>
                     </div>
-                    <div class="bg-dark p-6 rounded-lg border border-gray-800 hover:border-primary transition flex flex-col h-full">
-                        <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-6"><i class="fas fa-star text-black text-2xl"></i></div>
+                    <div class="bg-brand-card p-6 rounded-lg border border-gray-200 hover:border-primary transition flex flex-col h-full">
+                        <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-6"><i class="fas fa-star text-brand-text text-2xl"></i></div>
                         <h3 class="text-xl font-bold mb-3">Combo Cabelo + Barba</h3>
-                        <p class="text-gray-400 mb-4 flex-grow">Economize com nosso combo completo para quem deseja cuidar do visual por completo.</p>
+                        <p class="text-gray-600 mb-4 flex-grow">Economize com nosso combo completo para quem deseja cuidar do visual por completo.</p>
                         <div>
                             <p class="text-primary font-bold">R$ 100,00</p>
-                            <p class="text-sm text-gray-400">R$ 85,00 de Quinta a Sexta</p>
+                            <p class="text-sm text-gray-500">R$ 85,00 de Quinta a Sexta</p>
                         </div>
                     </div>
                 </div>
@@ -433,170 +440,170 @@
 
             <!-- Cards de Preços - Romeu Duarte -->
             <div id="services-cards-romeu" class="hidden price-cards-container">
-                 <div class="bg-dark p-8 rounded-lg mb-12">
+                 <div class="bg-brand-card p-8 rounded-lg mb-12 border border-gray-200">
                     <h3 class="text-2xl font-bold mb-8 text-center">Preços Promocionais</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="bg-black p-6 rounded-lg border border-primary relative pt-6">
-                            <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-black text-sm font-bold px-4 py-1 rounded-full">15% OFF</div>
+                        <div class="bg-brand-bg p-6 rounded-lg border border-primary relative pt-6">
+                            <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-brand-text text-sm font-bold px-4 py-1 rounded-full">15% OFF</div>
                             <h4 class="text-xl font-bold mb-3 text-primary">De Quinta a Sexta</h4>
                             <div class="space-y-4">
-                                <div class="flex justify-between items-center border-b border-gray-800 pb-2"><span>Corte de Cabelo</span><span class="text-primary font-bold">R$ 35,00</span></div>
-                                <div class="flex justify-between items-center border-b border-gray-800 pb-2"><span>Barba</span><span class="text-primary font-bold">R$ 40,00</span></div>
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2"><span>Corte de Cabelo</span><span class="text-primary font-bold">R$ 35,00</span></div>
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2"><span>Barba</span><span class="text-primary font-bold">R$ 40,00</span></div>
                                 <div class="flex justify-between items-center"><span>Cabelo + Barba</span><span class="text-primary font-bold">R$ 75,00</span></div>
                             </div>
                         </div>
-                        <div class="bg-black p-6 rounded-lg border border-gray-800">
+                        <div class="bg-brand-bg p-6 rounded-lg border border-gray-200">
                             <h4 class="text-xl font-bold mb-3 text-primary">Preço Normal</h4>
                             <div class="space-y-4">
-                                <div class="flex justify-between items-center border-b border-gray-800 pb-2"><span>Corte de Cabelo</span><span class="text-primary font-bold">R$ 45,00</span></div>
-                                <div class="flex justify-between items-center border-b border-gray-800 pb-2"><span>Barba</span><span class="text-primary font-bold">R$ 45,00</span></div>
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2"><span>Corte de Cabelo</span><span class="text-primary font-bold">R$ 45,00</span></div>
+                                <div class="flex justify-between items-center border-b border-gray-200 pb-2"><span>Barba</span><span class="text-primary font-bold">R$ 45,00</span></div>
                                 <div class="flex justify-between items-center"><span>Cabelo + Barba</span><span class="text-primary font-bold">R$ 90,00</span></div>
                             </div>
                         </div>
                     </div>
                     <div class="mt-8 text-center">
-                        <a href="https://booksy.com/pt-br/42490_texas-barber-shop_barbearias_494153_nova-serrana#ba_s=seo" target="_blank" class="bg-primary text-black font-bold py-3 px-8 rounded-lg hover:bg-yellow-500 transition inline-block">Agendar Agora</a>
+                        <a href="https://booksy.com/pt-br/42490_texas-barber-shop_barbearias_494153_nova-serrana#ba_s=seo" target="_blank" class="bg-primary text-brand-text font-bold py-3 px-8 rounded-lg hover:bg-yellow-500 transition inline-block">Agendar Agora</a>
                     </div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="bg-dark p-6 rounded-lg border border-gray-800 hover:border-primary transition flex flex-col h-full">
-                        <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-6"><i class="fas fa-cut text-black text-2xl"></i></div>
+                    <div class="bg-brand-card p-6 rounded-lg border border-gray-200 hover:border-primary transition flex flex-col h-full">
+                        <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-6"><i class="fas fa-cut text-brand-text text-2xl"></i></div>
                         <h3 class="text-xl font-bold mb-3">Corte de Cabelo</h3>
-                        <p class="text-gray-400 mb-4 flex-grow">Cortes modernos e clássicos realizados por profissionais experientes que entendem o seu estilo.</p>
+                        <p class="text-gray-600 mb-4 flex-grow">Cortes modernos e clássicos realizados por profissionais experientes que entendem o seu estilo.</p>
                         <div>
                             <p class="text-primary font-bold">R$ 45,00</p>
-                            <p class="text-sm text-gray-400">R$ 35,00 de Quinta a Sexta</p>
+                            <p class="text-sm text-gray-500">R$ 35,00 de Quinta a Sexta</p>
                         </div>
                     </div>
-                    <div class="bg-dark p-6 rounded-lg border border-gray-800 hover:border-primary transition flex flex-col h-full">
-                        <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-6"><i class="fas fa-user-alt text-black text-2xl"></i></div>
+                    <div class="bg-brand-card p-6 rounded-lg border border-gray-200 hover:border-primary transition flex flex-col h-full">
+                        <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-6"><i class="fas fa-user-alt text-brand-text text-2xl"></i></div>
                         <h3 class="text-xl font-bold mb-3">Barba</h3>
-                        <p class="text-gray-400 mb-4 flex-grow">Modelagem e aparagem de barba com toalha quente e finalização perfeita.</p>
+                        <p class="text-gray-600 mb-4 flex-grow">Modelagem e aparagem de barba com toalha quente e finalização perfeita.</p>
                         <div>
                             <p class="text-primary font-bold">R$ 45,00</p>
-                            <p class="text-sm text-gray-400">R$ 40,00 de Quinta a Sexta</p>
+                            <p class="text-sm text-gray-500">R$ 40,00 de Quinta a Sexta</p>
                         </div>
                     </div>
-                    <div class="bg-dark p-6 rounded-lg border border-gray-800 hover:border-primary transition flex flex-col h-full">
-                        <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-6"><i class="fas fa-star text-black text-2xl"></i></div>
+                    <div class="bg-brand-card p-6 rounded-lg border border-gray-200 hover:border-primary transition flex flex-col h-full">
+                        <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-6"><i class="fas fa-star text-brand-text text-2xl"></i></div>
                         <h3 class="text-xl font-bold mb-3">Combo Cabelo + Barba</h3>
-                        <p class="text-gray-400 mb-4 flex-grow">Economize com nosso combo completo para quem deseja cuidar do visual por completo.</p>
+                        <p class="text-gray-600 mb-4 flex-grow">Economize com nosso combo completo para quem deseja cuidar do visual por completo.</p>
                         <div>
                             <p class="text-primary font-bold">R$ 90,00</p>
-                            <p class="text-sm text-gray-400">R$ 75,00 de Quinta a Sexta</p>
+                            <p class="text-sm text-gray-500">R$ 75,00 de Quinta a Sexta</p>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="mt-12 text-center reveal">
-                <p class="text-gray-300 mb-6">Além destes, oferecemos diversos outros serviços como hidratação, pigmentação de barba, sobrancelha, hot towel e muito mais!</p>
-                <a href="https://app.frizzar.com.br/p/vsbarbearia" target="_blank" class="bg-primary text-black font-bold py-3 px-8 rounded-lg hover:bg-yellow-500 transition inline-block">Ver Todos os Serviços</a>
+                <p class="text-gray-600 mb-6">Além destes, oferecemos diversos outros serviços como hidratação, pigmentação de barba, sobrancelha, hot towel e muito mais!</p>
+                <a href="https://app.frizzar.com.br/p/vsbarbearia" target="_blank" class="bg-primary text-brand-text font-bold py-3 px-8 rounded-lg hover:bg-yellow-500 transition inline-block">Ver Todos os Serviços</a>
             </div>
         </div>
     </section>
 
     <!-- Plans Section -->
-    <section id="plans" class="py-20 bg-dark">
+    <section id="plans" class="py-20 bg-brand-section border-y border-gray-200">
         <div class="container mx-auto px-8 sm:px-16 lg:px-24">
             <div class="text-center mb-16 reveal">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">Pacotes <span class="text-primary">Mensais</span></h2>
                 <div class="w-24 h-1 bg-primary mx-auto"></div>
-                <p class="text-gray-300 mt-4 max-w-2xl mx-auto">Economize com nossos pacotes mensais e aproveite serviços de qualidade em nossas duas unidades.</p>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Economize com nossos pacotes mensais e aproveite serviços de qualidade em nossas duas unidades.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 reveal">
                 <!-- Pacote 2 Cortes Mensal -->
-                <div class="plan-card bg-black rounded-xl overflow-hidden border border-gray-800 hover:border-primary flex flex-col">
+                <div class="plan-card bg-brand-card rounded-xl overflow-hidden border border-gray-200 hover:border-primary flex flex-col">
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-xl font-bold mb-2">2 Cortes Mensal</h3>
                         <div class="flex items-end mb-6">
                             <span class="text-4xl font-bold text-primary">R$85,00</span>
-                            <span class="text-gray-400 ml-2 line-through">R$100</span>
-                            <span class="text-gray-400 ml-2">/mês</span>
+                            <span class="text-gray-500 ml-2 line-through">R$100</span>
+                            <span class="text-gray-500 ml-2">/mês</span>
                         </div>
                         <ul class="space-y-3 mb-8 flex-grow">
                             <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>2 serviços de corte de cabelo</span></li>
                             <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>Válido nas duas unidades</span></li>
                             <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>Economia de 15%</span></li>
                         </ul>
-                        <a href="https://wa.me/553791786743?text=Gostaria%20de%20saber%20mais%20sobre%20o%20pacote%20de%202%20Cortes%20Mensal" target="_blank" class="block w-full bg-primary text-black font-bold py-3 px-4 rounded-lg hover:bg-yellow-500 transition text-center">Assinar Pacote</a>
+                        <a href="https://wa.me/553791786743?text=Gostaria%20de%20saber%20mais%20sobre%20o%20pacote%20de%202%20Cortes%20Mensal" target="_blank" class="block w-full bg-primary text-brand-text font-bold py-3 px-4 rounded-lg hover:bg-yellow-500 transition text-center">Assinar Pacote</a>
                     </div>
                 </div>
                 <!-- Pacote 3 Cortes Mensal -->
-                <div class="plan-card bg-black rounded-xl overflow-hidden border border-gray-800 hover:border-primary flex flex-col">
+                <div class="plan-card bg-brand-card rounded-xl overflow-hidden border border-gray-200 hover:border-primary flex flex-col">
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-xl font-bold mb-2">3 Cortes Mensal</h3>
                          <div class="flex items-end mb-6">
                             <span class="text-4xl font-bold text-primary">R$102,00</span>
-                            <span class="text-gray-400 ml-2 line-through">R$120</span>
-                            <span class="text-gray-400 ml-2">/mês</span>
+                            <span class="text-gray-500 ml-2 line-through">R$120</span>
+                            <span class="text-gray-500 ml-2">/mês</span>
                         </div>
                         <ul class="space-y-3 mb-8 flex-grow">
                             <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>3 serviços de corte de cabelo</span></li>
                             <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>Válido nas duas unidades</span></li>
                             <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>Economia de 15%</span></li>
                         </ul>
-                        <a href="https://wa.me/553791786743?text=Gostaria%20de%20saber%20mais%20sobre%20o%20pacote%20de%203%20Cortes%20Mensal" target="_blank" class="block w-full bg-primary text-black font-bold py-3 px-4 rounded-lg hover:bg-yellow-500 transition text-center">Assinar Pacote</a>
+                        <a href="https://wa.me/553791786743?text=Gostaria%20de%20saber%20mais%20sobre%20o%20pacote%20de%203%20Cortes%20Mensal" target="_blank" class="block w-full bg-primary text-brand-text font-bold py-3 px-4 rounded-lg hover:bg-yellow-500 transition text-center">Assinar Pacote</a>
                     </div>
                 </div>
                 <!-- Pacote 2 Cortes e 2 Barbas Mensal -->
-                <div class="plan-card bg-black rounded-xl overflow-hidden border-2 border-primary transform md:scale-105 shadow-lg shadow-primary/20 flex flex-col">
-                    <div class="bg-primary text-black text-center py-2 font-bold">MAIS POPULAR</div>
+                <div class="plan-card bg-brand-card rounded-xl overflow-hidden border-2 border-primary transform md:scale-105 shadow-lg shadow-primary/20 flex flex-col">
+                    <div class="bg-primary text-brand-text text-center py-2 font-bold">MAIS POPULAR</div>
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-xl font-bold mb-2">2 Cortes e 2 Barbas Mensal</h3>
                          <div class="flex items-end mb-6">
                             <span class="text-4xl font-bold text-primary">R$136,00</span>
-                             <span class="text-gray-400 ml-2 line-through">R$160</span>
-                            <span class="text-gray-400 ml-2">/mês</span>
+                             <span class="text-gray-500 ml-2 line-through">R$160</span>
+                            <span class="text-gray-500 ml-2">/mês</span>
                         </div>
                         <ul class="space-y-3 mb-8 flex-grow">
                             <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>2 cortes de cabelo e 2 barbas</span></li>
                             <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>Válido nas duas unidades</span></li>
                             <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>Economia de 15%</span></li>
                         </ul>
-                        <a href="https://wa.me/553791786743?text=Gostaria%20de%20saber%20mais%20sobre%20o%20pacote%20de%202%20Cortes%20e%202%20Barbas" target="_blank" class="block w-full bg-primary text-black font-bold py-3 px-4 rounded-lg hover:bg-yellow-500 transition text-center">Assinar Pacote</a>
+                        <a href="https://wa.me/553791786743?text=Gostaria%20de%20saber%20mais%20sobre%20o%20pacote%20de%202%20Cortes%20e%202%20Barbas" target="_blank" class="block w-full bg-primary text-brand-text font-bold py-3 px-4 rounded-lg hover:bg-yellow-500 transition text-center">Assinar Pacote</a>
                     </div>
                 </div>
                 <!-- Pacote 1 Corte e 4 Barbas -->
-                <div class="plan-card bg-black rounded-xl overflow-hidden border border-gray-800 hover:border-primary flex flex-col">
+                <div class="plan-card bg-brand-card rounded-xl overflow-hidden border border-gray-200 hover:border-primary flex flex-col">
                     <div class="p-6 flex flex-col flex-grow">
                         <h3 class="text-xl font-bold mb-2">1 Corte e 4 Barbas</h3>
                          <div class="flex items-end mb-6">
                             <span class="text-4xl font-bold text-primary">R$161,50</span>
-                             <span class="text-gray-400 ml-2 line-through">R$190</span>
-                            <span class="text-gray-400 ml-2">/mês</span>
+                             <span class="text-gray-500 ml-2 line-through">R$190</span>
+                            <span class="text-gray-500 ml-2">/mês</span>
                         </div>
                         <ul class="space-y-3 mb-8 flex-grow">
                             <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>1 corte de cabelo e 4 barbas</span></li>
                             <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>Válido nas duas unidades</span></li>
                             <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>Economia de 15%</span></li>
                         </ul>
-                        <a href="https://wa.me/553791786743?text=Gostaria%20de%20saber%20mais%20sobre%20o%20pacote%20de%201%20Corte%20e%204%20Barbas" target="_blank" class="block w-full bg-primary text-black font-bold py-3 px-4 rounded-lg hover:bg-yellow-500 transition text-center">Assinar Pacote</a>
+                        <a href="https://wa.me/553791786743?text=Gostaria%20de%20saber%20mais%20sobre%20o%20pacote%20de%201%20Corte%20e%204%20Barbas" target="_blank" class="block w-full bg-primary text-brand-text font-bold py-3 px-4 rounded-lg hover:bg-yellow-500 transition text-center">Assinar Pacote</a>
                     </div>
                 </div>
             </div>
             <div class="mt-12 text-center reveal">
-                <p class="text-gray-300 mb-6">Não tem certeza de qual pacote escolher? Entre em contato conosco para uma consulta personalizada.</p>
+                <p class="text-gray-600 mb-6">Não tem certeza de qual pacote escolher? Entre em contato conosco para uma consulta personalizada.</p>
                 <div class="flex flex-col sm:flex-row justify-center gap-8">
-                    <a href="#" id="open-booking-modal-plans" class="inline-block bg-primary text-black font-bold py-3 px-8 rounded-lg hover:bg-yellow-500 transition">Agendar Horário</a>
-                    <a href="https://wa.me/553791786743?text=Gostaria%20de%20saber%20mais%20sobre%20os%20pacotes%20da%20Texas%20Barbearia" target="_blank" class="inline-block border-2 border-primary text-primary font-bold py-3 px-8 rounded-lg hover:bg-primary hover:text-black transition">Fale Conosco</a>
+                    <a href="#" id="open-booking-modal-plans" class="inline-block bg-primary text-brand-text font-bold py-3 px-8 rounded-lg hover:bg-yellow-500 transition">Agendar Horário</a>
+                    <a href="https://wa.me/553791786743?text=Gostaria%20de%20saber%20mais%20sobre%20os%20pacotes%20da%20Texas%20Barbearia" target="_blank" class="inline-block border-2 border-primary text-primary font-bold py-3 px-8 rounded-lg hover:bg-primary hover:text-brand-text transition">Fale Conosco</a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Locations Section -->
-    <section id="locations" class="py-20 bg-black">
+    <section id="locations" class="py-20 bg-brand-bg">
         <div class="container mx-auto px-8 sm:px-16 lg:px-24">
             <div class="text-center mb-16 reveal">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">Nossas <span class="text-primary">Unidades</span></h2>
                 <div class="w-24 h-1 bg-primary mx-auto"></div>
-                <p class="text-gray-300 mt-4 max-w-2xl mx-auto">Visite uma de nossas unidades estrategicamente localizadas em Nova Serrana.</p>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Visite uma de nossas unidades estrategicamente localizadas em Nova Serrana.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10 reveal">
                 <!-- Unidade Matriz -->
-                <div class="bg-dark rounded-xl overflow-hidden flex flex-col">
-                    <div class="h-64 bg-gray-800 relative">
+                <div class="bg-brand-card rounded-xl overflow-hidden flex flex-col border border-gray-200">
+                    <div class="h-64 bg-gray-200 relative">
                         <img src="https://i.postimg.cc/1RvBySfj/Bigode-7.png" alt="Interior da Unidade Pista de Cooper" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
@@ -606,14 +613,14 @@
                             <p class="flex items-start"><i class="fas fa-clock text-primary mr-3 mt-1"></i><span>Seg a Sáb: 8h às 20h</span></p>
                         </div>
                         <div class="flex flex-wrap gap-3">
-                            <a href="https://app.frizzar.com.br/p/vsbarbearia" target="_blank" class="inline-block bg-primary text-black font-bold py-2 px-6 rounded-lg hover:bg-yellow-500 transition"><i class="fas fa-calendar-alt mr-2"></i>Agendar</a>
+                            <a href="https://app.frizzar.com.br/p/vsbarbearia" target="_blank" class="inline-block bg-primary text-brand-text font-bold py-2 px-6 rounded-lg hover:bg-yellow-500 transition"><i class="fas fa-calendar-alt mr-2"></i>Agendar</a>
                             <a href="https://maps.app.goo.gl/BoWbipiBj4Qi1Zd28" target="_blank" class="inline-block bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition"><i class="fas fa-map-marker-alt mr-2"></i>Ver Rota</a>
                         </div>
                     </div>
                 </div>
                 <!-- Unidade Romeu Duarte -->
-                <div class="bg-dark rounded-xl overflow-hidden flex flex-col">
-                    <div class="h-64 bg-gray-800 relative">
+                <div class="bg-brand-card rounded-xl overflow-hidden flex flex-col border border-gray-200">
+                    <div class="h-64 bg-gray-200 relative">
                         <img src="https://i.postimg.cc/bN5VxnfP/Bigode-6.png" alt="Interior da Unidade Romeu Duarte da VS Barbearia" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6 flex flex-col flex-grow">
@@ -623,7 +630,7 @@
                              <p class="flex items-start"><i class="fas fa-clock text-primary mr-3 mt-1"></i><span>Seg a Sáb: 8h às 20h</span></p>
                         </div>
                         <div class="flex flex-wrap gap-3">
-                            <a href="https://app.frizzar.com.br/p/vsbarbearia" target="_blank" class="inline-block bg-primary text-black font-bold py-2 px-6 rounded-lg hover:bg-yellow-500 transition"><i class="fas fa-calendar-alt mr-2"></i>Agendar</a>
+                            <a href="https://app.frizzar.com.br/p/vsbarbearia" target="_blank" class="inline-block bg-primary text-brand-text font-bold py-2 px-6 rounded-lg hover:bg-yellow-500 transition"><i class="fas fa-calendar-alt mr-2"></i>Agendar</a>
                             <a href="https://maps.app.goo.gl/aygQMpBSD8uLMiwP7" target="_blank" class="inline-block bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition"><i class="fas fa-map-marker-alt mr-2"></i>Ver Rota</a>
                         </div>
                     </div>
@@ -633,19 +640,19 @@
     </section>
 
     <!-- Bolsa Régua Section -->
-    <section id="bolsa-regua" class="py-20 bg-dark">
+    <section id="bolsa-regua" class="py-20 bg-brand-section border-y border-gray-200">
         <div class="container mx-auto px-8 sm:px-16 lg:px-24">
              <div class="text-center mb-16 reveal">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">Projeto <span class="text-primary">Bolsa Régua</span></h2>
                 <div class="w-24 h-1 bg-primary mx-auto"></div>
-                <p class="text-gray-300 mt-4 max-w-2xl mx-auto">Uma campanha bem-humorada por um benefício que todo homem merece!</p>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Uma campanha bem-humorada por um benefício que todo homem merece!</p>
             </div>
             <div class="bolsa-regua p-8 md:p-12 reveal">
                 <div class="flex flex-col md:flex-row items-center gap-10">
                     <div class="md:w-1/2">
                         <h3 class="text-2xl md:text-3xl font-bold mb-4">O governo tem vários benefícios, mas cadê o <span class="text-primary">Bolsa Régua</span>?</h3>
-                        <p class="text-gray-300 mb-6">Nossa missão é garantir que todo cidadão tenha direito a manter o visual impecável. Enquanto o benefício não vira lei, a Texas Barbearia faz a sua parte com promoções e pacotes para manter você sempre na régua!</p>
-                        <a href="#plans" class="bg-primary text-black font-bold py-3 px-8 rounded-lg hover:bg-yellow-500 transition inline-block">Garantir Meu Corte na Régua</a>
+                        <p class="text-gray-600 mb-6">Nossa missão é garantir que todo cidadão tenha direito a manter o visual impecável. Enquanto o benefício não vira lei, a Texas Barbearia faz a sua parte com promoções e pacotes para manter você sempre na régua!</p>
+                        <a href="#plans" class="bg-primary text-brand-text font-bold py-3 px-8 rounded-lg hover:bg-yellow-500 transition inline-block">Garantir Meu Corte na Régua</a>
                     </div>
                     <div class="md:w-1/2 flex justify-center">
                         <div class="bolsa-regua-card">
@@ -658,12 +665,12 @@
     </section>
 
     <!-- Gallery Section -->
-    <section id="gallery" class="py-20 bg-black">
+    <section id="gallery" class="py-20 bg-brand-bg">
         <div class="container mx-auto px-8 sm:px-16 lg:px-24">
             <div class="text-center mb-16 reveal">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">Nossos <span class="text-primary">Trabalhos</span></h2>
                 <div class="w-24 h-1 bg-primary mx-auto"></div>
-                <p class="text-gray-300 mt-4 max-w-2xl mx-auto">Confira alguns dos nossos melhores cortes e estilos.</p>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Confira alguns dos nossos melhores cortes e estilos.</p>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 reveal">
                 <div class="gallery-item rounded-lg"><img src="https://i.postimg.cc/FR0KwsH0/Save-Clip-App-. . . -n.jpg" alt="Corte de cabelo masculino estilo degradê com risco na lateral." class="w-full h-96 object-cover"></div>
@@ -676,7 +683,7 @@
                 <div class="gallery-item rounded-lg"><img src="https://i.postimg.cc/L5RsSKJw/Save-Clip-App-. . 295740606770-n.jpg" alt="Cliente satisfeito mostrando seu novo corte de cabelo na cadeira da barbearia." class="w-full h-96 object-cover"></div>
             </div>
             <div class="mt-12 text-center reveal">
-                <a href="https://www.instagram.com/texasbarber_shopp?igsh=MW1yN3dtZDltb2RkeQ==" target="_blank" class="inline-flex items-center bg-dark border-2 border-primary text-primary font-bold py-3 px-8 rounded-lg hover:bg-primary hover:text-black transition">
+                <a href="https://www.instagram.com/texasbarber_shopp?igsh=MW1yN3dtZDltb2RkeQ==" target="_blank" class="inline-flex items-center bg-brand-card border-2 border-primary text-primary font-bold py-3 px-8 rounded-lg hover:bg-primary hover:text-brand-text transition">
                     <i class="fab fa-instagram mr-2 text-xl"></i>Siga-nos no Instagram
                 </a>
             </div>
@@ -696,7 +703,7 @@
     </div>
 
     <!-- About Section -->
-    <section id="about" class="py-20 bg-dark">
+    <section id="about" class="py-20 bg-brand-section border-y border-gray-200">
         <div class="container mx-auto px-8 sm:px-16 lg:px-24">
             <div class="text-center mb-16 reveal">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">Sobre a <span class="text-primary">Texas Barbearia</span></h2>
@@ -705,27 +712,27 @@
             <div class="flex flex-col md:flex-row items-center gap-10 reveal">
                 <div class="md:w-1/2">
                     <div class="relative">
-                        <div class="w-full h-80 bg-gray-800 rounded-lg overflow-hidden flex items-center justify-center">
+                        <div class="w-full h-80 bg-gray-200 rounded-lg overflow-hidden flex items-center justify-center">
                             <img src="https://i.postimg.cc/28q5gTbm/Design-sem-nome-76.png" alt="Fachada da unidade matriz da VS Barbearia" class="w-full h-full object-cover">
                         </div>
                     </div>
                 </div>
                 <div class="md:w-1/2">
                     <h3 class="text-2xl font-bold mb-4">Tradição e Qualidade</h3>
-                    <p class="text-gray-300 mb-6">A Texas Barbearia nasceu da paixão por oferecer serviços de alta qualidade para homens e mulheres que valorizam cuidados pessoais premium. Rapidamente nos tornamos referência em cortes em Nova Serrana.</p>
-                    <p class="text-gray-300 mb-6">Com duas unidades estrategicamente localizadas, oferecemos serviços de barbearia de excelência com profissionais altamente qualificados para garantir sua satisfação.</p>
+                    <p class="text-gray-600 mb-6">A Texas Barbearia nasceu da paixão por oferecer serviços de alta qualidade para homens e mulheres que valorizam cuidados pessoais premium. Rapidamente nos tornamos referência em cortes em Nova Serrana.</p>
+                    <p class="text-gray-600 mb-6">Com duas unidades estrategicamente localizadas, oferecemos serviços de barbearia de excelência com profissionais altamente qualificados para garantir sua satisfação.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Founder Section -->
-    <section id="founder" class="py-20 bg-black">
+    <section id="founder" class="py-20 bg-brand-bg">
         <div class="container mx-auto px-8 sm:px-16 lg:px-24">
             <div class="text-center mb-16 reveal">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">Nosso <span class="text-primary">Fundador</span></h2>
                 <div class="w-24 h-1 bg-primary mx-auto"></div>
-                <p class="text-gray-300 mt-4 max-w-2xl mx-auto">Conheça a história de determinação por trás da Texas Barbearia.</p>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Conheça a história de determinação por trás da Texas Barbearia.</p>
             </div>
             <div class="founder-section p-8 md:p-12 rounded-xl reveal">
                 <div class="flex flex-col md:flex-row items-center gap-10">
@@ -736,9 +743,9 @@
                     </div>
                     <div class="md:w-2/3">
                         <h3 class="text-2xl font-bold mb-6">Uma Jornada de Determinação</h3>
-                        <p class="text-gray-300">Aos 35 anos, Vanilton Santos é o exemplo de como determinação e trabalho duro transformam sonhos em realidade. Sua história começou em 2010, ao chegar em Nova Serrana com um sonho e muita vontade de vencer, precisando vender sua moto para dar o primeiro passo.</p>
-                        <div class="mt-8 bg-black bg-opacity-50 p-6 rounded-lg border border-primary">
-                            <p class="italic text-gray-300">"Acredito que o sucesso vem da dedicação e do compromisso com a excelência. Cada cliente satisfeito é uma vitória pessoal."</p>
+                        <p class="text-gray-600">Aos 35 anos, Vanilton Santos é o exemplo de como determinação e trabalho duro transformam sonhos em realidade. Sua história começou em 2010, ao chegar em Nova Serrana com um sonho e muita vontade de vencer, precisando vender sua moto para dar o primeiro passo.</p>
+                        <div class="mt-8 bg-brand-bg bg-opacity-50 p-6 rounded-lg border border-primary">
+                            <p class="italic text-gray-700">"Acredito que o sucesso vem da dedicação e do compromisso com a excelência. Cada cliente satisfeito é uma vitória pessoal."</p>
                             <p class="text-right text-primary font-bold mt-2">- Vanilton Santos</p>
                         </div>
                     </div>
@@ -748,55 +755,55 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-dark">
+    <section id="contact" class="py-20 bg-brand-section border-y border-gray-200">
         <div class="container mx-auto px-8 sm:px-16 lg:px-24">
             <div class="text-center mb-16 reveal">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">Entre em <span class="text-primary">Contato</span></h2>
                 <div class="w-24 h-1 bg-primary mx-auto"></div>
-                <p class="text-gray-300 mt-4 max-w-2xl mx-auto">Tem alguma dúvida ou sugestão? Envie uma mensagem ou fale conosco pelo WhatsApp.</p>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Tem alguma dúvida ou sugestão? Envie uma mensagem ou fale conosco pelo WhatsApp.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-start reveal">
-                <div class="bg-black p-8 rounded-xl">
+                <div class="bg-brand-card p-8 rounded-xl border border-gray-200">
                     <h3 class="text-xl font-bold mb-6">Envie uma mensagem</h3>
                     <form id="contact-form" action="https://formspree.io/f/YOUR_UNIQUE_ID" method="POST" class="space-y-6">
                         <div>
                             <label for="name" class="block text-sm font-medium mb-2">Nome</label>
-                            <input type="text" id="name" name="name" required class="w-full bg-dark border border-gray-700 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <input type="text" id="name" name="name" required class="w-full bg-brand-bg border border-gray-300 rounded-lg py-3 px-4 text-brand-text focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
                         </div>
                         <div>
                             <label for="email" class="block text-sm font-medium mb-2">Email</label>
-                            <input type="email" id="email" name="email" required class="w-full bg-dark border border-gray-700 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <input type="email" id="email" name="email" required class="w-full bg-brand-bg border border-gray-300 rounded-lg py-3 px-4 text-brand-text focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
                         </div>
                         <div>
                             <label for="phone" class="block text-sm font-medium mb-2">Telefone</label>
-                            <input type="tel" id="phone" name="phone" required class="w-full bg-dark border border-gray-700 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <input type="tel" id="phone" name="phone" required class="w-full bg-brand-bg border border-gray-300 rounded-lg py-3 px-4 text-brand-text focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
                         </div>
                         <div>
                             <label for="message" class="block text-sm font-medium mb-2">Mensagem</label>
-                            <textarea id="message" name="message" rows="4" required class="w-full bg-dark border border-gray-700 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
+                            <textarea id="message" name="message" rows="4" required class="w-full bg-brand-bg border border-gray-300 rounded-lg py-3 px-4 text-brand-text focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
                         </div>
                         <div>
-                            <button type="submit" class="w-full bg-primary text-black font-bold py-3 px-4 rounded-lg hover:bg-yellow-500 transition">
+                            <button type="submit" class="w-full bg-primary text-brand-text font-bold py-3 px-4 rounded-lg hover:bg-yellow-500 transition">
                                 Enviar Mensagem
                             </button>
                         </div>
                     </form>
                 </div>
-                <div class="bg-black p-8 rounded-xl">
+                <div class="bg-brand-card p-8 rounded-xl border border-gray-200">
                     <h3 class="text-xl font-bold mb-6">Informações</h3>
                     <div class="space-y-6">
                         <div class="flex items-start">
-                            <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mr-4 text-black text-xl"><i class="fas fa-phone-alt"></i></div>
+                            <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mr-4 text-brand-text text-xl"><i class="fas fa-phone-alt"></i></div>
                             <div>
                                 <p class="font-medium">Telefone/WhatsApp</p>
-                                <a href="https://wa.me/553791786743" target="_blank" class="text-gray-300 hover:text-primary transition">(37) 99178-6743</a>
+                                <a href="https://wa.me/553791786743" target="_blank" class="text-gray-600 hover:text-primary transition">(37) 99178-6743</a>
                             </div>
                         </div>
                         <div class="flex items-start">
-                             <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mr-4 text-black text-xl"><i class="fab fa-instagram"></i></div>
+                             <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mr-4 text-brand-text text-xl"><i class="fab fa-instagram"></i></div>
                             <div>
                                 <p class="font-medium">Instagram</p>
-                                <a href="https://www.instagram.com/texasbarber_shopp?igsh=MW1yN3dtZDltb2RkeQ==" target="_blank" class="text-gray-300 hover:text-primary transition">@texasbarber_shopp</a>
+                                <a href="https://www.instagram.com/texasbarber_shopp?igsh=MW1yN3dtZDltb2RkeQ==" target="_blank" class="text-gray-600 hover:text-primary transition">@texasbarber_shopp</a>
                             </div>
                         </div>
                     </div>
@@ -806,29 +813,29 @@
     </section>
 
     <!-- Rodapé -->
-    <footer class="bg-black border-t border-gray-800">
+    <footer class="bg-brand-bg border-t border-gray-200">
         <div class="container mx-auto px-8 sm:px-16 lg:px-24 py-8">
             <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-8">
                 <div>
                     <a href="#home" class="flex items-center justify-center md:justify-start">
                        <img src="https://i.postimg.cc/HsGR4vjW/Bigode-4.png" alt="Logotipo Texas Barbearia" class="h-12 mr-2">
                     </a>
-                    <p class="text-gray-400 text-sm mt-2">Estilo e precisão em cada corte.</p>
+                    <p class="text-gray-500 text-sm mt-2">Estilo e precisão em cada corte.</p>
                 </div>
                 <div class="hidden lg:flex space-x-6">
-                    <a href="#home" class="text-gray-300 hover:text-primary transition">Home</a>
-                    <a href="#about" class="text-gray-300 hover:text-primary transition">Sobre</a>
-                    <a href="#services" class="text-gray-300 hover:text-primary transition">Serviços</a>
-                    <a href="#gallery" class="text-gray-300 hover:text-primary transition">Galeria</a>
-                    <a href="#contact" class="text-gray-300 hover:text-primary transition">Contato</a>
+                    <a href="#home" class="text-gray-600 hover:text-primary transition">Home</a>
+                    <a href="#about" class="text-gray-600 hover:text-primary transition">Sobre</a>
+                    <a href="#services" class="text-gray-600 hover:text-primary transition">Serviços</a>
+                    <a href="#gallery" class="text-gray-600 hover:text-primary transition">Galeria</a>
+                    <a href="#contact" class="text-gray-600 hover:text-primary transition">Contato</a>
                 </div>
                 <div>
-                    <a href="https://wa.me/553791786743?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20agendar%20um%20hor%C3%A1rio" target="_blank" class="bg-primary text-black font-bold py-3 px-6 rounded-lg hover:bg-yellow-500 transition inline-flex items-center">
+                    <a href="https://wa.me/553791786743?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20agendar%20um%20hor%C3%A1rio" target="_blank" class="bg-primary text-brand-text font-bold py-3 px-6 rounded-lg hover:bg-yellow-500 transition inline-flex items-center">
                         <i class="fab fa-whatsapp mr-2"></i>Agendar
                     </a>
                 </div>
             </div>
-            <hr class="border-gray-700 my-6">
+            <hr class="border-gray-300 my-6">
             <div class="text-center text-gray-500 text-sm">
                 <p>&copy; <span id="current-year"></span> Texas Barbearia. Todos os direitos reservados.</p>
             </div>
@@ -852,14 +859,14 @@
 
     <!-- Booking Modal -->
     <div id="booking-modal" class="fixed inset-0 bg-black bg-opacity-80 backdrop-blur-sm z-[1001] flex items-center justify-center p-4 opacity-0 invisible transition-opacity duration-300">
-        <div id="booking-modal-content" class="bg-dark border border-gray-800 rounded-xl shadow-lg w-full max-w-md p-8 relative transform scale-95 transition-all duration-300">
-            <button id="close-booking-modal" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl focus:outline-none" aria-label="Fechar modal">&times;</button>
+        <div id="booking-modal-content" class="bg-brand-card border border-gray-200 rounded-xl shadow-lg w-full max-w-md p-8 relative transform scale-95 transition-all duration-300">
+            <button id="close-booking-modal" class="absolute top-4 right-4 text-gray-400 hover:text-brand-text text-2xl focus:outline-none" aria-label="Fechar modal">&times;</button>
             <h2 class="text-2xl font-bold text-center mb-8 text-primary">Escolha sua unidade</h2>
             <div class="space-y-4">
-                <a href="https://booksy.com/pt-br/376589_texas-barbearia-filial-pista-de-cooper_barbearias_494153_nova-serrana?do=invite#ba_s=dl_1" target="_blank" class="block w-full text-center bg-black border-2 border-primary text-primary font-bold py-4 px-6 rounded-lg hover:bg-primary hover:text-black transition-all duration-300 transform hover:scale-105">
+                <a href="https://booksy.com/pt-br/376589_texas-barbearia-filial-pista-de-cooper_barbearias_494153_nova-serrana?do=invite#ba_s=dl_1" target="_blank" class="block w-full text-center bg-brand-bg border-2 border-primary text-primary font-bold py-4 px-6 rounded-lg hover:bg-primary hover:text-brand-text transition-all duration-300 transform hover:scale-105">
                     Unidade Pista de Cooper
                 </a>
-                <a href="https://booksy.com/pt-br/42490_texas-barber-shop_barbearias_494153_nova-serrana#ba_s=seo" target="_blank" class="block w-full text-center bg-black border-2 border-primary text-primary font-bold py-4 px-6 rounded-lg hover:bg-primary hover:text-black transition-all duration-300 transform hover:scale-105">
+                <a href="https://booksy.com/pt-br/42490_texas-barber-shop_barbearias_494153_nova-serrana#ba_s=seo" target="_blank" class="block w-full text-center bg-brand-bg border-2 border-primary text-primary font-bold py-4 px-6 rounded-lg hover:bg-primary hover:text-brand-text transition-all duration-300 transform hover:scale-105">
                     Unidade Romeu Duarte
                 </a>
             </div>
@@ -1107,6 +1114,9 @@
 
 </body>
 </html>
+
+
+
 
 
 
