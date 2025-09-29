@@ -144,52 +144,239 @@
         .lightbox-nav { position: absolute; top: 50%; width: 100%; display: flex; justify-content: space-between; padding: 0 20px; transform: translateY(-50%); }
         .lightbox-nav button { background: rgba(0, 0, 0, 0.5); color: white; border: none; width: 50px; height: 50px; border-radius: 50%; font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         
-        /* Botão Flutuante do WhatsApp */
-        .whatsapp-float {
+        /* --- ESTILOS DO NOVO WIDGET WHATSAPP --- */
+        .whatsapp-widget-container {
             position: fixed;
-            width: auto;
-            height: 55px;
-            bottom: 40px;
-            right: 40px;
-            background-color: #25d366;
-            color: #FFF;
-            border-radius: 50px;
-            text-align: center;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-            z-index: 100;
+            bottom: 25px;
+            right: 25px;
+            z-index: 1000;
+        }
+        #whatsapp-button {
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.3s ease;
-            padding: 0 20px;
-        }
-        .whatsapp-float:hover {
-            transform: scale(1.05);
-        }
-        .whatsapp-float i {
-            font-size: 28px;
-        }
-        .whatsapp-text {
-            font-size: 16px;
+            background-color: #25D366;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
             font-weight: 600;
-            margin-left: 10px;
+            font-size: 16px;
         }
-        @media (max-width: 768px) {
-            .whatsapp-text {
-                display: none;
-            }
-            .whatsapp-float {
-                width: 50px;
-                height: 50px;
-                bottom: 20px;
-                right: 20px;
-                padding: 0;
-            }
-            .whatsapp-float i {
-                font-size: 24px;
-            }
+        #whatsapp-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        #whatsapp-button svg {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #FF3B30;
+            color: white;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            border: 2px solid white;
+        }
+        .chat-window {
+            position: absolute;
+            bottom: calc(100% + 15px);
+            right: 0;
+            width: 340px;
+            border-radius: 18px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            height: 500px;
+            transform: translateY(20px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+        }
+        .chat-window.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+        .chat-header {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            flex-shrink: 0;
+            background: linear-gradient(135deg, #002e9e, #0078e8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .header-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 12px;
+            flex-shrink: 0;
+            object-fit: cover;
+        }
+        .header-info p {
+            color: #e0e0e0;
+            font-size: 13px;
+            line-height: 1.2;
+        }
+        .header-info strong {
+            display: block;
+            color: white;
+            font-weight: 600;
+            font-size: 17px;
+        }
+        .chat-messages {
+            flex-grow: 1;
+            padding: 20px 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: transparent;
+        }
+        .chat-message {
+            max-width: 85%;
+            padding: 10px 15px;
+            font-size: 14.5px;
+            line-height: 1.4;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.5s forwards;
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .agent-message {
+            background-color: #ffffff;
+            color: #1f2937;
+            align-self: flex-start;
+            border-radius: 12px;
+            border-top-left-radius: 0;
+        }
+        .agent-message::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -8px;
+            width: 0;
+            height: 0;
+            border-top: 15px solid #ffffff;
+            border-left: 10px solid transparent;
+        }
+        .typing-indicator {
+            align-self: flex-start;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+            padding: 12px 18px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            border-top-left-radius: 0;
+        }
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #9ca3af;
+            margin: 0 2px;
+            animation: typing-bounce 1.4s infinite ease-in-out both;
+        }
+        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+        
+        .final-action-area {
+            padding: 10px 15px;
+            background-color: transparent;
+            flex-shrink: 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .action-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-decoration: none;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 8px 8px 8px 20px;
+            border-radius: 50px;
+            font-size: 15px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        #typing-target::after {
+            content: '|';
+            animation: blink 1s step-end infinite;
+            opacity: 0;
+        }
+        #typing-target.typing-done::after {
+            animation: none;
+            opacity: 1;
+        }
+        #typing-target {
+            color: #4b5563;
+            min-height: 23px;
+        }
+        .send-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background-color: #128C7E;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+        }
+        .action-link:hover .send-icon {
+            transform: scale(1.1);
+            background-color: #075E54;
+        }
+        .send-icon svg {
+            width: 22px;
+            height: 22px;
         }
 
+        /* Notificação Falsa */
+        #whatsapp-notification {
+            display: none;
+            transform: translateY(-150%);
+            opacity: 0;
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease;
+            pointer-events: auto;
+        }
+        @media (max-width: 768px) {
+            #whatsapp-notification {
+                display: flex;
+            }
+        }
+        #whatsapp-notification.show {
+            transform: translateY(1rem);
+            opacity: 1;
+        }
+        .text-container {
+            max-width: 0px;
+            overflow: hidden;
+            white-space: nowrap;
+            transition: max-width 0.7s ease-in-out;
+        }
+        .text-container.expanded {
+            max-width: 500px;
+        }
+        
         /* Seletor de Preços */
         .price-toggle {
             display: inline-flex;
@@ -256,6 +443,20 @@
             }
         }
 
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes typing-bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1.0); }
+        }
+
+        @keyframes blink {
+            50% { opacity: 1; }
+        }
+
         /* Estilo para notificação do formulário */
         #form-status {
             position: fixed;
@@ -283,6 +484,18 @@
     </style>
 </head>
 <body class="bg-brand-bg text-brand-text">
+    <div class="fixed top-0 left-0 w-full flex justify-center z-[60] pointer-events-none">
+        <div id="whatsapp-notification" class="items-center bg-white rounded-full shadow-xl p-1 mt-2 mx-4 max-w-sm pointer-events-auto">
+            <div class="flex-shrink-0">
+                <img src="https://i.postimg.cc/QNnqzKBJ/Subcabe-alho-75.png" alt="Ícone do WhatsApp" class="w-7 h-7 rounded-full">
+            </div>
+            <div class="text-container ml-2">
+                <p class="text-gray-800 text-xs font-bold">
+                    Vel Sites:&nbsp;&nbsp;Oi! Já pensou em ter um site pra atrair...ㅤ
+                </p>
+            </div>
+        </div>
+    </div>
 
     <!-- Navbar -->
     <nav class="fixed top-6 left-6 right-6 bg-[#3D2B1F]/70 backdrop-blur-lg z-50 border border-white/10 rounded-full">
@@ -817,7 +1030,7 @@
                     <a href="#home" class="flex items-center justify-center md:justify-start">
                        <img src="https://i.postimg.cc/HsGR4vjW/Bigode-4.png" alt="Logotipo Texas Barbearia" class="h-32 -mb-8 -mt-8 mr-2">
                     </a>
-                    <p class="text-gray-400 text-sm mt-2">Estilo e precisão em cada corte.</p>
+                    <p class="text-gray-400 text-sm mt-2">Um novo conceito de barbearia.</p>
                 </div>
                 <div class="hidden lg:flex space-x-6">
                     <a href="#home" class="text-gray-300 hover:text-primary transition">Home</a>
@@ -846,11 +1059,35 @@
         </div>
     </footer>
     
-    <!-- Botão Flutuante do WhatsApp -->
-    <a href="https://wa.me/553791786743?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20agendar%20um%20servi%C3%A7o" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco pelo WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-        <span class="whatsapp-text">WhatsApp</span>
-    </a>
+    <!-- Novo Widget do WhatsApp -->
+    <div class="whatsapp-widget-container">
+        <div class="chat-window" id="chat-window">
+            <div class="chat-header">
+                <img src="https://i.postimg.cc/R0TNQ7T8/Subcabe-alho-45.png" alt="Avatar de Marcos Santos, especialista da Vel Sites" class="header-avatar">
+                <div class="header-info">
+                    <p>
+                        <strong>Marcos Santos</strong>
+                        Comercial - Online
+                    </p>
+                </div>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+            </div>
+            <div class="final-action-area" id="final-action">
+                 <a href="https://wa.me/5537984169386?text=Quero%20criar%20meu%20site%20agora" target="_blank" class="action-link">
+                     <span id="typing-target"></span>
+                     <div class="send-icon">
+                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"></path></svg>
+                     </div>
+                 </a>
+            </div>
+        </div>
+        <div id="whatsapp-button">
+            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.37 21.82 12.04 21.82C17.5 21.82 21.95 17.37 21.95 11.91C21.95 9.27 20.92 6.83 19.16 4.99C17.4 3.15 14.82 2 12.04 2ZM12.04 20.13C10.56 20.13 9.1 19.68 7.85 18.83L7.54 18.64L4.53 19.5L5.44 16.58L5.24 16.26C4.32 14.94 3.82 13.43 3.82 11.91C3.82 7.39 7.52 3.7 12.04 3.7C14.23 3.7 16.22 4.54 17.75 6.07C19.28 7.6 20.12 9.59 20.12 11.82C20.12 16.34 16.42 20.13 12.04 20.13ZM17.44 14.24C17.18 14.11 15.89 13.45 15.64 13.35C15.39 13.26 15.22 13.22 15.04 13.47C14.86 13.72 14.34 14.38 14.19 14.56C14.04 14.73 13.89 14.76 13.63 14.63C13.38 14.51 12.39 14.17 11.23 13.13C10.29 12.28 9.68 11.24 9.53 10.99C9.38 10.74 9.5 10.62 9.63 10.49C9.75 10.36 9.89 10.17 10.03 10C10.17 9.83 10.22 9.71 10.32 9.51C10.42 9.31 10.37 9.14 10.3 8.99C10.22 8.84 9.68 7.45 9.45 6.88C9.23 6.31 9 6.24 8.82 6.24C8.64 6.24 8.47 6.24 8.29 6.24C8.11 6.24 7.8 6.33 7.55 6.58C7.3 6.83 6.64 7.44 6.64 8.82C6.64 10.2 7.59 11.53 7.74 11.7C7.89 11.88 9.84 14.93 12.72 16.32C15.6 17.71 15.6 17.21 16.14 17.16C16.68 17.11 17.8 16.48 18.02 15.82C18.24 15.16 18.24 14.61 18.17 14.49C18.09 14.36 17.91 14.28 17.66 14.16L17.44 14.24Z"></path></svg>
+            <span>WhatsApp</span>
+            <div id="notification-badge" class="notification-badge hidden">1</div>
+        </div>
+    </div>
 
     <!-- Notificação para status do formulário -->
     <div id="form-status"></div>
@@ -1107,44 +1344,143 @@
             if (yearSpan) {
                 yearSpan.textContent = new Date().getFullYear();
             }
+
+            // --- NOVO WIDGET DO WHATSAPP ---
+            if (window.innerWidth <= 768) {
+                const notification = document.getElementById('whatsapp-notification');
+                const textContainer = notification.querySelector('.text-container');
+                const notificationBadge = document.getElementById('notification-badge');
+                document.body.addEventListener('click', () => {}, { once: true });
+                setTimeout(() => {
+                    if (notificationBadge) {
+                        notificationBadge.classList.remove('hidden');
+                    }
+                    notification.classList.add('show');
+                    if ('vibrate' in navigator) {
+                        navigator.vibrate([150, 100, 150]);
+                    }
+                    setTimeout(() => {
+                        textContainer.classList.add('expanded');
+                    }, 800);
+                    setTimeout(() => {
+                        textContainer.classList.remove('expanded');
+                        setTimeout(() => {
+                           notification.classList.remove('show');
+                        }, 700);
+                    }, 5000);
+                }, 7000);
+            }
+
+            const whatsappButton = document.getElementById('whatsapp-button');
+            const chatWindow = document.getElementById('chat-window');
+            const chatMessages = document.getElementById('chat-messages');
+            const typingTarget = document.getElementById('typing-target');
+            let chatHasStarted = false;
+
+            function startChatSimulation() {
+                if (chatHasStarted) return;
+                chatHasStarted = true;
+                chatMessages.innerHTML = '';
+                typingTarget.textContent = '';
+                const firstMessageElement = document.createElement('div');
+                firstMessageElement.className = 'chat-message agent-message';
+                firstMessageElement.textContent = "Oi! Já pensou em ter um site pra atrair mais clientes?";
+                chatMessages.appendChild(firstMessageElement);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                const messages = ["Se quiser, a gente pode começar agora. Que acha?"];
+                let delay = 1000;
+                
+                messages.forEach((msg, index) => {
+                    setTimeout(() => {
+                        const typingIndicator = document.createElement('div');
+                        typingIndicator.className = 'typing-indicator';
+                        typingIndicator.innerHTML = '<span></span><span></span><span></span>';
+                        chatMessages.appendChild(typingIndicator);
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                    }, delay);
+                    
+                    delay += 1500;
+                    
+                    setTimeout(() => {
+                        if (chatMessages.querySelector('.typing-indicator')) {
+                            chatMessages.querySelector('.typing-indicator').remove();
+                        }
+                        const messageElement = document.createElement('div');
+                        messageElement.className = 'chat-message agent-message';
+                        messageElement.textContent = msg;
+                        chatMessages.appendChild(messageElement);
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                        
+                        if (index === messages.length - 1) {
+                            setTimeout(simulateTypingAnimation, 700);
+                        }
+                    }, delay);
+                    delay += 500;
+                });
+            }
+
+            function simulateTypingAnimation() {
+                const actions = [
+                    { type: 'type', text: 'Quero cirar', speed: 120 }, { type: 'pause', duration: 400 },
+                    { type: 'delete', count: 5, speed: 100 }, { type: 'type', text: 'criar meu site adora', speed: 120 },
+                    { type: 'pause', duration: 400 }, { type: 'delete', count: 5, speed: 100 },
+                    { type: 'type', text: 'agora', speed: 120 }, { type: 'done' }
+                ];
+                typingTarget.textContent = '';
+                typingTarget.classList.remove('typing-done');
+                let currentActionIndex = 0;
+                let currentText = '';
+
+                function executeAction() {
+                    if (currentActionIndex >= actions.length) return;
+                    const action = actions[currentActionIndex];
+                    if (action.type === 'type') {
+                        let i = 0;
+                        const interval = setInterval(() => {
+                            if (i < action.text.length) {
+                                currentText += action.text.charAt(i);
+                                typingTarget.textContent = currentText;
+                                i++;
+                            } else { clearInterval(interval); currentActionIndex++; executeAction(); }
+                        }, action.speed);
+                    } else if (action.type === 'delete') {
+                        let i = 0;
+                        const interval = setInterval(() => {
+                            if (i < action.count) {
+                                currentText = currentText.slice(0, -1);
+                                typingTarget.textContent = currentText;
+                                i++;
+                            } else { clearInterval(interval); currentActionIndex++; executeAction(); }
+                        }, action.speed);
+                    } else if (action.type === 'pause') {
+                        setTimeout(() => { currentActionIndex++; executeAction(); }, action.duration);
+                    } else if (action.type === 'done') {
+                        typingTarget.classList.add('typing-done');
+                    }
+                }
+                executeAction();
+            }
+
+            function toggleChatWindow() {
+                chatWindow.classList.toggle('active');
+                if (chatWindow.classList.contains('active')) {
+                    startChatSimulation();
+                }
+            }
+
+            whatsappButton.addEventListener('click', toggleChatWindow);
+
+            document.addEventListener('click', function(event) {
+                const container = document.querySelector('.whatsapp-widget-container');
+                if (chatWindow.classList.contains('active') && !container.contains(event.target)) {
+                    chatWindow.classList.remove('active');
+                }
+            });
+
         });
     </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
