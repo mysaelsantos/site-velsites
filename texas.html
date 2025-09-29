@@ -150,6 +150,15 @@
             bottom: 25px;
             right: 25px;
             z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.9) translateY(10px);
+            transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.4s ease;
+        }
+        .whatsapp-widget-container.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1) translateY(0);
         }
         #whatsapp-button {
             display: flex;
@@ -220,8 +229,8 @@
             align-items: center;
             padding: 12px 15px;
             flex-shrink: 0;
-            background: linear-gradient(135deg, #002e9e, #0078e8);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            background: linear-gradient(135deg, #4a342a, #3D2B1F); /* Degradê adaptado */
+            border-bottom: 1px solid rgba(251, 182, 44, 0.3);
         }
         .header-avatar {
             width: 40px;
@@ -1063,18 +1072,18 @@
     <div class="whatsapp-widget-container">
         <div class="chat-window" id="chat-window">
             <div class="chat-header">
-                <img src="https://i.postimg.cc/R0TNQ7T8/Subcabe-alho-45.png" alt="Avatar de Marcos Santos, especialista da Vel Sites" class="header-avatar">
+                <img src="https://i.postimg.cc/pT3ScnBb/482320646-1375134203841648-765763137701876086-n.jpg" alt="Avatar de Thiago, Visagista da Texas Barbearia" class="header-avatar">
                 <div class="header-info">
                     <p>
-                        <strong>Marcos Santos</strong>
-                        Comercial - Online
+                        <strong>Thiago</strong>
+                        Visagista - Online
                     </p>
                 </div>
             </div>
             <div class="chat-messages" id="chat-messages">
             </div>
             <div class="final-action-area" id="final-action">
-                 <a href="https://wa.me/5537984169386?text=Quero%20criar%20meu%20site%20agora" target="_blank" class="action-link">
+                 <a href="https://wa.me/553791786743?text=Quero%20agendar%20agora!" target="_blank" class="action-link">
                      <span id="typing-target"></span>
                      <div class="send-icon">
                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"></path></svg>
@@ -1345,6 +1354,30 @@
                 yearSpan.textContent = new Date().getFullYear();
             }
 
+            // --- CONTROLE DE VISIBILIDADE DO WIDGET WHATSAPP ---
+            const whatsappWidget = document.querySelector('.whatsapp-widget-container');
+            const servicesSectionForWidget = document.getElementById('services');
+
+            if (whatsappWidget && servicesSectionForWidget) {
+                const widgetObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        // Mostra o widget se o meio da seção de serviços estiver visível
+                        if (entry.isIntersecting) {
+                            whatsappWidget.classList.add('visible');
+                        } else {
+                            // Esconde o widget apenas se o usuário rolar para CIMA, para antes da seção
+                            if (entry.boundingClientRect.top > 0) {
+                                whatsappWidget.classList.remove('visible');
+                            }
+                        }
+                    });
+                }, {
+                    threshold: 0.5 // Ativa quando 50% da seção está visível
+                });
+
+                widgetObserver.observe(servicesSectionForWidget);
+            }
+
             // --- NOVO WIDGET DO WHATSAPP ---
             if (window.innerWidth <= 768) {
                 const notification = document.getElementById('whatsapp-notification');
@@ -1384,11 +1417,11 @@
                 typingTarget.textContent = '';
                 const firstMessageElement = document.createElement('div');
                 firstMessageElement.className = 'chat-message agent-message';
-                firstMessageElement.textContent = "Oi! Já pensou em ter um site pra atrair mais clientes?";
+                firstMessageElement.textContent = "Oi! Já pensou em dar aquele trato no visual e sair com estilo?";
                 chatMessages.appendChild(firstMessageElement);
                 chatMessages.scrollTop = chatMessages.scrollHeight;
                 
-                const messages = ["Se quiser, a gente pode começar agora. Que acha?"];
+                const messages = ["Se agendar entre quinta e sexta, tem 15% OFF em todos os serviços."];
                 let delay = 1000;
                 
                 messages.forEach((msg, index) => {
@@ -1422,10 +1455,8 @@
 
             function simulateTypingAnimation() {
                 const actions = [
-                    { type: 'type', text: 'Quero cirar', speed: 120 }, { type: 'pause', duration: 400 },
-                    { type: 'delete', count: 5, speed: 100 }, { type: 'type', text: 'criar meu site adora', speed: 120 },
-                    { type: 'pause', duration: 400 }, { type: 'delete', count: 5, speed: 100 },
-                    { type: 'type', text: 'agora', speed: 120 }, { type: 'done' }
+                    { type: 'type', text: 'Quero agendar agora!', speed: 100 }, 
+                    { type: 'done' }
                 ];
                 typingTarget.textContent = '';
                 typingTarget.classList.remove('typing-done');
@@ -1483,4 +1514,8 @@
 
 </body>
 </html>
+
+
+
+
 
