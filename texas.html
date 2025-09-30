@@ -556,7 +556,7 @@
     </div>
 
     <!-- Navbar -->
-    <nav class="fixed top-6 left-6 right-6 bg-[#3D2B1F]/70 backdrop-blur-lg z-50 border border-white/10 rounded-full">
+    <nav class="fixed top-6 left-6 right-6 bg-[#A0785A]/80 backdrop-blur-lg z-50 border border-white/10 rounded-full shadow-lg">
         <div class="px-6 py-1 flex justify-between items-center">
             <a href="#home" class="flex items-center">
                 <img src="https://i.postimg.cc/HsGR4vjW/Bigode-4.png" alt="Logotipo Texas Barbearia" class="h-14 mr-3">
@@ -1463,6 +1463,7 @@
             const finalActionArea = document.getElementById('final-action');
             const sendChatAction = document.getElementById('send-chat-action');
             let chatHasStarted = false;
+            let initialInteractionDone = false; // Variável para controlar o fluxo
 
             function startChatSimulation() {
                 if (chatHasStarted) return;
@@ -1549,8 +1550,11 @@
             function toggleChatWindow() {
                 chatWindow.classList.toggle('active');
                 if (chatWindow.classList.contains('active')) {
-                    finalActionArea.style.display = 'flex'; // Garante que a área de input apareça
-                    startChatSimulation();
+                    // Se a interação inicial não foi feita, mostra a área de input e começa a simulação
+                    if (!initialInteractionDone) {
+                        finalActionArea.style.display = 'flex';
+                        startChatSimulation();
+                    }
                 }
             }
 
@@ -1562,6 +1566,8 @@
 
                     const userText = typingTarget.textContent;
                     if (!userText.trim()) return;
+
+                    initialInteractionDone = true; // Marca que a interação inicial foi concluída
 
                     // Esconde a área de input
                     finalActionArea.style.display = 'none';
@@ -1616,6 +1622,9 @@
 
 </body>
 </html>
+
+
+
 
 
 
