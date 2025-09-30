@@ -407,6 +407,32 @@
             width: 22px;
             height: 22px;
         }
+
+        /* --- ESTILOS DA LISTA DE SERVIÇOS EXPANSÍVEL --- */
+        #full-services-list {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.8s ease-in-out;
+        }
+        #full-services-list.visible {
+            max-height: 2000px; /* Altura suficiente para todos os serviços */
+        }
+        .service-card {
+            background-color: #FFFFFF;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            border: 1px solid #EAE8E3;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            height: 100%; /* Garante que todos os cards tenham a mesma altura */
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-color: #fbb62c;
+        }
         
         /* Seletor de Preços */
         .price-toggle {
@@ -725,8 +751,133 @@
             </div>
 
             <div class="mt-12 text-center reveal">
-                <p class="text-gray-600 mb-6">Além destes, oferecemos diversos outros serviços como hidratação, pigmentação de barba, sobrancelha, hot towel e muito mais!</p>
-                <a href="https://app.frizzar.com.br/p/vsbarbearia" target="_blank" class="bg-primary text-brand-text font-bold py-3 px-8 rounded-lg hover:bg-yellow-500 transition inline-block">Ver Todos os Serviços</a>
+                <p class="text-gray-600 mb-6">Além destes, oferecemos diversos outros serviços para cuidar do seu visual por completo.</p>
+                <a href="#" id="toggle-services-btn" class="bg-primary text-brand-text font-bold py-3 px-8 rounded-lg hover:bg-yellow-500 transition inline-block">Ver Todos os Serviços</a>
+            </div>
+
+            <!-- Lista Completa de Serviços (Oculta por padrão) -->
+            <div id="full-services-list" class="mt-16">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="service-card">
+                        <span class="text-brand-text font-semibold">Corte</span>
+                        <div class="flex flex-col items-end">
+                            <span class="font-bold text-primary text-lg">R$ 46,75</span>
+                            <span class="text-xs text-gray-500 line-through">R$ 55,00</span>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <span class="text-brand-text font-semibold">Barba</span>
+                        <div class="flex flex-col items-end">
+                            <span class="font-bold text-primary text-lg">R$ 46,75</span>
+                            <span class="text-xs text-gray-500 line-through">R$ 55,00</span>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <span class="text-brand-text font-semibold">Corte e barba</span>
+                        <div class="flex flex-col items-end">
+                            <span class="font-bold text-primary text-lg">R$ 85,00</span>
+                            <span class="text-xs text-gray-500 line-through">R$ 100,00</span>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <span class="text-brand-text font-semibold">Progressiva</span>
+                        <div class="flex flex-col items-end">
+                            <span class="font-bold text-primary text-lg">R$ 72,25</span>
+                            <span class="text-xs text-gray-500 line-through">R$ 85,00</span>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <span class="text-brand-text font-semibold">Botox</span>
+                        <div class="flex flex-col items-end">
+                            <span class="font-bold text-primary text-lg">R$ 68,00</span>
+                            <span class="text-xs text-gray-500 line-through">R$ 80,00</span>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <span class="text-brand-text font-semibold">Corte e Botox</span>
+                        <div class="flex flex-col items-end">
+                            <span class="font-bold text-primary text-lg">R$ 114,75</span>
+                            <span class="text-xs text-gray-500 line-through">R$ 135,00</span>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <span class="text-brand-text font-semibold">Relaxamento</span>
+                        <div class="flex flex-col items-end">
+                            <span class="font-bold text-primary text-lg">R$ 38,25</span>
+                            <span class="text-xs text-gray-500 line-through">R$ 45,00</span>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <span class="text-brand-text font-semibold">Barboterapia</span>
+                        <div class="flex flex-col items-end">
+                            <span class="font-bold text-primary text-lg">R$ 55,25</span>
+                            <span class="text-xs text-gray-500 line-through">R$ 65,00</span>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <span class="text-brand-text font-semibold">Corte, barba e sobrancelhas</span>
+                        <div class="flex flex-col items-end">
+                            <span class="font-bold text-primary text-lg">R$ 102,00</span>
+                            <span class="text-xs text-gray-500 line-through">R$ 120,00</span>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <span class="text-brand-text font-semibold">Corte e sobrancelhas</span>
+                        <div class="flex flex-col items-end">
+                            <span class="font-bold text-primary text-lg">R$ 59,50</span>
+                            <span class="text-xs text-gray-500 line-through">R$ 70,00</span>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <span class="text-brand-text font-semibold">Barba e sobrancelhas</span>
+                        <div class="flex flex-col items-end">
+                            <span class="font-bold text-primary text-lg">R$ 59,50</span>
+                            <span class="text-xs text-gray-500 line-through">R$ 70,00</span>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <span class="text-brand-text font-semibold">Corte e pigmentação</span>
+                        <div class="flex flex-col items-end">
+                            <span class="font-bold text-primary text-lg">R$ 93,50</span>
+                            <span class="text-xs text-gray-500 line-through">R$ 110,00</span>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <span class="text-brand-text font-semibold">Barba e pigmentação</span>
+                        <div class="flex flex-col items-end">
+                            <span class="font-bold text-primary text-lg">R$ 76,50</span>
+                            <span class="text-xs text-gray-500 line-through">R$ 90,00</span>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <span class="text-brand-text font-semibold">Corte e abordagem visagista</span>
+                        <div class="flex flex-col items-end">
+                            <span class="font-bold text-primary text-lg">R$ 255,00</span>
+                            <span class="text-xs text-gray-500 line-through">R$ 300,00</span>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <span class="text-brand-text font-semibold">Limpeza de pele</span>
+                        <div class="flex flex-col items-end">
+                            <span class="font-bold text-primary text-lg">R$ 68,00</span>
+                            <span class="text-xs text-gray-500 line-through">R$ 80,00</span>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <span class="text-brand-text font-semibold">Sobrancelhas na pinça</span>
+                        <div class="flex flex-col items-end">
+                            <span class="font-bold text-primary text-lg">R$ 12,75</span>
+                            <span class="text-xs text-gray-500 line-through">R$ 15,00</span>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <span class="text-brand-text font-semibold">Hidratação</span>
+                        <div class="flex flex-col items-end">
+                            <span class="font-bold text-primary text-lg">R$ 29,75</span>
+                            <span class="text-xs text-gray-500 line-through">R$ 35,00</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -841,7 +992,7 @@
                             <p class="flex items-start"><i class="fas fa-clock text-primary mr-3 mt-1"></i><span>Seg a Sáb: 8h às 20h</span></p>
                         </div>
                         <div class="flex flex-wrap gap-3">
-                            <a href="https://app.frizzar.com.br/p/vsbarbearia" target="_blank" class="inline-block bg-primary text-brand-text font-bold py-2 px-6 rounded-lg hover:bg-yellow-500 transition"><i class="fas fa-calendar-alt mr-2"></i>Agendar</a>
+                            <a href="https://booksy.com/pt-br/376589_texas-barbearia-filial-pista-de-cooper_barbearias_494153_nova-serrana?do=invite#ba_s=dl_1" target="_blank" class="inline-block bg-primary text-brand-text font-bold py-2 px-6 rounded-lg hover:bg-yellow-500 transition"><i class="fas fa-calendar-alt mr-2"></i>Agendar</a>
                             <a href="https://maps.app.goo.gl/BoWbipiBj4Qi1Zd28" target="_blank" class="inline-block bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition"><i class="fas fa-map-marker-alt mr-2"></i>Ver Rota</a>
                         </div>
                     </div>
@@ -858,7 +1009,7 @@
                              <p class="flex items-start"><i class="fas fa-clock text-primary mr-3 mt-1"></i><span>Seg a Sáb: 8h às 20h</span></p>
                         </div>
                         <div class="flex flex-wrap gap-3">
-                            <a href="https://app.frizzar.com.br/p/vsbarbearia" target="_blank" class="inline-block bg-primary text-brand-text font-bold py-2 px-6 rounded-lg hover:bg-yellow-500 transition"><i class="fas fa-calendar-alt mr-2"></i>Agendar</a>
+                            <a href="https://booksy.com/pt-br/42490_texas-barber-shop_barbearias_494153_nova-serrana#ba_s=seo" target="_blank" class="inline-block bg-primary text-brand-text font-bold py-2 px-6 rounded-lg hover:bg-yellow-500 transition"><i class="fas fa-calendar-alt mr-2"></i>Agendar</a>
                             <a href="https://maps.app.goo.gl/aygQMpBSD8uLMiwP7" target="_blank" class="inline-block bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition"><i class="fas fa-map-marker-alt mr-2"></i>Ver Rota</a>
                         </div>
                     </div>
@@ -941,7 +1092,7 @@
                 <div class="md:w-1/2">
                     <div class="relative">
                         <div class="w-full h-80 bg-gray-200 rounded-lg overflow-hidden flex items-center justify-center">
-                            <img src="https://i.postimg.cc/28q5gTbm/Design-sem-nome-76.png" alt="Fachada da unidade matriz da VS Barbearia" class="w-full h-full object-cover">
+                            <img src="https://i.ibb.co/bJCq2v7/dfb484e80f944b83babff087716f6f-texas-barbearia-filial-pista-d-inspiration-ee71d7889391413e8d102f8469f90.jpg" alt="Interior da Texas Barbearia" class="w-full h-full object-cover">
                         </div>
                     </div>
                 </div>
@@ -965,16 +1116,16 @@
             <div class="founder-section p-8 md:p-12 rounded-xl reveal">
                 <div class="flex flex-col md:flex-row items-center gap-10">
                     <div class="md:w-1/3 text-center">
-                        <img src="https://i.postimg.cc/pT3ScnBb/482320646-1375134203841648-765763137701876086-n.jpg" alt="Retrato de Vanilton Santos, fundador da Texas Barbearia" class="w-48 h-48 mx-auto rounded-full object-cover border-4 border-primary mb-4">
-                        <h3 class="text-2xl font-bold">Vanilton Santos</h3>
+                        <img src="https://i.ibb.co/qD4XySg/Captura-de-tela-2025-09-30-145001.png" alt="Retrato de Thiago Rodrigues, fundador da Texas Barbearia" class="w-48 h-48 mx-auto rounded-full object-cover border-4 border-primary mb-4">
+                        <h3 class="text-2xl font-bold">Thiago Rodrigues</h3>
                         <p class="text-primary">Fundador & Visagista</p>
                     </div>
                     <div class="md:w-2/3">
                         <h3 class="text-2xl font-bold mb-6">Uma Jornada de Determinação</h3>
-                        <p class="text-gray-600">Aos 35 anos, Vanilton Santos é o exemplo de como determinação e trabalho duro transformam sonhos em realidade. Sua história começou em 2010, ao chegar em Nova Serrana com um sonho e muita vontade de vencer, precisando vender sua moto para dar o primeiro passo.</p>
+                        <p class="text-gray-600">Thiago Rodrigues é o exemplo de como determinação e trabalho duro transformam sonhos em realidade. Sua história começou ao chegar em Nova Serrana com um sonho e muita vontade de vencer. Com paixão pela arte da barbearia, ele superou desafios e deu o primeiro passo para construir o que hoje é a Texas Barbearia, um espaço de referência na cidade.</p>
                         <div class="mt-8 bg-brand-bg bg-opacity-50 p-6 rounded-lg border border-primary">
                             <p class="italic text-gray-700">"Acredito que o sucesso vem da dedicação e do compromisso com a excelência. Cada cliente satisfeito é uma vitória pessoal."</p>
-                            <p class="text-right text-primary font-bold mt-2">- Vanilton Santos</p>
+                            <p class="text-right text-primary font-bold mt-2">- Thiago Rodrigues</p>
                         </div>
                     </div>
                 </div>
@@ -1280,6 +1431,29 @@
                 });
             }
 
+            // --- CONTROLE DA LISTA DE SERVIÇOS EXPANSÍVEL ---
+            const toggleBtn = document.getElementById('toggle-services-btn');
+            const fullList = document.getElementById('full-services-list');
+
+            if (toggleBtn && fullList) {
+                toggleBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const isVisible = fullList.classList.contains('visible');
+
+                    if (isVisible) {
+                        fullList.classList.remove('visible');
+                        toggleBtn.textContent = 'Ver Todos os Serviços';
+                    } else {
+                        fullList.classList.add('visible');
+                        toggleBtn.textContent = 'Ocultar Serviços';
+                        // Rola suavemente para a lista após a animação começar
+                        setTimeout(() => {
+                            fullList.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }, 100);
+                    }
+                });
+            }
+
             // --- LIGHTBOX DA GALERIA ---
             const lightbox = document.getElementById('lightbox');
             if (lightbox) {
@@ -1581,6 +1755,13 @@
 
 </body>
 </html>
+
+
+
+
+
+
+
 
 
 
