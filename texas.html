@@ -407,33 +407,6 @@
             width: 22px;
             height: 22px;
         }
-
-        /* Notificação Falsa */
-        #whatsapp-notification {
-            display: none;
-            transform: translateY(-150%);
-            opacity: 0;
-            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease;
-            pointer-events: auto;
-        }
-        @media (max-width: 768px) {
-            #whatsapp-notification {
-                display: flex;
-            }
-        }
-        #whatsapp-notification.show {
-            transform: translateY(1rem);
-            opacity: 1;
-        }
-        .text-container {
-            max-width: 0px;
-            overflow: hidden;
-            white-space: nowrap;
-            transition: max-width 0.7s ease-in-out;
-        }
-        .text-container.expanded {
-            max-width: 500px;
-        }
         
         /* Seletor de Preços */
         .price-toggle {
@@ -542,19 +515,6 @@
     </style>
 </head>
 <body class="bg-brand-bg text-brand-text">
-    <div class="fixed top-0 left-0 w-full flex justify-center z-[60] pointer-events-none">
-        <div id="whatsapp-notification" class="items-center bg-white rounded-full shadow-xl p-1 mt-2 mx-4 max-w-sm pointer-events-auto">
-            <div class="flex-shrink-0">
-                <img src="https://i.postimg.cc/QNnqzKBJ/Subcabe-alho-75.png" alt="Ícone do WhatsApp" class="w-7 h-7 rounded-full">
-            </div>
-            <div class="text-container ml-2">
-                <p class="text-gray-800 text-xs font-bold">
-                    Vel Sites:&nbsp;&nbsp;Oi! Já pensou em ter um site pra atrair...ㅤ
-                </p>
-            </div>
-        </div>
-    </div>
-
     <!-- Navbar -->
     <nav class="fixed top-6 left-6 right-6 bg-[#A0785A]/80 backdrop-blur-lg z-50 border border-white/10 rounded-full shadow-lg">
         <div class="px-6 py-1 flex justify-between items-center">
@@ -1432,28 +1392,22 @@
 
             // --- NOVO WIDGET DO WHATSAPP ---
             if (window.innerWidth <= 768) {
-                const notification = document.getElementById('whatsapp-notification');
-                const textContainer = notification.querySelector('.text-container');
                 const notificationBadge = document.getElementById('notification-badge');
-                document.body.addEventListener('click', () => {}, { once: true });
-                setTimeout(() => {
+                let notificationTriggered = false;
+
+                const triggerNotification = () => {
+                    if (notificationTriggered) return;
+
                     if (notificationBadge) {
                         notificationBadge.classList.remove('hidden');
                     }
-                    notification.classList.add('show');
                     if ('vibrate' in navigator) {
                         navigator.vibrate([150, 100, 150]);
                     }
-                    setTimeout(() => {
-                        textContainer.classList.add('expanded');
-                    }, 800);
-                    setTimeout(() => {
-                        textContainer.classList.remove('expanded');
-                        setTimeout(() => {
-                           notification.classList.remove('show');
-                        }, 700);
-                    }, 5000);
-                }, 7000);
+                    notificationTriggered = true;
+                };
+
+                setTimeout(triggerNotification, 7000);
             }
 
             const whatsappButton = document.getElementById('whatsapp-button');
@@ -1548,6 +1502,11 @@
             }
 
             function toggleChatWindow() {
+                const notificationBadge = document.getElementById('notification-badge');
+                if (notificationBadge) {
+                    notificationBadge.classList.add('hidden');
+                }
+
                 chatWindow.classList.toggle('active');
                 if (chatWindow.classList.contains('active')) {
                     // Se a interação inicial não foi feita, mostra a área de input e começa a simulação
@@ -1622,17 +1581,6 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
 
 
 
