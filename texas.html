@@ -271,6 +271,23 @@
             position: relative;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
+        .user-message {
+            background-color: #dcf8c6; /* Verde claro, típico para mensagens de usuário */
+            color: #3D2B1F;
+            align-self: flex-end;
+            border-radius: 12px;
+            border-top-right-radius: 0;
+        }
+        .user-message::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -8px;
+            width: 0;
+            height: 0;
+            border-top: 15px solid #dcf8c6;
+            border-right: 10px solid transparent;
+        }
         .agent-message {
             background-color: #ffffff;
             color: #1f2937;
@@ -309,6 +326,38 @@
         .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
         .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
         
+        .chat-actions {
+            margin-top: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .chat-action-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background-color: #fbb62c; /* cor primária */
+            color: #3D2B1F; /* texto da marca */
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            border: 2px solid transparent;
+        }
+        .chat-action-btn.secondary {
+            background-color: transparent;
+            border-color: #fbb62c;
+            color: #fbb62c;
+        }
+        .chat-action-btn:hover {
+            background-color: #e0a326; /* primária mais escura */
+        }
+        .chat-action-btn.secondary:hover {
+            background-color: #fbb62c;
+            color: #3D2B1F;
+        }
+
         .final-action-area {
             padding: 10px 15px;
             background-color: transparent;
@@ -325,6 +374,7 @@
             border-radius: 50px;
             font-size: 15px;
             box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            width: 100%; /* Garante que a barra ocupe toda a largura */
         }
         #typing-target::after {
             content: '|';
@@ -332,8 +382,7 @@
             opacity: 0;
         }
         #typing-target.typing-done::after {
-            animation: none;
-            opacity: 1;
+            /* A animação não será mais removida */
         }
         #typing-target {
             color: #4b5563;
@@ -812,12 +861,12 @@
     </section>
 
     <!-- Locations Section -->
-    <section id="locations" class="py-20 bg-brand-bg">
+    <section id="locations" class="py-20 bg-[#A0785A]">
         <div class="container mx-auto px-8 sm:px-16 lg:px-24">
             <div class="text-center mb-16 reveal">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">Nossas <span class="text-primary">Unidades</span></h2>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">Nossas <span class="text-primary">Unidades</span></h2>
                 <div class="w-24 h-1 bg-primary mx-auto"></div>
-                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Visite uma de nossas unidades estrategicamente localizadas em Nova Serrana.</p>
+                <p class="text-gray-200 mt-4 max-w-2xl mx-auto">Visite uma de nossas unidades estrategicamente localizadas em Nova Serrana.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10 reveal">
                 <!-- Unidade Matriz -->
@@ -1073,7 +1122,7 @@
         <div class="chat-window" id="chat-window">
             <div class="chat-header">
                 <div class="relative">
-                    <img src="https://i.ibb.co/L8y2zSc/KGRFCMb.png" alt="Avatar de Thiago, Visagista da Texas Barbearia" class="header-avatar">
+                    <img src="https://8upload.com/image/68db20030cbfa/WhatsApp_Image_2025-09-29_at_20.54.20.jpeg" alt="Avatar de Thiago, Visagista da Texas Barbearia" class="header-avatar">
                     <span class="absolute bottom-0 right-3 block h-3 w-3 rounded-full bg-green-500 border-2 border-[#6b5346]"></span>
                 </div>
                 <div class="header-info">
@@ -1086,7 +1135,7 @@
             <div class="chat-messages" id="chat-messages">
             </div>
             <div class="final-action-area" id="final-action">
-                 <a href="https://wa.me/553791786743?text=Quero%20agendar%20agora!" target="_blank" class="action-link">
+                 <a href="https://wa.me/553791786743?text=Quero%20agendar%20agora!" id="send-chat-action" target="_blank" class="action-link">
                      <span id="typing-target"></span>
                      <div class="send-icon">
                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"></path></svg>
@@ -1411,6 +1460,8 @@
             const chatWindow = document.getElementById('chat-window');
             const chatMessages = document.getElementById('chat-messages');
             const typingTarget = document.getElementById('typing-target');
+            const finalActionArea = document.getElementById('final-action');
+            const sendChatAction = document.getElementById('send-chat-action');
             let chatHasStarted = false;
 
             function startChatSimulation() {
@@ -1459,7 +1510,7 @@
             function simulateTypingAnimation() {
                 const actions = [
                     { type: 'type', text: 'Quero agendar agora!', speed: 100 }, 
-                    { type: 'done' }
+                    // A ação 'done' não é mais necessária para este efeito
                 ];
                 typingTarget.textContent = '';
                 typingTarget.classList.remove('typing-done');
@@ -1489,9 +1540,8 @@
                         }, action.speed);
                     } else if (action.type === 'pause') {
                         setTimeout(() => { currentActionIndex++; executeAction(); }, action.duration);
-                    } else if (action.type === 'done') {
-                        typingTarget.classList.add('typing-done');
-                    }
+                    } 
+                    // A condição 'done' foi removida
                 }
                 executeAction();
             }
@@ -1499,11 +1549,60 @@
             function toggleChatWindow() {
                 chatWindow.classList.toggle('active');
                 if (chatWindow.classList.contains('active')) {
+                    finalActionArea.style.display = 'flex'; // Garante que a área de input apareça
                     startChatSimulation();
                 }
             }
 
             whatsappButton.addEventListener('click', toggleChatWindow);
+
+            if (sendChatAction) {
+                sendChatAction.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    const userText = typingTarget.textContent;
+                    if (!userText.trim()) return;
+
+                    // Esconde a área de input
+                    finalActionArea.style.display = 'none';
+
+                    // Cria e exibe a mensagem do usuário
+                    const userMessage = document.createElement('div');
+                    userMessage.className = 'chat-message user-message';
+                    userMessage.textContent = userText;
+                    chatMessages.appendChild(userMessage);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                    // Simula a resposta do agente com os botões
+                    setTimeout(() => {
+                        const agentResponse = document.createElement('div');
+                        agentResponse.className = 'chat-message agent-message';
+                        agentResponse.innerHTML = `
+                            <p>Ótima escolha! Como prefere continuar?</p>
+                            <div class="chat-actions">
+                                <a href="https://wa.me/553791786743?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os" target="_blank" class="chat-action-btn secondary">Saber mais</a>
+                                <a href="#" id="chat-btn-agendar" class="chat-action-btn">Agendar agora</a>
+                            </div>
+                        `;
+                        chatMessages.appendChild(agentResponse);
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                        // Adiciona o evento de clique para o novo botão "Agendar agora"
+                        document.getElementById('chat-btn-agendar').addEventListener('click', (event) => {
+                            event.preventDefault();
+                            
+                            // Aciona o modal de agendamento existente
+                            const openModalBtn = document.getElementById('open-booking-modal');
+                            if (openModalBtn) {
+                                openModalBtn.click();
+                            }
+                            // Fecha a janela do chat
+                            chatWindow.classList.remove('active');
+                        });
+
+                    }, 1200);
+                });
+            }
 
             document.addEventListener('click', function(event) {
                 const container = document.querySelector('.whatsapp-widget-container');
@@ -1517,6 +1616,11 @@
 
 </body>
 </html>
+
+
+
+
+
 
 
 
