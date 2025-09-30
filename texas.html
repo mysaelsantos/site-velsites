@@ -129,9 +129,9 @@
         .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(61, 43, 31, 0.4); }
         
         /* Estilos de Componentes */
-        .bolsa-regua { background: #FFFFFF; border-radius: 1rem; overflow: hidden; border: 1px solid #EAE8E3; }
+        .bolsa-regua { background: #F7F2EC; border-radius: 1rem; overflow: hidden; border: 1px solid #EAE8E3; }
         .bolsa-regua-card { transform: rotate(-5deg); }
-        .founder-section { background: #FFFFFF; border: 1px solid #EAE8E3;}
+        .founder-section { background: #F7F2EC; border: 1px solid #EAE8E3;}
         .gallery-item { overflow: hidden; position: relative; cursor: pointer; }
         .gallery-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(61, 43, 31, 0.6); opacity: 0; display: flex; align-items: center; justify-content: center; }
         
@@ -406,6 +406,47 @@
         .send-icon svg {
             width: 22px;
             height: 22px;
+        }
+
+        /* --- ESTILOS DA SEÇÃO DE VISAGISMO COM VÍDEO --- */
+        .video-background-container {
+            position: relative;
+            overflow: hidden;
+            min-height: 90vh; /* Seção mais alta */
+        }
+        .video-background {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            opacity: 0.6; /* Opacidade do vídeo */
+        }
+        .video-overlay {
+            position: relative;
+            z-index: 2;
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            background: rgba(61, 43, 31, 0.5); /* Overlay escuro para legibilidade */
+        }
+        .video-fade-blur {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 25%; /* Altura do efeito de blur */
+            background: linear-gradient(to top, #F5F5F3, transparent);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            z-index: 3;
         }
 
         /* --- ESTILOS DA LISTA DE SERVIÇOS EXPANSÍVEL --- */
@@ -882,165 +923,28 @@
         </div>
     </section>
 
-    <!-- Plans Section -->
-    <section id="plans" class="py-20 bg-brand-section border-y border-gray-200">
-        <div class="container mx-auto px-8 sm:px-16 lg:px-24">
-            <div class="text-center mb-16 reveal">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">Pacotes <span class="text-primary">Mensais</span></h2>
-                <div class="w-24 h-1 bg-primary mx-auto"></div>
-                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Economize com nossos pacotes mensais e aproveite serviços de qualidade em nossas duas unidades.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 reveal">
-                <!-- Pacote 2 Cortes Mensal -->
-                <div class="plan-card bg-brand-card rounded-xl overflow-hidden border border-gray-200 hover:border-primary flex flex-col">
-                    <div class="p-6 flex flex-col flex-grow">
-                        <h3 class="text-xl font-bold mb-2">2 Cortes Mensal</h3>
-                        <div class="flex items-end mb-6">
-                            <span class="text-4xl font-bold text-primary">R$85,00</span>
-                            <span class="text-gray-500 ml-2 line-through">R$100</span>
-                            <span class="text-gray-500 ml-2">/mês</span>
-                        </div>
-                        <ul class="space-y-3 mb-8 flex-grow">
-                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>2 serviços de corte de cabelo</span></li>
-                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>Válido nas duas unidades</span></li>
-                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>Economia de 15%</span></li>
-                        </ul>
-                        <a href="https://wa.me/553791786743?text=Gostaria%20de%20saber%20mais%20sobre%20o%20pacote%20de%202%20Cortes%20Mensal" target="_blank" class="block w-full bg-primary text-brand-text font-bold py-3 px-4 rounded-lg hover:bg-yellow-500 transition text-center">Assinar Pacote</a>
-                    </div>
+    <!-- Visagismo Section -->
+    <section id="visagismo" class="video-background-container bg-brand-bg border-y border-gray-200">
+        <video autoplay loop muted playsinline class="video-background">
+            <source src="https://files.catbox.moe/r0kotq.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos.
+        </video>
+        <div class="video-overlay">
+            <div class="container mx-auto px-8 sm:px-16 lg:px-24 reveal">
+                <h2 class="text-3xl md:text-5xl font-bold mb-4">Corte com <span class="text-primary">Visagismo</span></h2>
+                <p class="text-lg md:text-xl text-gray-200 mt-4 max-w-3xl mx-auto">
+                    Descubra como um corte de cabelo, guiado por um olhar profissional e pela análise visagista, pode transformar não apenas seu visual, mas também realçar sua confiança e postura.
+                </p>
+                <div class="my-8">
+                    <span class="font-bold text-primary text-4xl md:text-5xl">R$ 255,00</span>
+                    <span class="text-xl text-gray-300 line-through ml-3">R$ 300,00</span>
                 </div>
-                <!-- Pacote 3 Cortes Mensal -->
-                <div class="plan-card bg-brand-card rounded-xl overflow-hidden border border-gray-200 hover:border-primary flex flex-col">
-                    <div class="p-6 flex flex-col flex-grow">
-                        <h3 class="text-xl font-bold mb-2">3 Cortes Mensal</h3>
-                         <div class="flex items-end mb-6">
-                            <span class="text-4xl font-bold text-primary">R$102,00</span>
-                            <span class="text-gray-500 ml-2 line-through">R$120</span>
-                            <span class="text-gray-500 ml-2">/mês</span>
-                        </div>
-                        <ul class="space-y-3 mb-8 flex-grow">
-                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>3 serviços de corte de cabelo</span></li>
-                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>Válido nas duas unidades</span></li>
-                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>Economia de 15%</span></li>
-                        </ul>
-                        <a href="https://wa.me/553791786743?text=Gostaria%20de%20saber%20mais%20sobre%20o%20pacote%20de%203%20Cortes%20Mensal" target="_blank" class="block w-full bg-primary text-brand-text font-bold py-3 px-4 rounded-lg hover:bg-yellow-500 transition text-center">Assinar Pacote</a>
-                    </div>
-                </div>
-                <!-- Pacote 2 Cortes e 2 Barbas Mensal -->
-                <div class="plan-card bg-brand-card rounded-xl overflow-hidden border-2 border-primary transform md:scale-105 shadow-lg shadow-primary/20 flex flex-col">
-                    <div class="bg-primary text-brand-text text-center py-2 font-bold">MAIS POPULAR</div>
-                    <div class="p-6 flex flex-col flex-grow">
-                        <h3 class="text-xl font-bold mb-2">2 Cortes e 2 Barbas Mensal</h3>
-                         <div class="flex items-end mb-6">
-                            <span class="text-4xl font-bold text-primary">R$136,00</span>
-                             <span class="text-gray-500 ml-2 line-through">R$160</span>
-                            <span class="text-gray-500 ml-2">/mês</span>
-                        </div>
-                        <ul class="space-y-3 mb-8 flex-grow">
-                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>2 cortes de cabelo e 2 barbas</span></li>
-                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>Válido nas duas unidades</span></li>
-                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>Economia de 15%</span></li>
-                        </ul>
-                        <a href="https://wa.me/553791786743?text=Gostaria%20de%20saber%20mais%20sobre%20o%20pacote%20de%202%20Cortes%20e%202%20Barbas" target="_blank" class="block w-full bg-primary text-brand-text font-bold py-3 px-4 rounded-lg hover:bg-yellow-500 transition text-center">Assinar Pacote</a>
-                    </div>
-                </div>
-                <!-- Pacote 1 Corte e 4 Barbas -->
-                <div class="plan-card bg-brand-card rounded-xl overflow-hidden border border-gray-200 hover:border-primary flex flex-col">
-                    <div class="p-6 flex flex-col flex-grow">
-                        <h3 class="text-xl font-bold mb-2">1 Corte e 4 Barbas</h3>
-                         <div class="flex items-end mb-6">
-                            <span class="text-4xl font-bold text-primary">R$161,50</span>
-                             <span class="text-gray-500 ml-2 line-through">R$190</span>
-                            <span class="text-gray-500 ml-2">/mês</span>
-                        </div>
-                        <ul class="space-y-3 mb-8 flex-grow">
-                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>1 corte de cabelo e 4 barbas</span></li>
-                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>Válido nas duas unidades</span></li>
-                            <li class="flex items-center"><i class="fas fa-check text-primary mr-2"></i><span>Economia de 15%</span></li>
-                        </ul>
-                        <a href="https://wa.me/553791786743?text=Gostaria%20de%20saber%20mais%20sobre%20o%20pacote%20de%201%20Corte%20e%204%20Barbas" target="_blank" class="block w-full bg-primary text-brand-text font-bold py-3 px-4 rounded-lg hover:bg-yellow-500 transition text-center">Assinar Pacote</a>
-                    </div>
-                </div>
-            </div>
-            <div class="mt-12 text-center reveal">
-                <p class="text-gray-600 mb-6">Não tem certeza de qual pacote escolher? Entre em contato conosco para uma consulta personalizada.</p>
-                <div class="flex flex-col sm:flex-row justify-center gap-8">
-                    <a href="#" id="open-booking-modal-plans" class="inline-block bg-primary text-brand-text font-bold py-3 px-8 rounded-lg hover:bg-yellow-500 transition">Agendar Horário</a>
-                    <a href="https://wa.me/553791786743?text=Gostaria%20de%20saber%20mais%20sobre%20os%20pacotes%20da%20Texas%20Barbearia" target="_blank" class="inline-block border-2 border-primary text-primary font-bold py-3 px-8 rounded-lg hover:bg-primary hover:text-brand-text transition">Fale Conosco</a>
-                </div>
+                <a href="#" id="open-booking-modal-visagismo" class="bg-primary text-brand-text font-bold py-3 px-8 rounded-lg hover:bg-yellow-500 transition inline-block text-lg">
+                    Agendar Análise Visagista
+                </a>
             </div>
         </div>
-    </section>
-
-    <!-- Locations Section -->
-    <section id="locations" class="py-20 bg-[#A0785A]">
-        <div class="container mx-auto px-8 sm:px-16 lg:px-24">
-            <div class="text-center mb-16 reveal">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">Nossas <span class="text-primary">Unidades</span></h2>
-                <div class="w-24 h-1 bg-primary mx-auto"></div>
-                <p class="text-gray-200 mt-4 max-w-2xl mx-auto">Visite uma de nossas unidades estrategicamente localizadas em Nova Serrana.</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 reveal">
-                <!-- Unidade Matriz -->
-                <div class="bg-brand-card rounded-xl overflow-hidden flex flex-col border border-gray-200">
-                    <div class="h-64 bg-gray-200 relative">
-                        <img src="https://i.postimg.cc/1RvBySfj/Bigode-7.png" alt="Interior da Unidade Pista de Cooper" class="w-full h-full object-cover">
-                    </div>
-                    <div class="p-6 flex flex-col flex-grow">
-                        <h3 class="text-xl font-bold mb-2">Unidade Pista de Cooper</h3>
-                        <div class="space-y-3 mb-6 flex-grow">
-                            <p class="flex items-start"><i class="fas fa-map-pin text-primary mr-3 mt-1"></i><span>Avenida Coronel Pacífico Pinto da Fonseca, 236, Nova Serrana</span></p>
-                            <p class="flex items-start"><i class="fas fa-clock text-primary mr-3 mt-1"></i><span>Seg a Sáb: 8h às 20h</span></p>
-                        </div>
-                        <div class="flex flex-wrap gap-3">
-                            <a href="https://booksy.com/pt-br/376589_texas-barbearia-filial-pista-de-cooper_barbearias_494153_nova-serrana?do=invite#ba_s=dl_1" target="_blank" class="inline-block bg-primary text-brand-text font-bold py-2 px-6 rounded-lg hover:bg-yellow-500 transition"><i class="fas fa-calendar-alt mr-2"></i>Agendar</a>
-                            <a href="https://maps.app.goo.gl/BoWbipiBj4Qi1Zd28" target="_blank" class="inline-block bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition"><i class="fas fa-map-marker-alt mr-2"></i>Ver Rota</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Unidade Romeu Duarte -->
-                <div class="bg-brand-card rounded-xl overflow-hidden flex flex-col border border-gray-200">
-                    <div class="h-64 bg-gray-200 relative">
-                        <img src="https://i.postimg.cc/bN5VxnfP/Bigode-6.png" alt="Interior da Unidade Romeu Duarte da VS Barbearia" class="w-full h-full object-cover">
-                    </div>
-                    <div class="p-6 flex flex-col flex-grow">
-                        <h3 class="text-xl font-bold mb-2">Unidade Romeu Duarte</h3>
-                        <div class="space-y-3 mb-6 flex-grow">
-                            <p class="flex items-start"><i class="fas fa-map-pin text-primary mr-3 mt-1"></i><span>Rua Geraldo Pinto do Amaral, 562, Romeu Duarte, Nova Serrana</span></p>
-                             <p class="flex items-start"><i class="fas fa-clock text-primary mr-3 mt-1"></i><span>Seg a Sáb: 8h às 20h</span></p>
-                        </div>
-                        <div class="flex flex-wrap gap-3">
-                            <a href="https://booksy.com/pt-br/42490_texas-barber-shop_barbearias_494153_nova-serrana#ba_s=seo" target="_blank" class="inline-block bg-primary text-brand-text font-bold py-2 px-6 rounded-lg hover:bg-yellow-500 transition"><i class="fas fa-calendar-alt mr-2"></i>Agendar</a>
-                            <a href="https://maps.app.goo.gl/aygQMpBSD8uLMiwP7" target="_blank" class="inline-block bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition"><i class="fas fa-map-marker-alt mr-2"></i>Ver Rota</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Bolsa Régua Section -->
-    <section id="bolsa-regua" class="py-20 bg-brand-section border-y border-gray-200">
-        <div class="container mx-auto px-8 sm:px-16 lg:px-24">
-             <div class="text-center mb-16 reveal">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">Projeto <span class="text-primary">Bolsa Régua</span></h2>
-                <div class="w-24 h-1 bg-primary mx-auto"></div>
-                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Uma campanha bem-humorada por um benefício que todo homem merece!</p>
-            </div>
-            <div class="bolsa-regua p-8 md:p-12 reveal">
-                <div class="flex flex-col md:flex-row items-center gap-10">
-                    <div class="md:w-1/2">
-                        <h3 class="text-2xl md:text-3xl font-bold mb-4">O governo tem vários benefícios, mas cadê o <span class="text-primary">Bolsa Régua</span>?</h3>
-                        <p class="text-gray-600 mb-6">Nossa missão é garantir que todo cidadão tenha direito a manter o visual impecável. Enquanto o benefício não vira lei, a Texas Barbearia faz a sua parte com promoções e pacotes para manter você sempre na régua!</p>
-                        <a href="#plans" class="bg-primary text-brand-text font-bold py-3 px-8 rounded-lg hover:bg-yellow-500 transition inline-block">Garantir Meu Corte na Régua</a>
-                    </div>
-                    <div class="md:w-1/2 flex justify-center">
-                        <div class="bolsa-regua-card">
-                            <img src="https://i.postimg.cc/2yVsXX6B/Bigode-46.png" alt="Cartão fictício do programa Bolsa Régua" class="w-full max-w-md rounded-lg">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div class="video-fade-blur"></div>
     </section>
 
     <!-- Gallery Section -->
@@ -1092,7 +996,7 @@
                 <div class="md:w-1/2">
                     <div class="relative">
                         <div class="w-full h-80 bg-gray-200 rounded-lg overflow-hidden flex items-center justify-center">
-                            <img src="https://i.ibb.co/bJCq2v7/dfb484e80f944b83babff087716f6f-texas-barbearia-filial-pista-d-inspiration-ee71d7889391413e8d102f8469f90.jpg" alt="Interior da Texas Barbearia" class="w-full h-full object-cover">
+                            <img src="https://8upload.com/image/68dc1cebeda29/dfb484e80f944b83babff087716f6f-texas-barbearia-filial-pista-d-inspiration-ee71d7889391413e8d102f8469f905-booksy.jpeg" alt="Interior da Texas Barbearia" class="w-full h-full object-cover">
                         </div>
                     </div>
                 </div>
@@ -1116,7 +1020,7 @@
             <div class="founder-section p-8 md:p-12 rounded-xl reveal">
                 <div class="flex flex-col md:flex-row items-center gap-10">
                     <div class="md:w-1/3 text-center">
-                        <img src="https://i.ibb.co/qD4XySg/Captura-de-tela-2025-09-30-145001.png" alt="Retrato de Thiago Rodrigues, fundador da Texas Barbearia" class="w-48 h-48 mx-auto rounded-full object-cover border-4 border-primary mb-4">
+                        <img src="https://8upload.com/image/68dc18640fd5d/Captura_de_tela_2025-09-30_145001.png" alt="Retrato de Thiago Rodrigues, fundador da Texas Barbearia" class="w-48 h-48 mx-auto rounded-full object-cover border-4 border-primary mb-4">
                         <h3 class="text-2xl font-bold">Thiago Rodrigues</h3>
                         <p class="text-primary">Fundador & Visagista</p>
                     </div>
@@ -1402,6 +1306,7 @@
             if (bookingModal) {
                 const openModalBtn = document.getElementById('open-booking-modal');
                 const openModalBtnPlans = document.getElementById('open-booking-modal-plans');
+                const openModalBtnVisagismo = document.getElementById('open-booking-modal-visagismo');
                 const closeModalBtn = document.getElementById('close-booking-modal');
                 const modalContent = document.getElementById('booking-modal-content');
 
@@ -1422,6 +1327,9 @@
                 openModalBtn.addEventListener('click', openModal);
                 if (openModalBtnPlans) {
                     openModalBtnPlans.addEventListener('click', openModal);
+                }
+                if (openModalBtnVisagismo) {
+                    openModalBtnVisagismo.addEventListener('click', openModal);
                 }
                 closeModalBtn.addEventListener('click', closeModal);
                 bookingModal.addEventListener('click', (e) => {
@@ -1755,6 +1663,12 @@
 
 </body>
 </html>
+
+
+
+
+
+
 
 
 
