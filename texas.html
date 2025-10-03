@@ -445,13 +445,7 @@
             color: white;
             background: rgba(61, 43, 31, 0.5); /* Overlay escuro para legibilidade */
         }
-
-        @media (min-width: 768px) {
-            .video-overlay {
-                justify-content: center;
-            }
-        }
-
+        
         .video-fade-blur {
             position: absolute;
             bottom: 0;
@@ -935,28 +929,54 @@
         </div>
     </section>
 
-    <!-- Visagismo Section -->
-    <section id="visagismo" class="video-background-container bg-brand-bg border-y border-gray-200">
+    <!-- Visagismo Section - DESKTOP -->
+    <section id="visagismo-desktop" class="hidden md:block video-background-container bg-brand-bg border-y border-gray-200">
+        <video autoplay loop muted playsinline class="video-background">
+            <source src="https://files.catbox.moe/r0kotq.mp4" type="video/mp4">
+            Seu navegador não suporta vídeos.
+        </video>
+        <div class="video-overlay justify-center">
+            <div class="container mx-auto px-8 sm:px-16 lg:px-24 reveal flex flex-col justify-center items-center h-full relative z-10">
+                <div>
+                    <h2 class="text-5xl font-bold">Corte com <span class="text-primary">Visagismo</span></h2>
+                    <p class="text-xl text-gray-200 mt-4 mb-8 max-w-3xl mx-auto">
+                        Descubra como um corte de cabelo, guiado por um olhar profissional e pela análise visagista, pode transformar não apenas seu visual, mas também realçar sua confiança e postura.
+                    </p>
+                    <div class="my-8">
+                        <span class="font-bold text-primary text-5xl">R$ 255,00</span>
+                        <span class="text-xl text-gray-300 line-through ml-3">R$ 300,00</span>
+                    </div>
+                    <a href="#" id="open-booking-modal-visagismo-desktop" class="bg-primary text-brand-text font-bold py-3 px-8 rounded-lg hover:bg-yellow-500 transition inline-block text-lg">
+                        Agendar Análise Visagista
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="video-fade-blur"></div>
+    </section>
+
+    <!-- Visagismo Section - MOBILE -->
+    <section id="visagismo-mobile" class="block md:hidden video-background-container bg-brand-bg border-y border-gray-200">
         <video autoplay loop muted playsinline class="video-background">
             <source src="https://files.catbox.moe/r0kotq.mp4" type="video/mp4">
             Seu navegador não suporta vídeos.
         </video>
         <div class="video-overlay">
-            <div class="container mx-auto px-8 sm:px-16 lg:px-24 reveal flex flex-col justify-between md:justify-center h-full pt-16 pb-4 md:py-0 relative z-10">
+            <div class="container mx-auto px-8 flex flex-col justify-between h-full pt-16 pb-8 relative z-10">
                 <!-- Conteúdo superior (título) -->
                 <div>
-                    <h2 class="text-3xl md:text-5xl font-bold">Corte com<br class="md:hidden"> <span class="text-primary">Visagismo</span></h2>
+                    <h2 class="text-3xl font-bold">Corte com<br> <span class="text-primary">Visagismo</span></h2>
                 </div>
                 <!-- Conteúdo inferior (parágrafo, preço e botão) -->
                 <div>
-                    <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-3xl mx-auto">
+                    <p class="text-lg text-gray-200 mb-6 max-w-3xl mx-auto">
                         Descubra como um corte de cabelo, guiado por um olhar profissional e pela análise visagista, pode transformar não apenas seu visual, mas também realçar sua confiança e postura.
                     </p>
-                    <div class="my-8">
-                        <span class="font-bold text-primary text-4xl md:text-5xl">R$ 255,00</span>
+                    <div class="my-6">
+                        <span class="font-bold text-primary text-4xl">R$ 255,00</span>
                         <span class="text-xl text-gray-300 line-through ml-3">R$ 300,00</span>
                     </div>
-                    <a href="#" id="open-booking-modal-visagismo" class="bg-primary text-brand-text font-bold py-3 px-8 rounded-lg hover:bg-yellow-500 transition inline-block text-lg">
+                    <a href="#" id="open-booking-modal-visagismo-mobile" class="bg-primary text-brand-text font-bold py-3 px-8 rounded-lg hover:bg-yellow-500 transition inline-block text-lg">
                         Agendar Análise Visagista
                     </a>
                 </div>
@@ -1460,7 +1480,8 @@
             if (bookingModal) {
                 const openModalBtn = document.getElementById('open-booking-modal');
                 const openModalBtnPlans = document.getElementById('open-booking-modal-plans');
-                const openModalBtnVisagismo = document.getElementById('open-booking-modal-visagismo');
+                const openModalBtnVisagismoDesktop = document.getElementById('open-booking-modal-visagismo-desktop');
+                const openModalBtnVisagismoMobile = document.getElementById('open-booking-modal-visagismo-mobile');
                 const closeModalBtn = document.getElementById('close-booking-modal');
                 const modalContent = document.getElementById('booking-modal-content');
 
@@ -1479,13 +1500,19 @@
                 };
 
                 openModalBtn.addEventListener('click', openModal);
+                
                 if (openModalBtnPlans) {
                     openModalBtnPlans.addEventListener('click', openModal);
                 }
-                if (openModalBtnVisagismo) {
-                    openModalBtnVisagismo.addEventListener('click', openModal);
+                if (openModalBtnVisagismoDesktop) {
+                    openModalBtnVisagismoDesktop.addEventListener('click', openModal);
                 }
+                if (openModalBtnVisagismoMobile) {
+                    openModalBtnVisagismoMobile.addEventListener('click', openModal);
+                }
+
                 closeModalBtn.addEventListener('click', closeModal);
+                
                 bookingModal.addEventListener('click', (e) => {
                     if (e.target === bookingModal) {
                         closeModal();
@@ -1817,13 +1844,4 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
 
