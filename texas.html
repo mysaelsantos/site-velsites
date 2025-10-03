@@ -115,18 +115,27 @@
         }
         .location-marker { animation: pulse 2s infinite; }
         
-        /* Fundo com Imagem */
+        /* Fundo com Vídeo */
         .hero-background { 
             position: absolute; 
             top: 0; 
             left: 0; 
             width: 100%; 
             height: 100%; 
-            background-image: url('https://i.postimg.cc/43vyCn4c/IMG-20251002-WA0008.jpg');
-            background-size: cover;
-            background-position: center;
+            overflow: hidden;
         }
-        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.1); }
+        .hero-background video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); }
         
         /* Estilos de Componentes */
         .bolsa-regua { background: #F7F2EC; border-radius: 1rem; overflow: hidden; border: 1px solid #EAE8E3; }
@@ -623,6 +632,10 @@
     <!-- Hero Section -->
     <section id="home" class="relative min-h-screen flex flex-col pt-16 pb-24 md:pb-0">
         <div class="hero-background">
+            <video autoplay loop muted playsinline>
+                <source src="https://files.catbox.moe/u1ireb.mp4" type="video/mp4">
+                Seu navegador não suporta vídeos.
+            </video>
             <div class="hero-overlay"></div>
         </div>
         
@@ -1798,4 +1811,5 @@
 
 </body>
 </html>
+
 
