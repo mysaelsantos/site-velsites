@@ -440,12 +440,18 @@
             min-height: 90vh;
             display: flex;
             flex-direction: column;
-            /* justify-content: center;  <-- REMOVIDO */
             align-items: center;
             text-align: center;
             color: white;
             background: rgba(61, 43, 31, 0.5); /* Overlay escuro para legibilidade */
         }
+
+        @media (min-width: 768px) {
+            .video-overlay {
+                justify-content: center;
+            }
+        }
+
         .video-fade-blur {
             position: absolute;
             bottom: 0;
@@ -1811,6 +1817,7 @@
 
 </body>
 </html>
+
 
 
 
