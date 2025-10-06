@@ -451,11 +451,13 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 25%; /* Altura do efeito de blur */
-            background: linear-gradient(to top, #F5F5F3, transparent);
+            height: 45%; /* Altura do efeito de blur aumentada */
+            background: #F5F5F3;
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
             z-index: 3;
+            mask-image: linear-gradient(to top, black 50%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to top, black 50%, transparent 100%);
         }
 
         /* --- ESTILOS DA LISTA DE SERVIÇOS EXPANSÍVEL --- */
@@ -946,7 +948,7 @@
                         <span class="font-bold text-primary text-5xl">R$ 255,00</span>
                         <span class="text-xl text-gray-300 line-through ml-3">R$ 300,00</span>
                     </div>
-                    <a href="#" id="open-booking-modal-visagismo-desktop" class="bg-primary text-brand-text font-bold py-3 px-8 rounded-lg hover:bg-yellow-500 transition inline-block text-lg">
+                    <a href="https://wa.me/553791786743?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20agendar%20uma%20An%C3%A1lise%20Visagista." target="_blank" class="bg-primary text-brand-text font-bold py-3 px-8 rounded-lg hover:bg-yellow-500 transition inline-block text-lg">
                         Agendar Análise Visagista
                     </a>
                 </div>
@@ -975,7 +977,7 @@
                     <span class="font-bold text-primary text-4xl">R$ 255,00</span>
                     <span class="text-xl text-gray-300 line-through ml-3">R$ 300,00</span>
                 </div>
-                <a href="#" id="open-booking-modal-visagismo-mobile" class="bg-primary text-brand-text font-bold py-3 px-8 rounded-lg hover:bg-yellow-500 transition inline-block text-lg">
+                <a href="https://wa.me/553791786743?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20agendar%20uma%20An%C3%A1lise%20Visagista." target="_blank" class="bg-primary text-brand-text font-bold py-3 px-8 rounded-lg hover:bg-yellow-500 transition inline-block text-lg">
                     Agendar Análise Visagista
                 </a>
             </div>
@@ -1842,5 +1844,8 @@
 
 </body>
 </html>
-"
+
+
+
+
 
