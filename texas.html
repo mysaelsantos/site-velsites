@@ -676,17 +676,7 @@
             <div class="text-center mb-12 reveal">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">Nossos <span class="text-primary">Serviços</span></h2>
                 <div class="w-24 h-1 bg-primary mx-auto"></div>
-                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Oferecemos diversos serviços de qualidade para cuidar da sua aparência. Selecione a unidade para ver os preços.</p>
-            </div>
-            
-            <!-- Seletor de Unidade -->
-            <div class="flex flex-col items-center mb-12 reveal">
-                <p class="text-sm text-gray-500 mb-2">Escolha a sua unidade</p>
-                <div class="price-toggle">
-                    <button id="btn-matriz" class="price-toggle-btn active">Pista De Cooper</button>
-                    <button id="btn-romeu" class="price-toggle-btn">Romeu Duarte</button>
-                    <div id="price-toggle-slider" class="price-toggle-bg"></div>
-                </div>
+                <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Oferecemos diversos serviços de qualidade para cuidar da sua aparência com preços promocionais durante a semana.</p>
             </div>
             
             <!-- Cards de Preços - Matriz -->
@@ -713,7 +703,7 @@
                         </div>
                     </div>
                     <div class="mt-8 text-center">
-                        <a href="https://booksy.com/pt-br/376589_texas-barbearia-filial-pista-de-cooper_barbearias_494153_nova-serrana?do=invite#ba_s=dl_1" target="_blank" class="bg-primary text-brand-text font-bold py-3 px-8 rounded-lg hover:bg-yellow-500 transition inline-block">Agendar Agora</a>
+                        <a href="#" id="open-booking-modal-services" class="bg-primary text-brand-text font-bold py-3 px-8 rounded-lg hover:bg-yellow-500 transition inline-block">Agendar Agora</a>
                     </div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -742,64 +732,6 @@
                         <div>
                             <p class="text-primary font-bold">R$ 100,00</p>
                             <p class="text-sm text-gray-500">R$ 85,00 de Quinta a Sexta</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Cards de Preços - Romeu Duarte -->
-            <div id="services-cards-romeu" class="hidden price-cards-container">
-                 <div class="bg-brand-card p-8 rounded-lg mb-12 border border-gray-200">
-                    <h3 class="text-2xl font-bold mb-8 text-center">Preços Promocionais</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="bg-brand-bg p-6 rounded-lg border border-primary relative pt-6">
-                            <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-brand-text text-sm font-bold px-4 py-1 rounded-full">15% OFF</div>
-                            <h4 class="text-xl font-bold mb-3 text-primary">De Quinta a Sexta</h4>
-                            <div class="space-y-4">
-                                <div class="flex justify-between items-center border-b border-gray-200 pb-2"><span>Corte de Cabelo</span><span class="text-primary font-bold">R$ 35,00</span></div>
-                                <div class="flex justify-between items-center border-b border-gray-200 pb-2"><span>Barba</span><span class="text-primary font-bold">R$ 40,00</span></div>
-                                <div class="flex justify-between items-center"><span>Cabelo + Barba</span><span class="text-primary font-bold">R$ 75,00</span></div>
-                            </div>
-                        </div>
-                        <div class="bg-brand-bg p-6 rounded-lg border border-gray-200">
-                            <h4 class="text-xl font-bold mb-3 text-primary">Preço Normal</h4>
-                            <div class="space-y-4">
-                                <div class="flex justify-between items-center border-b border-gray-200 pb-2"><span>Corte de Cabelo</span><span class="text-primary font-bold">R$ 45,00</span></div>
-                                <div class="flex justify-between items-center border-b border-gray-200 pb-2"><span>Barba</span><span class="text-primary font-bold">R$ 45,00</span></div>
-                                <div class="flex justify-between items-center"><span>Cabelo + Barba</span><span class="text-primary font-bold">R$ 90,00</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-8 text-center">
-                        <a href="https://booksy.com/pt-br/42490_texas-barber-shop_barbearias_494153_nova-serrana#ba_s=seo" target="_blank" class="bg-primary text-brand-text font-bold py-3 px-8 rounded-lg hover:bg-yellow-500 transition inline-block">Agendar Agora</a>
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="bg-brand-card p-6 rounded-lg border border-gray-200 hover:border-primary transition flex flex-col h-full">
-                        <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-6"><i class="fas fa-cut text-brand-text text-2xl"></i></div>
-                        <h3 class="text-xl font-bold mb-3">Corte de Cabelo</h3>
-                        <p class="text-gray-600 mb-4 flex-grow">Cortes modernos e clássicos realizados por profissionais experientes que entendem o seu estilo.</p>
-                        <div>
-                            <p class="text-primary font-bold">R$ 45,00</p>
-                            <p class="text-sm text-gray-500">R$ 35,00 de Quinta a Sexta</p>
-                        </div>
-                    </div>
-                    <div class="bg-brand-card p-6 rounded-lg border border-gray-200 hover:border-primary transition flex flex-col h-full">
-                        <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-6"><i class="fas fa-user-alt text-brand-text text-2xl"></i></div>
-                        <h3 class="text-xl font-bold mb-3">Barba</h3>
-                        <p class="text-gray-600 mb-4 flex-grow">Modelagem e aparagem de barba com toalha quente e finalização perfeita.</p>
-                        <div>
-                            <p class="text-primary font-bold">R$ 45,00</p>
-                            <p class="text-sm text-gray-500">R$ 40,00 de Quinta a Sexta</p>
-                        </div>
-                    </div>
-                    <div class="bg-brand-card p-6 rounded-lg border border-gray-200 hover:border-primary transition flex flex-col h-full">
-                        <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-6"><i class="fas fa-star text-brand-text text-2xl"></i></div>
-                        <h3 class="text-xl font-bold mb-3">Combo Cabelo + Barba</h3>
-                        <p class="text-gray-600 mb-4 flex-grow">Economize com nosso combo completo para quem deseja cuidar do visual por completo.</p>
-                        <div>
-                            <p class="text-primary font-bold">R$ 90,00</p>
-                            <p class="text-sm text-gray-500">R$ 75,00 de Quinta a Sexta</p>
                         </div>
                     </div>
                 </div>
@@ -1481,6 +1413,7 @@
                 const openModalBtnPlans = document.getElementById('open-booking-modal-plans');
                 const openModalBtnVisagismoDesktop = document.getElementById('open-booking-modal-visagismo-desktop');
                 const openModalBtnVisagismoMobile = document.getElementById('open-booking-modal-visagismo-mobile');
+                const openModalBtnServices = document.getElementById('open-booking-modal-services');
                 const closeModalBtn = document.getElementById('close-booking-modal');
                 const modalContent = document.getElementById('booking-modal-content');
 
@@ -1508,6 +1441,9 @@
                 }
                 if (openModalBtnVisagismoMobile) {
                     openModalBtnVisagismoMobile.addEventListener('click', openModal);
+                }
+                if (openModalBtnServices) {
+                    openModalBtnServices.addEventListener('click', openModal);
                 }
 
                 closeModalBtn.addEventListener('click', closeModal);
@@ -1843,6 +1779,7 @@
 
 </body>
 </html>
+
 
 
 
