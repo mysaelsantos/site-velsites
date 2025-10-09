@@ -147,7 +147,7 @@
                         <!-- Habilidades -->
                         <section>
                             <h3 class="text-xl font-bold uppercase tracking-wider text-indigo-700 border-b border-gray-300 pb-2 mb-4">Habilidades</h3>
-                            <div id="resume-skills" class="flex flex-wrap gap-2"></div>
+                            <p id="resume-skills" class="text-gray-700 leading-relaxed"></p>
                         </section>
                     </main>
                 </div>
@@ -196,10 +196,7 @@
                         break;
 
                     case 'resume-skills':
-                        const items = value.split(',').filter(item => item.trim() !== '');
-                        targetElement.innerHTML = items.map(item =>
-                            `<span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1.5 rounded-full">${item.trim()}</span>`
-                        ).join('');
+                        targetElement.textContent = value;
                         break;
                 }
             });
