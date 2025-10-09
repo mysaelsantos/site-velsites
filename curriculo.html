@@ -10,7 +10,6 @@
     <!-- jsPDF e html2canvas para exportar PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <!-- Ícones (Lucide) - Removido para usar SVGs embutidos -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
@@ -24,7 +23,7 @@
             /* Dimensões em pixels que aproximam uma folha A4 para uma captura estável */
             width: 794px;
             min-height: 1123px;
-            padding: 75px; /* Aproximadamente 2cm */
+            padding: 50px 75px; /* Padding ajustado: 5cm topo/baixo, ~2cm lados */
             margin: auto;
             background-color: white;
         }
@@ -118,44 +117,36 @@
                     <header class="text-center border-b border-gray-200 pb-6">
                         <h1 id="resume-name" class="text-4xl font-bold text-indigo-800">Seu Nome</h1>
                         <h2 id="resume-job-title" class="text-xl font-medium text-gray-600 mt-1">Seu Cargo</h2>
-                        <div id="contact-info" class="flex justify-center items-center gap-x-6 gap-y-2 mt-4 text-sm flex-wrap">
-                            <a href="#" id="resume-email-container" class="flex items-center gap-2 text-gray-700 hover:text-indigo-600 transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg><span id="resume-email"></span>
-                            </a>
-                            <a href="#" id="resume-phone-container" class="flex items-center gap-2 text-gray-700 hover:text-indigo-600 transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span id="resume-phone"></span>
-                            </a>
-                             <div id="resume-address-container" class="flex items-center gap-2 text-gray-700">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><span id="resume-address"></span>
-                            </div>
-                            <a href="#" id="resume-linkedin-container" target="_blank" class="flex items-center gap-2 text-gray-700 hover:text-indigo-600 transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg><span id="resume-linkedin"></span>
-                            </a>
+                        <div id="contact-info" class="flex justify-center items-center gap-x-4 gap-y-2 mt-4 text-sm flex-wrap">
+                            <a href="#" id="resume-email-container" class="text-gray-700 hover:text-indigo-600 transition-colors"><span id="resume-email"></span></a>
+                            <a href="#" id="resume-phone-container" class="text-gray-700 hover:text-indigo-600 transition-colors"><span id="resume-phone"></span></a>
+                             <div id="resume-address-container" class="text-gray-700"><span id="resume-address"></span></div>
+                            <a href="#" id="resume-linkedin-container" target="_blank" class="text-gray-700 hover:text-indigo-600 transition-colors"><span id="resume-linkedin"></span></a>
                         </div>
                     </header>
 
                     <main class="mt-8 space-y-8">
                         <!-- Resumo -->
                         <section>
-                            <h3 class="text-lg font-bold uppercase tracking-wider text-indigo-700 border-b border-gray-300 pb-2 mb-4 flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>Resumo Profissional</h3>
+                            <h3 class="text-xl font-bold uppercase tracking-wider text-indigo-700 border-b border-gray-300 pb-2 mb-4">Resumo Profissional</h3>
                             <p id="resume-summary" class="text-gray-700 leading-relaxed"></p>
                         </section>
 
                         <!-- Experiência -->
                         <section>
-                            <h3 class="text-lg font-bold uppercase tracking-wider text-indigo-700 border-b border-gray-300 pb-2 mb-4 flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-briefcase"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>Experiência Profissional</h3>
+                            <h3 class="text-xl font-bold uppercase tracking-wider text-indigo-700 border-b border-gray-300 pb-2 mb-4">Experiência Profissional</h3>
                             <div id="resume-experience-list" class="space-y-6"></div>
                         </section>
 
                         <!-- Educação -->
                         <section>
-                            <h3 class="text-lg font-bold uppercase tracking-wider text-indigo-700 border-b border-gray-300 pb-2 mb-4 flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-graduation-cap"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>Formação Acadêmica</h3>
+                            <h3 class="text-xl font-bold uppercase tracking-wider text-indigo-700 border-b border-gray-300 pb-2 mb-4">Formação Acadêmica</h3>
                             <div id="resume-education-list" class="space-y-4"></div>
                         </section>
 
                         <!-- Habilidades -->
                         <section>
-                            <h3 class="text-lg font-bold uppercase tracking-wider text-indigo-700 border-b border-gray-300 pb-2 mb-4 flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>Habilidades</h3>
+                            <h3 class="text-xl font-bold uppercase tracking-wider text-indigo-700 border-b border-gray-300 pb-2 mb-4">Habilidades</h3>
                             <div id="resume-skills" class="flex flex-wrap gap-2"></div>
                         </section>
                     </main>
@@ -191,7 +182,7 @@
                     case 'resume-address':
                     case 'resume-linkedin':
                         const container = document.getElementById(`${targetId}-container`);
-                        container.style.display = value ? 'flex' : 'none';
+                        container.style.display = value ? 'inline' : 'none';
                         targetElement.textContent = value;
 
                         if (targetId === 'resume-linkedin') {
