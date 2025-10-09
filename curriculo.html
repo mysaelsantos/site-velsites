@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Currículo Pro</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- jsPDF e html2canvas para exportar PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- Ícones (Lucide) - Removido para usar SVGs embutidos -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-print-color-adjust: exact;
+        }
+
+        .resume-preview {
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            /* Dimensões em pixels que aproximam uma folha A4 para uma captura estável */
+            width: 794px;
+            min-height: 1123px;
+            padding: 75px; /* Aproximadamente 2cm */
+            margin: auto;
+            background-color: white;
+        }
+        
+        @media print {
+            .form-container, .export-button-container {
+                display: none;
+            }
+            .resume-preview {
+                box-shadow: none;
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                min-height: auto;
+            }
+            body {
+                margin: 0;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-4 lg:p-8">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-900">Gerador de Currículo Profissional</h1>
+            <p class="text-lg text-gray-600 mt-2">Crie um currículo com visual moderno em minutos.</p>
+        </div>
+
+        <div class="fixed bottom-4 right-4 z-20 export-button-container">
+            <button id="export-pdf" class="bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:bg-indigo-700 transition-all duration-300 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-down"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Exportar para PDF
+            </button>
+        </div>
+
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Coluna do Formulário -->
+            <div class="w-full lg:w-1/3 bg-white p-6 rounded-lg shadow-md form-container">
+                <form id="resume-form" class="space-y-6">
+
+                    <!-- Informações Pessoais -->
+                    <fieldset class="border p-4 rounded-md">
+                        <legend class="text-lg font-semibold px-2">Informações Pessoais</legend>
+                        <div class="space-y-4">
+                            <input type="text" id="name" placeholder="Nome Completo" class="w-full p-2 border rounded-md" data-target="resume-name">
+                            <input type="text" id="job-title" placeholder="Cargo Desejado" class="w-full p-2 border rounded-md" data-target="resume-job-title">
+                            <input type="email" id="email" placeholder="E-mail" class="w-full p-2 border rounded-md" data-target="resume-email">
+                            <input type="tel" id="phone" placeholder="Telefone" class="w-full p-2 border rounded-md" data-target="resume-phone">
+                            <input type="text" id="address" placeholder="Endereço (Ex: Cidade, Estado)" class="w-full p-2 border rounded-md" data-target="resume-address">
+                            <input type="url" id="linkedin" placeholder="URL do LinkedIn" class="w-full p-2 border rounded-md" data-target="resume-linkedin">
+                        </div>
+                    </fieldset>
+
+                    <!-- Resumo Profissional -->
+                    <fieldset class="border p-4 rounded-md">
+                        <legend class="text-lg font-semibold px-2">Resumo Profissional</legend>
+                        <textarea id="summary" placeholder="Fale sobre sua carreira, objetivos e qualificações..." class="w-full p-2 border rounded-md h-32" data-target="resume-summary"></textarea>
+                    </fieldset>
+
+                    <!-- Experiência Profissional -->
+                    <fieldset class="border p-4 rounded-md">
+                        <legend class="text-lg font-semibold px-2">Experiência Profissional</legend>
+                        <div id="experience-list" class="space-y-4"></div>
+                        <button type="button" id="add-experience" class="mt-4 bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-md hover:bg-gray-300 w-full">Adicionar Experiência</button>
+                    </fieldset>
+
+                    <!-- Formação Acadêmica -->
+                    <fieldset class="border p-4 rounded-md">
+                        <legend class="text-lg font-semibold px-2">Formação Acadêmica</legend>
+                        <div id="education-list" class="space-y-4"></div>
+                        <button type="button" id="add-education" class="mt-4 bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-md hover:bg-gray-300 w-full">Adicionar Formação</button>
+                    </fieldset>
+
+                    <!-- Habilidades -->
+                    <fieldset class="border p-4 rounded-md">
+                        <legend class="text-lg font-semibold px-2">Habilidades</legend>
+                         <input type="text" id="skills" placeholder="Ex: HTML, CSS, Liderança" class="w-full p-2 border rounded-md" data-target="resume-skills">
+                         <p class="text-xs text-gray-500 mt-1">Separe as habilidades por vírgula.</p>
+                    </fieldset>
+
+                </form>
+            </div>
+
+            <!-- Coluna da Visualização -->
+            <div class="w-full lg:w-2/3">
+                <div id="resume-preview" class="resume-preview bg-white text-gray-900">
+                    <!-- Cabeçalho -->
+                    <header class="text-center border-b border-gray-200 pb-6">
+                        <h1 id="resume-name" class="text-4xl font-bold text-indigo-800">Seu Nome</h1>
+                        <h2 id="resume-job-title" class="text-xl font-medium text-gray-600 mt-1">Seu Cargo</h2>
+                        <div id="contact-info" class="flex justify-center items-center gap-x-6 gap-y-2 mt-4 text-sm flex-wrap">
+                            <a href="#" id="resume-email-container" class="flex items-center gap-2 text-gray-700 hover:text-indigo-600 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg><span id="resume-email"></span>
+                            </a>
+                            <a href="#" id="resume-phone-container" class="flex items-center gap-2 text-gray-700 hover:text-indigo-600 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span id="resume-phone"></span>
+                            </a>
+                             <div id="resume-address-container" class="flex items-center gap-2 text-gray-700">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg><span id="resume-address"></span>
+                            </div>
+                            <a href="#" id="resume-linkedin-container" target="_blank" class="flex items-center gap-2 text-gray-700 hover:text-indigo-600 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg><span id="resume-linkedin"></span>
+                            </a>
+                        </div>
+                    </header>
+
+                    <main class="mt-8 space-y-8">
+                        <!-- Resumo -->
+                        <section>
+                            <h3 class="text-lg font-bold uppercase tracking-wider text-indigo-700 border-b border-gray-300 pb-2 mb-4 flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>Resumo Profissional</h3>
+                            <p id="resume-summary" class="text-gray-700 leading-relaxed"></p>
+                        </section>
+
+                        <!-- Experiência -->
+                        <section>
+                            <h3 class="text-lg font-bold uppercase tracking-wider text-indigo-700 border-b border-gray-300 pb-2 mb-4 flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-briefcase"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>Experiência Profissional</h3>
+                            <div id="resume-experience-list" class="space-y-6"></div>
+                        </section>
+
+                        <!-- Educação -->
+                        <section>
+                            <h3 class="text-lg font-bold uppercase tracking-wider text-indigo-700 border-b border-gray-300 pb-2 mb-4 flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-graduation-cap"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>Formação Acadêmica</h3>
+                            <div id="resume-education-list" class="space-y-4"></div>
+                        </section>
+
+                        <!-- Habilidades -->
+                        <section>
+                            <h3 class="text-lg font-bold uppercase tracking-wider text-indigo-700 border-b border-gray-300 pb-2 mb-4 flex items-center gap-3"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>Habilidades</h3>
+                            <div id="resume-skills" class="flex flex-wrap gap-2"></div>
+                        </section>
+                    </main>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('resume-form');
+            
+            // --- ATUALIZAÇÃO EM TEMPO REAL ---
+            form.addEventListener('input', (e) => {
+                const input = e.target;
+                const value = input.value.trim();
+                const targetId = input.dataset.target;
+
+                if (!targetId) return;
+
+                const targetElement = document.getElementById(targetId);
+                if (!targetElement) return;
+
+                switch (targetId) {
+                    case 'resume-name':
+                    case 'resume-job-title':
+                    case 'resume-summary':
+                        targetElement.textContent = value || '';
+                        break;
+                    
+                    case 'resume-email':
+                    case 'resume-phone':
+                    case 'resume-address':
+                    case 'resume-linkedin':
+                        const container = document.getElementById(`${targetId}-container`);
+                        container.style.display = value ? 'flex' : 'none';
+                        targetElement.textContent = value;
+
+                        if (targetId === 'resume-linkedin') {
+                            container.href = value.startsWith('http') ? value : `https://` + value;
+                            targetElement.textContent = value.replace(/(^\w+:|^)\/\//, '');
+                        } else if (targetId === 'resume-email') {
+                            container.href = `mailto:${value}`;
+                        } else if (targetId === 'resume-phone') {
+                            container.href = `tel:${value}`;
+                        }
+                        break;
+
+                    case 'resume-skills':
+                        const items = value.split(',').filter(item => item.trim() !== '');
+                        targetElement.innerHTML = items.map(item =>
+                            `<span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1.5 rounded-full">${item.trim()}</span>`
+                        ).join('');
+                        break;
+                }
+            });
+
+            // Oculta campos de contato vazios inicialmente
+            ['email', 'phone', 'address', 'linkedin'].forEach(field => {
+                 document.getElementById(`resume-${field}-container`).style.display = 'none';
+            });
+
+            // --- SEÇÕES DINÂMICAS (EXPERIÊNCIA E EDUCAÇÃO) ---
+            let experienceCount = 0;
+            let educationCount = 0;
+
+            const addExperience = () => {
+                experienceCount++;
+                const list = document.getElementById('experience-list');
+                const newItem = document.createElement('div');
+                newItem.className = 'border p-4 rounded-md space-y-2 relative';
+                newItem.dataset.id = experienceCount;
+                newItem.innerHTML = `
+                    <button type="button" class="absolute top-2 right-2 text-red-500 hover:text-red-700 font-bold" onclick="removeSection('experience', ${experienceCount})">&times;</button>
+                    <input type="text" placeholder="Cargo" class="w-full p-2 border rounded-md experience-job-title">
+                    <input type="text" placeholder="Empresa" class="w-full p-2 border rounded-md experience-company">
+                    <input type="text" placeholder="Local (Ex: São Paulo, SP)" class="w-full p-2 border rounded-md experience-location">
+                    <div class="flex gap-2">
+                        <input type="text" placeholder="Início (Ex: Jan 2020)" class="w-1/2 p-2 border rounded-md experience-start-date">
+                        <input type="text" placeholder="Fim (Ex: Atual)" class="w-1/2 p-2 border rounded-md experience-end-date">
+                    </div>
+                    <textarea placeholder="Principais responsabilidades e conquistas..." class="w-full p-2 border rounded-md h-24 experience-description"></textarea>
+                `;
+                list.appendChild(newItem);
+            };
+
+            const addEducation = () => {
+                educationCount++;
+                const list = document.getElementById('education-list');
+                const newItem = document.createElement('div');
+                newItem.className = 'border p-4 rounded-md space-y-2 relative';
+                newItem.dataset.id = educationCount;
+                newItem.innerHTML = `
+                    <button type="button" class="absolute top-2 right-2 text-red-500 hover:text-red-700 font-bold" onclick="removeSection('education', ${educationCount})">&times;</button>
+                    <input type="text" placeholder="Curso/Formação (Ex: Bacharelado)" class="w-full p-2 border rounded-md education-degree">
+                    <input type="text" placeholder="Instituição de Ensino" class="w-full p-2 border rounded-md education-institution">
+                    <div class="flex gap-2">
+                         <input type="text" placeholder="Início (Ex: 2016)" class="w-1/2 p-2 border rounded-md education-start-date">
+                         <input type="text" placeholder="Fim (Ex: 2020)" class="w-1/2 p-2 border rounded-md education-end-date">
+                    </div>
+                `;
+                list.appendChild(newItem);
+            };
+            
+            window.removeSection = (type, id) => {
+                document.querySelector(`#${type}-list > div[data-id="${id}"]`)?.remove();
+                updateDynamicSections();
+            };
+
+            const updateDynamicSections = () => {
+                // Experiência
+                const experienceResumeList = document.getElementById('resume-experience-list');
+                experienceResumeList.innerHTML = '';
+                document.querySelectorAll('#experience-list > div').forEach(item => {
+                    const jobTitle = item.querySelector('.experience-job-title').value;
+                    const company = item.querySelector('.experience-company').value;
+                    const location = item.querySelector('.experience-location').value;
+                    const startDate = item.querySelector('.experience-start-date').value;
+                    const endDate = item.querySelector('.experience-end-date').value;
+                    const description = item.querySelector('.experience-description').value.replace(/\n/g, '<br>');
+
+                    if (jobTitle || company) {
+                        experienceResumeList.innerHTML += `
+                            <div>
+                                <div class="flex justify-between items-baseline">
+                                    <div>
+                                        <h4 class="text-lg font-semibold">${jobTitle || ''}</h4>
+                                        <p class="text-md text-gray-700">${company || ''} ${location ? `- ${location}` : ''}</p>
+                                    </div>
+                                    <p class="text-sm text-gray-500 text-right whitespace-nowrap">${startDate || ''} ${startDate && endDate ? ' - ' : ''} ${endDate || ''}</p>
+                                </div>
+                                <p class="mt-2 text-gray-600 leading-relaxed">${description || ''}</p>
+                            </div>
+                        `;
+                    }
+                });
+
+                // Educação
+                const educationResumeList = document.getElementById('resume-education-list');
+                educationResumeList.innerHTML = '';
+                document.querySelectorAll('#education-list > div').forEach(item => {
+                    const degree = item.querySelector('.education-degree').value;
+                    const institution = item.querySelector('.education-institution').value;
+                    const startDate = item.querySelector('.education-start-date').value;
+                    const endDate = item.querySelector('.education-end-date').value;
+                    
+                     if(degree || institution) {
+                        educationResumeList.innerHTML += `
+                            <div>
+                                <div class="flex justify-between items-baseline">
+                                    <div>
+                                        <h4 class="text-lg font-semibold">${degree || ''}</h4>
+                                        <p class="text-md text-gray-700">${institution || ''}</p>
+                                    </div>
+                                    <p class="text-sm text-gray-500 text-right whitespace-nowrap">${startDate || ''} ${startDate && endDate ? ' - ' : ''} ${endDate || ''}</p>
+                                </div>
+                            </div>
+                        `;
+                     }
+                });
+            };
+
+            document.getElementById('add-experience').addEventListener('click', addExperience);
+            document.getElementById('add-education').addEventListener('click', addEducation);
+            form.addEventListener('input', (e) => {
+                if(e.target.closest('#experience-list') || e.target.closest('#education-list')) {
+                    updateDynamicSections();
+                }
+            });
+            
+            // --- CÓDIGO PARA PRÉ-PREENCHIMENTO ---
+            const prefillData = {
+                name: "LUCIENE MARIA DOS SANTOS ARAUJO",
+                jobTitle: "Profissional da Indústria Calçadista",
+                email: "luciene.araujo1977@gmail.com",
+                phone: "",
+                address: "Nova Serrana, MG",
+                linkedin: "",
+                summary: "Profissional com sólida experiência na indústria de calçados, atuando em diversas etapas da linha de produção, desde o acabamento e montagem até a conferência de produtos. Experiência complementar em vendas e atendimento, demonstrando versatilidade e foco em qualidade e resultados.",
+                skills: "Linha de Produção, Acabamento de Calçados, Conferência de Mercadorias, Controle de Qualidade, Atendimento ao Cliente",
+                experiences: [
+                    { jobTitle: "Conferente", company: "STARLY CALCADOS LTDA", location: "Nova Serrana, MG", startDate: "08/2023", endDate: "05/2025", description: "Responsável pela conferência final dos calçados, garantindo a conformidade com os padrões de qualidade antes da expedição." },
+                    { jobTitle: "Acabador(a) de Calçados", company: "VANEIDE BARBOSA SANTOS", location: "Nova Serrana, MG", startDate: "03/2021", endDate: "12/2022", description: "Atuação na etapa de acabamento de calçados, realizando os processos finais para garantir a qualidade e aparência do produto." },
+                    { jobTitle: "Auxiliar de Linha de Produção", company: "INDUSTRIA DE CALCADOS BLITTZ LTDA", location: "Nova Serrana, MG", startDate: "02/2018", endDate: "12/2019", description: "Participação em diversas fases da linha de produção de calçados, contribuindo para a montagem e fabricação dos produtos." },
+                    { jobTitle: "Vendedor em Comércio Atacadista", company: "PANIFICADORA DSP LTDA", location: "Nova Serrana, MG", startDate: "01/2016", endDate: "05/2017", description: "Atendimento a clientes no setor atacadista, realizando vendas e prestando suporte." },
+                    { jobTitle: "Camareira de Teatro", company: "HOTELSYS GESTAO HOTELEIRA LTDA", location: "", startDate: "12/2010", endDate: "03/2011", description: "Organização e preparação de ambientes, garantindo o bem-estar e a ordem." }
+                ],
+                educations: [
+                    { degree: "Ensino Médio Completo", institution: "", startDate: "", endDate: "" }
+                ]
+            };
+
+            function prefillForm() {
+                Object.keys(prefillData).forEach(key => {
+                    const input = document.getElementById(key);
+                    if (input && typeof prefillData[key] === 'string') {
+                        input.value = prefillData[key];
+                    }
+                });
+
+                prefillData.experiences.forEach(exp => {
+                    addExperience();
+                    const lastExpForm = document.querySelector('#experience-list > div:last-child');
+                    if (lastExpForm) {
+                        lastExpForm.querySelector('.experience-job-title').value = exp.jobTitle;
+                        lastExpForm.querySelector('.experience-company').value = exp.company;
+                        lastExpForm.querySelector('.experience-location').value = exp.location;
+                        lastExpForm.querySelector('.experience-start-date').value = exp.startDate;
+                        lastExpForm.querySelector('.experience-end-date').value = exp.endDate;
+                        lastExpForm.querySelector('.experience-description').value = exp.description;
+                    }
+                });
+                
+                prefillData.educations.forEach(edu => {
+                    addEducation();
+                    const lastEduForm = document.querySelector('#education-list > div:last-child');
+                    if (lastEduForm) {
+                        lastEduForm.querySelector('.education-degree').value = edu.degree;
+                        lastEduForm.querySelector('.education-institution').value = edu.institution;
+                        lastEduForm.querySelector('.education-start-date').value = edu.startDate;
+                        lastEduForm.querySelector('.education-end-date').value = edu.endDate;
+                    }
+                });
+
+                form.querySelectorAll('input, textarea').forEach(input => {
+                    input.dispatchEvent(new Event('input', { bubbles: true }));
+                });
+                updateDynamicSections();
+            }
+
+            prefillForm();
+
+
+            // --- EXPORTAR PDF ---
+            document.getElementById('export-pdf').addEventListener('click', (e) => {
+                const button = e.currentTarget;
+                const originalButtonContent = button.innerHTML;
+                
+                // Desabilitar botão e mostrar estado de carregamento
+                button.disabled = true;
+                button.innerHTML = `
+                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Gerando...
+                `;
+
+                const { jsPDF } = window.jspdf;
+                const resume = document.getElementById('resume-preview');
+                const resumeName = document.getElementById('name').value.trim().replace(/ /g, '_') || 'curriculo';
+
+                // Garante que a captura seja feita do topo da página.
+                window.scrollTo(0, 0);
+
+                // Adiciona um pequeno delay para garantir que as fontes e estilos sejam renderizados antes da captura.
+                setTimeout(() => {
+                    html2canvas(resume, { 
+                        scale: 2,
+                        useCORS: true, // Pode ajudar com recursos externos, se houver.
+                        logging: false // Desativa logs no console
+                    }).then(canvas => {
+                        const imgData = canvas.toDataURL('image/png');
+                        const pdf = new jsPDF({ orientation: 'portrait', unit: 'pt', format: 'a4' });
+                        const pdfWidth = pdf.internal.pageSize.getWidth();
+                        const pdfHeight = pdf.internal.pageSize.getHeight();
+                        const canvasWidth = canvas.width;
+                        const canvasHeight = canvas.height;
+                        const ratio = canvasWidth / canvasHeight;
+                        let height = pdfWidth / ratio;
+
+                        // Se o conteúdo for maior que uma página, ajuste para caber.
+                        if (height > pdfHeight) {
+                            height = pdfHeight;
+                        }
+                        
+                        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, height);
+                        pdf.save(`${resumeName}.pdf`);
+                    }).finally(() => {
+                        // Restaura o botão ao estado original
+                        button.disabled = false;
+                        button.innerHTML = originalButtonContent;
+                    });
+                }, 500); // Meio segundo de delay
+            });
+
+        });
+    </script>
+</body>
+
+</html>
+
