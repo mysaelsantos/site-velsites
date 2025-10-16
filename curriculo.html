@@ -588,9 +588,9 @@
                         skillsArray.forEach(skillText => {
                             const pill = document.createElement('span');
                             pill.textContent = skillText;
-                            // Solução robusta: Usar 'inline-block' com margens em vez de flexbox 'gap'.
-                            // Esta é a abordagem mais compatível para a renderização do PDF.
-                            pill.className = 'inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2';
+                            // SOLUÇÃO FINAL: CSS explícito com altura e altura de linha idênticas para forçar o alinhamento vertical.
+                            // Esta é a abordagem mais robusta para contornar os bugs de renderização do html2canvas.
+                            pill.className = 'inline-block h-7 leading-7 bg-gray-200 rounded-full px-4 text-sm font-semibold text-gray-700 mr-2 mb-2 align-top';
                             targetElement.appendChild(pill);
                         });
                         break;
@@ -783,17 +783,24 @@
                 button.disabled = true;
                 button.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Gerando...`;
                 
-                // Temporariamente redefinir a escala para a exportação
-                const originalTransform = resumePreview.style.transform;
-                const originalWrapperHeight = previewWrapper.style.height;
-                resumePreview.style.transform = 'scale(1)';
-                previewWrapper.style.height = '1123px';
+                // SOLUÇÃO DEFINITIVA: Clonar o elemento de pré-visualização e renderizá-lo fora do ecrã
+                // sem qualquer transformação de escala. Isto evita todos os bugs de renderização do html2canvas.
+                const clone = resumePreview.cloneNode(true);
+                clone.id = 'resume-clone-for-pdf';
+                clone.style.transform = 'none'; // Garante que não há escala
+                clone.style.position = 'absolute';
+                clone.style.left = '0';
+                clone.style.top = `-${resumePreview.offsetHeight + 50}px`; // Posiciona fora da área visível
+                clone.style.zIndex = '-1'; // Garante que não interfere com a UI
+                document.body.appendChild(clone);
+
 
                 const resumeName = document.getElementById('name').value.trim().replace(/ /g, '_') || 'curriculo';
                 window.scrollTo(0, 0);
 
                 setTimeout(() => {
-                    html2canvas(resumePreview, { scale: 2, useCORS: true, logging: false }).then(canvas => {
+                    // Agora, o html2canvas é executado no clone perfeito, não na pré-visualização visível.
+                    html2canvas(clone, { scale: 2, useCORS: true, logging: false, letterRendering: true }).then(canvas => {
                         const { jsPDF } = window.jspdf;
                         const imgData = canvas.toDataURL('image/png');
                         const pdf = new jsPDF({ orientation: 'portrait', unit: 'pt', format: 'a4' });
@@ -805,9 +812,8 @@
                         pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, finalHeight);
                         pdf.save(`${resumeName}.pdf`);
                     }).finally(() => {
-                        // Restaurar a escala e o estado do botão
-                        resumePreview.style.transform = originalTransform;
-                        previewWrapper.style.height = originalWrapperHeight;
+                        // Remove o clone do DOM e restaura o estado do botão
+                        document.body.removeChild(clone);
                         button.disabled = false;
                         button.innerHTML = originalContent;
                     });
@@ -817,6 +823,4 @@
     </script>
 </body>
 </html>
-
-
 
