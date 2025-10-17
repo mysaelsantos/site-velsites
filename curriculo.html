@@ -209,13 +209,6 @@
                 <img src="https://files.catbox.moe/aid7gz.png" alt="Visualização dos modelos de currículo" class="max-w-full md:max-w-md rounded-lg">
             </div>
 
-            <div class="fixed bottom-4 right-4 z-20 export-button-container">
-                <button id="export-pdf" class="btn-primary text-white font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none" disabled>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                    Exportar para PDF
-                </button>
-            </div>
-
             <div class="flex flex-col lg:flex-row gap-8">
                 <!-- Coluna do Formulário --><div class="w-full lg:w-1/3 bg-white p-6 rounded-lg shadow-md form-container">
                     <div id="wizard-header" class="mb-4 text-center">
@@ -305,13 +298,19 @@
                         <!-- Experiência Profissional --><fieldset class="border-0 p-4">
                             <legend class="text-lg font-semibold px-2 mb-4">Experiência Profissional</legend>
                             <div id="experience-list" class="space-y-4"></div>
-                            <button type="button" id="add-experience" class="mt-4 bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-full hover:bg-gray-300 w-full">Adicionar Experiência</button>
+                            <button type="button" id="add-experience" class="mt-6 w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded-full transition-colors flex items-center justify-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-circle"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                                Adicionar mais
+                            </button>
                         </fieldset>
 
                         <!-- Formação Acadêmica --><fieldset class="border-0 p-4">
                             <legend class="text-lg font-semibold px-2 mb-4">Formação Acadêmica</legend>
                             <div id="education-list" class="space-y-4"></div>
-                            <button type="button" id="add-education" class="mt-4 bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-full hover:bg-gray-300 w-full">Adicionar Formação</button>
+                            <button type="button" id="add-education" class="mt-6 w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded-full transition-colors flex items-center justify-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-circle"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                                Adicionar mais
+                            </button>
                         </fieldset>
 
                         <!-- Habilidades --><fieldset class="border-0 p-4">
@@ -321,9 +320,16 @@
                         </fieldset>
                         </div>
                     </form>
-                    <div id="wizard-nav" class="mt-auto flex justify-between">
-                        <button type="button" id="prev-step-button" class="bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-full hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed">Anterior</button>
-                        <button type="button" id="next-step-button" class="btn-primary text-white font-semibold py-2 px-4 rounded-full">Próximo</button>
+
+                    <div id="completion-view" class="hidden text-center p-8 flex-grow flex flex-col justify-center items-center">
+                        <svg class="w-16 h-16 text-green-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        <h3 class="text-2xl font-bold mt-4">Seu currículo está pronto!</h3>
+                        <p class="text-gray-600 mt-2">Pode agora baixar o seu PDF ou voltar para fazer mais edições.</p>
+                    </div>
+
+                    <div id="wizard-nav" class="mt-auto flex justify-between gap-4">
+                        <button type="button" id="prev-step-button" class="bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-full hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 ease-in-out">Anterior</button>
+                        <button type="button" id="next-step-button" class="btn-primary text-white font-semibold py-2 px-4 rounded-full transition-all duration-300 ease-in-out flex-grow">Próximo</button>
                     </div>
                 </div>
 
@@ -421,7 +427,8 @@
             const progressBar = document.getElementById('wizard-progress-bar');
             const stepsContainer = document.getElementById('wizard-steps-container');
             
-            const exportPdfButton = document.getElementById('export-pdf');
+            const formContainer = document.querySelector('.form-container');
+            const completionView = document.getElementById('completion-view');
 
             // --- LÓGICA DE ESCALA DA PRÉ-VISUALIZAÇÃO ---
             const previewWrapper = document.getElementById('preview-wrapper');
@@ -455,17 +462,20 @@
             function showStep(stepIndex) {
                 if (stepIndex < 0 || stepIndex >= wizardSteps.length) return;
 
-                const nextStepElement = wizardSteps[stepIndex];
-
-                // Ajusta a altura do container para a altura do próximo passo, criando uma transição suave
-                if (nextStepElement) {
-                    stepsContainer.style.height = `${nextStepElement.scrollHeight}px`;
-                }
-
+                // CORREÇÃO: Inverte a ordem das operações.
+                // Primeiro, tornamos o passo alvo 'ativo' no DOM para que o navegador calcule o seu layout final.
                 wizardSteps.forEach((step, index) => {
                     step.classList.toggle('step-active', index === stepIndex);
                 });
 
+                const nextStepElement = wizardSteps[stepIndex];
+
+                // Em segundo, agora que o passo está ativo, medimos a sua altura real (scrollHeight).
+                // Isto evita que o navegador reporte uma altura de 0 para um elemento que estava invisível.
+                if (nextStepElement) {
+                    stepsContainer.style.height = `${nextStepElement.scrollHeight}px`;
+                }
+                
                 currentStep = stepIndex;
                 updateWizardControls();
             }
@@ -485,10 +495,49 @@
                     showStep(currentStep + 1);
                 } else {
                     // Clicou em "Concluir" na última etapa
-                    exportPdfButton.disabled = false;
+                    showCompletionView();
                 }
             });
             initWizard();
+
+            function showCompletionView() {
+                // Esconde o formulário e mostra a mensagem de conclusão
+                form.classList.add('hidden');
+                completionView.classList.remove('hidden');
+
+                // Altera os botões da barra de navegação
+                prevStepButton.textContent = 'Voltar';
+                prevStepButton.onclick = showWizardView; // Atribui a nova função de voltar a editar
+
+                nextStepButton.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    <span>Baixar PDF</span>`;
+                nextStepButton.classList.add('flex', 'items-center', 'justify-center', 'gap-2');
+                nextStepButton.onclick = () => exportResumeAsPdf(nextStepButton);
+            }
+
+            function showWizardView() {
+                // Esconde a mensagem de conclusão e mostra o formulário novamente
+                completionView.classList.add('hidden');
+                form.classList.remove('hidden');
+
+                // Restaura os botões da barra de navegação ao seu estado original
+                prevStepButton.textContent = 'Anterior';
+                prevStepButton.onclick = () => { if (currentStep > 0) showStep(currentStep - 1); };
+
+                nextStepButton.innerHTML = 'Próximo';
+                nextStepButton.classList.remove('flex', 'items-center', 'justify-center', 'gap-2');
+                nextStepButton.onclick = () => {
+                    if (currentStep < wizardSteps.length - 1) {
+                        showStep(currentStep + 1);
+                    } else {
+                        showCompletionView();
+                    }
+                };
+                
+                // Volta para o primeiro passo
+                showStep(0);
+            }
 
 
             // --- LÓGICA DE ESTILO E TEMPLATE ---
@@ -610,48 +659,140 @@
                 experienceCount++;
                 const list = document.getElementById('experience-list');
                 const newItem = document.createElement('div');
-                newItem.className = 'border p-4 rounded-md space-y-2 relative';
+                newItem.className = 'accordion-item bg-white border rounded-lg shadow-sm';
                 newItem.dataset.id = experienceCount;
                 newItem.innerHTML = `
-                    <button type="button" class="absolute top-2 right-2 text-red-500 hover:text-red-700 font-bold" onclick="removeSection('experience', ${experienceCount})">&times;</button>
-                    <input type="text" placeholder="Cargo" class="w-full p-2 border rounded-md experience-job-title">
-                    <input type="text" placeholder="Empresa" class="w-full p-2 border rounded-md experience-company">
-                    <input type="text" placeholder="Local (Ex: São Paulo, SP)" class="w-full p-2 border rounded-md experience-location">
-                    <div class="flex gap-2">
-                        <input type="text" placeholder="Início (Ex: Jan 2020)" class="w-1/2 p-2 border rounded-md experience-start-date">
-                        <input type="text" placeholder="Fim (Ex: Atual)" class="w-1/2 p-2 border rounded-md experience-end-date">
+                    <div class="accordion-header p-4 flex justify-between items-center cursor-pointer">
+                        <div class="flex-grow">
+                            <h4 class="font-semibold text-gray-800 accordion-title">Nova Experiência</h4>
+                            <p class="text-sm text-gray-500 accordion-subtitle"></p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button type="button" class="remove-section-btn text-gray-400 hover:text-red-500 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+                            </button>
+                            <svg class="accordion-chevron w-5 h-5 text-gray-500 transition-transform transform" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                        </div>
                     </div>
-                    <div class="relative">
-                        <textarea placeholder="Principais responsabilidades e conquistas..." class="w-full p-2 border rounded-md h-24 experience-description pr-10"></textarea>
-                        <button type="button" title="Melhorar com IA" class="enhance-experience absolute top-2 right-2 text-indigo-500 hover:text-indigo-700 p-1 rounded-full hover:bg-indigo-100 transition-colors">
-                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
-                        </button>
+                    <div class="accordion-body p-4 border-t border-gray-200 hidden">
+                        <div class="space-y-3">
+                             <input type="text" placeholder="Cargo" class="w-full p-2 border rounded-lg experience-job-title">
+                            <input type="text" placeholder="Empresa" class="w-full p-2 border rounded-lg experience-company">
+                            <input type="text" placeholder="Local (Ex: São Paulo, SP)" class="w-full p-2 border rounded-lg experience-location">
+                            <div class="flex gap-3">
+                                <input type="text" placeholder="Início (Ex: Jan 2020)" class="w-1/2 p-2 border rounded-lg experience-start-date">
+                                <input type="text" placeholder="Fim (Ex: Atual)" class="w-1/2 p-2 border rounded-lg experience-end-date">
+                            </div>
+                            <div class="relative">
+                                <textarea placeholder="Principais responsabilidades e conquistas..." class="w-full p-2 border rounded-lg h-24 pr-10 experience-description"></textarea>
+                                <button type="button" title="Melhorar com IA" class="enhance-experience absolute top-2 right-2 text-indigo-500 hover:text-indigo-700 p-1 rounded-full hover:bg-indigo-100 transition-colors">
+                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 `;
                 list.appendChild(newItem);
+                 // Abre o primeiro item por defeito
+                if (list.children.length === 1) {
+                    newItem.querySelector('.accordion-body').classList.remove('hidden');
+                    newItem.querySelector('.accordion-chevron').classList.add('rotate-180');
+                }
+                updateDynamicSections();
             };
 
             const addEducation = () => {
                 educationCount++;
                 const list = document.getElementById('education-list');
                 const newItem = document.createElement('div');
-                newItem.className = 'border p-4 rounded-md space-y-2 relative';
+                newItem.className = 'accordion-item bg-white border rounded-lg shadow-sm';
                 newItem.dataset.id = educationCount;
                 newItem.innerHTML = `
-                    <button type="button" class="absolute top-2 right-2 text-red-500 hover:text-red-700 font-bold" onclick="removeSection('education', ${educationCount})">&times;</button>
-                    <input type="text" placeholder="Curso/Formação (Ex: Bacharelado)" class="w-full p-2 border rounded-md education-degree">
-                    <input type="text" placeholder="Instituição de Ensino" class="w-full p-2 border rounded-md education-institution">
-                    <div class="flex gap-2">
-                         <input type="text" placeholder="Início (Ex: 2016)" class="w-1/2 p-2 border rounded-md education-start-date">
-                         <input type="text" placeholder="Fim (Ex: 2020)" class="w-1/2 p-2 border rounded-md education-end-date">
+                     <div class="accordion-header p-4 flex justify-between items-center cursor-pointer">
+                        <div class="flex-grow">
+                            <h4 class="font-semibold text-gray-800 accordion-title">Nova Formação</h4>
+                            <p class="text-sm text-gray-500 accordion-subtitle"></p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                             <button type="button" class="remove-section-btn text-gray-400 hover:text-red-500 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+                            </button>
+                             <svg class="accordion-chevron w-5 h-5 text-gray-500 transition-transform transform" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                        </div>
+                    </div>
+                    <div class="accordion-body p-4 border-t border-gray-200 hidden">
+                        <div class="space-y-3">
+                            <input type="text" placeholder="Curso/Formação (Ex: Bacharelado)" class="w-full p-2 border rounded-lg education-degree">
+                            <input type="text" placeholder="Instituição de Ensino" class="w-full p-2 border rounded-lg education-institution">
+                            <div class="flex gap-3">
+                                 <input type="text" placeholder="Início (Ex: 2016)" class="w-full p-2 border rounded-lg education-start-date">
+                                 <input type="text" placeholder="Fim (Ex: 2020)" class="w-full p-2 border rounded-lg education-end-date">
+                            </div>
+                        </div>
                     </div>
                 `;
                 list.appendChild(newItem);
+                 // Abre o primeiro item por defeito
+                if (list.children.length === 1) {
+                    newItem.querySelector('.accordion-body').classList.remove('hidden');
+                    newItem.querySelector('.accordion-chevron').classList.add('rotate-180');
+                }
+                updateDynamicSections();
             };
             
+            function handleAccordion(listId) {
+                const list = document.getElementById(listId);
+                list.addEventListener('click', (e) => {
+                    const header = e.target.closest('.accordion-header');
+                    if (!header) return;
+
+                    const item = header.parentElement;
+                    const body = item.querySelector('.accordion-body');
+                    const chevron = header.querySelector('.accordion-chevron');
+
+                    // Lógica para remover o item
+                    if (e.target.closest('.remove-section-btn')) {
+                        const id = item.dataset.id;
+                        const type = listId.split('-')[0];
+                        removeSection(type, id);
+                        return; // Impede que o acordeão abra/feche
+                    }
+                    
+                    // Lógica para abrir/fechar o acordeão
+                    const isHidden = body.classList.toggle('hidden');
+                    chevron.classList.toggle('rotate-180', !isHidden);
+                    setTimeout(() => showStep(currentStep), 200); // Recalcula a altura do container
+                });
+
+                // Atualiza o título do acordeão em tempo real
+                list.addEventListener('input', (e) => {
+                    const item = e.target.closest('.accordion-item');
+                    if (!item) return;
+
+                    const title = item.querySelector('.accordion-title');
+                    const subtitle = item.querySelector('.accordion-subtitle');
+
+                    if (listId === 'experience-list') {
+                        const jobTitle = item.querySelector('.experience-job-title').value || 'Nova Experiência';
+                        const company = item.querySelector('.experience-company').value || '';
+                        title.textContent = jobTitle;
+                        subtitle.textContent = company;
+                    } else {
+                        const degree = item.querySelector('.education-degree').value || 'Nova Formação';
+                        const institution = item.querySelector('.education-institution').value || '';
+                        title.textContent = degree;
+                        subtitle.textContent = institution;
+                    }
+                });
+            }
+
+            handleAccordion('experience-list');
+            handleAccordion('education-list');
+
             window.removeSection = (type, id) => {
                 document.querySelector(`#${type}-list > div[data-id="${id}"]`)?.remove();
                 updateDynamicSections();
+                setTimeout(() => showStep(currentStep), 200); // Recalcula a altura após remover
             };
 
             const updateDynamicSections = () => {
@@ -717,9 +858,13 @@
                 }
             });
 
+            // Adiciona um campo de cada por defeito ao carregar
+            addExperience();
+            addEducation();
+
             // --- LÓGICA DA IA (GEMINI) ---
             const apiKey = "";
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
             const spinnerIcon = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>`;
 
             async function callGeminiAPI(prompt, button) {
@@ -777,48 +922,90 @@
             });
 
             // --- EXPORTAR PARA PDF ---
-            document.getElementById('export-pdf').addEventListener('click', (e) => {
-                const button = e.currentTarget;
+            async function exportResumeAsPdf(button) {
                 const originalContent = button.innerHTML;
+            
+                console.log("Iniciando processo de exportação para PDF...");
+            
                 button.disabled = true;
                 button.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Gerando...`;
-                
-                // SOLUÇÃO DEFINITIVA: Clonar o elemento de pré-visualização e renderizá-lo fora do ecrã
-                // sem qualquer transformação de escala. Isto evita todos os bugs de renderização do html2canvas.
+            
+                const resumePreview = document.getElementById('resume-preview');
                 const clone = resumePreview.cloneNode(true);
                 clone.id = 'resume-clone-for-pdf';
-                clone.style.transform = 'none'; // Garante que não há escala
+                clone.style.transform = 'none';
                 clone.style.position = 'absolute';
                 clone.style.left = '0';
-                clone.style.top = `-${resumePreview.offsetHeight + 50}px`; // Posiciona fora da área visível
-                clone.style.zIndex = '-1'; // Garante que não interfere com a UI
+                clone.style.top = '0';
+                clone.style.zIndex = '-1';
+                // Renderiza o clone fora da tela, mas começando do topo para evitar problemas de cálculo de altura
+                clone.style.transform = 'translateX(-100%)'; 
                 document.body.appendChild(clone);
-
-
+                
+                console.log("Clone do currículo criado e adicionado ao DOM.");
+            
                 const resumeName = document.getElementById('name').value.trim().replace(/ /g, '_') || 'curriculo';
                 window.scrollTo(0, 0);
-
+            
+                // Aumentamos o tempo para 1 segundo (1000ms) para dar mais margem para fontes e imagens carregarem.
                 setTimeout(() => {
-                    // Agora, o html2canvas é executado no clone perfeito, não na pré-visualização visível.
-                    html2canvas(clone, { scale: 2, useCORS: true, logging: false, letterRendering: true }).then(canvas => {
-                        const { jsPDF } = window.jspdf;
-                        const imgData = canvas.toDataURL('image/png');
-                        const pdf = new jsPDF({ orientation: 'portrait', unit: 'pt', format: 'a4' });
-                        const pdfWidth = pdf.internal.pageSize.getWidth();
-                        const canvasWidth = canvas.width;
-                        const ratio = pdfWidth / canvasWidth;
-                        const finalHeight = canvas.height * ratio;
-
-                        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, finalHeight);
-                        pdf.save(`${resumeName}.pdf`);
+                    console.log("Iniciando html2canvas...");
+                    
+                    html2canvas(clone, { 
+                        scale: 2, // Aumentar a escala melhora a qualidade final
+                        useCORS: true, 
+                        logging: true, // Habilitar logs para depuração
+                        letterRendering: true,
+                        allowTaint: true // Permite capturar mesmo com CORS, mas o canvas fica "contaminado"
+                    }).then(canvas => {
+                        console.log("Canvas gerado com sucesso. Dimensões:", canvas.width, "x", canvas.height);
+                        
+                        try {
+                            const { jsPDF } = window.jspdf;
+                            const imgData = canvas.toDataURL('image/png');
+                            console.log("Imagem DataURL criada. Iniciando criação do PDF.");
+            
+                            const pdf = new jsPDF({ orientation: 'portrait', unit: 'pt', format: 'a4' });
+                            const pdfWidth = pdf.internal.pageSize.getWidth();
+                            const pdfHeight = pdf.internal.pageSize.getHeight();
+                            
+                            const canvasWidth = canvas.width;
+                            const canvasHeight = canvas.height;
+                            
+                            const ratio = canvasWidth / canvasHeight;
+                            const pdfRatio = pdfWidth / pdfHeight;
+            
+                            let finalWidth, finalHeight;
+            
+                            // Mantém a proporção do canvas dentro da página A4
+                            if (ratio > pdfRatio) {
+                                finalWidth = pdfWidth;
+                                finalHeight = pdfWidth / ratio;
+                            } else {
+                                finalHeight = pdfHeight;
+                                finalWidth = pdfHeight * ratio;
+                            }
+            
+                            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight); // Força a imagem a preencher a página A4
+                            console.log("Imagem adicionada ao PDF. Salvando o arquivo...");
+                            pdf.save(`${resumeName}.pdf`);
+            
+                        } catch (pdfError) {
+                            console.error("ERRO ao criar ou salvar o PDF:", pdfError);
+                            alert("Ocorreu um erro ao gerar o PDF. Verifique o console para mais detalhes.");
+                        }
+            
+                    }).catch(err => {
+                        console.error("ERRO no html2canvas:", err);
+                        alert("Ocorreu um erro ao renderizar o currículo. Verifique o console para mais detalhes.");
                     }).finally(() => {
-                        // Remove o clone do DOM e restaura o estado do botão
+                        console.log("Processo finalizado. Removendo clone e restaurando botão.");
                         document.body.removeChild(clone);
                         button.disabled = false;
                         button.innerHTML = originalContent;
                     });
-                }, 500); // 500ms para garantir que o DOM seja atualizado
-            });
+                }, 1000); // Aumento do tempo de espera
+            }
         });
     </script>
 </body>
