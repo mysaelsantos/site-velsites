@@ -8,6 +8,7 @@
     <!-- Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
     <!-- jsPDF e html2canvas para exportar PDF --><script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- ADICIONADO: Biblioteca QR Code --><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.1/qrcode.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
@@ -88,6 +89,7 @@
             background-color: white;
             transition: all 0.3s ease-in-out;
             transform-origin: top left;
+            position: relative; /* ADICIONADO: Necessário para o posicionamento do QR Code */
         }
         
         @media print {
@@ -199,6 +201,105 @@
             }
         }
 
+        /* --- ANIMAÇÕES DO MODO DEMO (ADICIONADO) --- */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+        }
+
+        /* Estado Inicial: Oculta elementos e prepara para animar */
+        .is-demo-mode .demo-element {
+            opacity: 0;
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+
+        /* Estado de Saída: Aplica animação de fade-out */
+        .is-fading-out .demo-element {
+            animation: fadeOut 0.3s ease-in forwards;
+        }
+
+        /* Esconde elementos de contacto reais (que estão vazios) durante o modo demo */
+        .is-demo-mode #contact-info a[style*="display: none"],
+        .is-demo-mode #contact-info div[style*="display: none"] {
+            display: none !important;
+        }
+
+        /* ADICIONADO: Estilo para os botões de atalho da formação */
+        .education-shortcut-btn {
+            background-color: #eef2ff; /* indigo-100 */
+            color: #4338ca; /* indigo-700 */
+            font-size: 0.875rem; /* text-sm */
+            font-weight: 500; /* medium */
+            padding: 0.5rem 0.75rem; /* py-2 px-3 */
+            border-radius: 0.5rem; /* rounded-lg */
+            transition: all 0.2s ease;
+        }
+        .education-shortcut-btn:hover {
+            background-color: #e0e7ff; /* indigo-200 */
+            transform: translateY(-1px);
+        }
+
+        /* ADICIONADO: Estilo para o botão de atalho selecionado */
+        .education-shortcut-btn.selected {
+            background-color: #4338ca; /* indigo-700 */
+            color: white;
+            transform: translateY(0);
+        }
+        .education-shortcut-btn.selected:hover {
+            background-color: #3730a3; /* indigo-800 */
+        }
+
+        /* ADICIONADO: Estilo para o QR Code do WhatsApp */
+        #whatsapp-qr-code-container {
+            position: absolute;
+            bottom: 1.5rem; /* 24px */
+            right: 1.5rem; /* 24px */
+            display: none; /* Começa escondido */
+            flex-direction: column;
+            align-items: center;
+            background-color: white;
+            padding: 0.5rem; /* 8px */
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
+
+        /* ADICIONADO: Estilo para as sugestões de habilidades */
+        .skill-suggestion-btn {
+            background-color: #eef2ff; /* indigo-100 */
+            color: #4338ca; /* indigo-700 */
+            font-size: 0.75rem; /* text-xs */
+            font-weight: 500; /* medium */
+            padding: 0.25rem 0.75rem; /* py-1 px-3 */
+            border-radius: 9999px; /* rounded-full */
+            transition: all 0.2s ease;
+        }
+        .skill-suggestion-btn:hover:not(:disabled) {
+            background-color: #e0e7ff; /* indigo-200 */
+            transform: translateY(-1px);
+        }
+        .skill-suggestion-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
     </style>
 </head>
 
@@ -304,20 +405,30 @@
                                     <input type="text" id="name" placeholder="Nome Completo" class="w-full p-2 border rounded-md" data-target="resume-name">
                                     <input type="text" id="job-title" placeholder="Cargo Desejado" class="w-full p-2 border rounded-md" data-target="resume-job-title">
                                     <input type="email" id="email" placeholder="E-mail" class="w-full p-2 border rounded-md" data-target="resume-email">
-                                    <input type="tel" id="phone" placeholder="Telefone" class="w-full p-2 border rounded-md" data-target="resume-phone">
+                                    <!-- ALTERAÇÃO: Placeholder atualizado -->
+                                    <input type="tel" id="phone" placeholder="Telefone" class="w-full p-2 border rounded-md" data-target="resume-phone" maxlength="16">
                                     <input type="text" id="address" placeholder="Endereço (Ex: Cidade, Estado)" class="w-full p-2 border rounded-md" data-target="resume-address">
-                                    <input type="url" id="linkedin" placeholder="URL do LinkedIn" class="w-full p-2 border rounded-md" data-target="resume-linkedin">
+                                    <!-- ALTERAÇÃO: Campo de LinkedIn substituído por Idade -->
+                                    <input type="tel" id="age" placeholder="Idade" class="w-full p-2 border rounded-md" data-target="resume-age" maxlength="2">
                                 </div>
                             </fieldset>
 
                             <!-- Resumo Profissional --><fieldset class="border-0 p-4">
                                 <legend class="hidden text-lg font-semibold px-2 mb-4">Resumo Profissional</legend>
                                 <div class="relative">
-                                    <textarea id="summary" placeholder="Fale sobre sua carreira, objetivos e qualificações..." class="w-full p-2 border rounded-md h-32 pr-10" data-target="resume-summary"></textarea>
-                                    <button type="button" id="enhance-summary" title="Melhorar com IA" class="absolute top-2 right-2 text-indigo-500 hover:text-indigo-700 p-1 rounded-full hover:bg-indigo-100 transition-colors">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
-                                    </button>
+                                    <textarea id="summary" placeholder="Fale sobre sua carreira, objetivos e qualificações..." class="w-full p-2 border rounded-md h-32" data-target="resume-summary"></textarea>
+                                    <!-- Botão de IA removido daqui -->
                                 </div>
+                                
+                                <!-- ALTERAÇÃO: Novo botão de IA e texto de instrução -->
+                                <button type
+="button" id="enhance-summary" title="Melhorar com IA" class="mt-4 w-full flex items-center justify-center gap-2 bg-indigo-600 text-white font-semibold py-2 px-4 rounded-full hover:bg-indigo-700 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+                                    Escrever com IA
+                                </button>
+                                <p class="text-xs text-gray-500 mt-2 text-center">Escreva um pouco sobre você no campo acima e clique no botão para aprimorar o texto.</p>
+                                <!-- Fim da Alteração -->
+
                             </fieldset>
 
                             <!-- Experiência Profissional --><fieldset class="border-0 p-4">
@@ -331,6 +442,16 @@
 
                             <!-- Formação Acadêmica --><fieldset class="border-0 p-4">
                                 <legend class="hidden text-lg font-semibold px-2 mb-4">Formação Acadêmica</legend>
+                                
+                                <!-- ADICIONADO: Botões de atalho -->
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Preenchimento Rápido</label>
+                                <div class="flex flex-wrap gap-2 mb-4">
+                                    <button type="button" class="education-shortcut-btn" data-degree="Ensino Médio Completo">Ensino Médio Completo</button>
+                                    <button type="button" class="education-shortcut-btn" data-degree="Ensino Médio Incompleto">Ensino Médio Incompleto</button>
+                                    <button type="button" class="education-shortcut-btn" data-degree="Ensino Fundamental">Ensino Fundamental</button>
+                                </div>
+                                <!-- Fim do Bloco Adicionado -->
+
                                 <div id="education-list" class="space-y-4"></div>
                                 <button type="button" id="add-education" class="mt-6 w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2 px-4 rounded-full transition-colors flex items-center justify-center gap-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-circle"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
@@ -342,6 +463,22 @@
                                 <legend class="hidden text-lg font-semibold px-2 mb-4">Habilidades</legend>
                                 <input type="text" id="skills" placeholder="Ex: HTML, CSS, Liderança" class="w-full p-2 border rounded-md" data-target="resume-skills">
                                 <p class="text-xs text-gray-500 mt-1">Separe as habilidades por vírgula.</p>
+                                
+                                <!-- ADICIONADO: Sugestões de Habilidades -->
+                                <label class="block text-sm font-medium text-gray-700 mt-4 mb-2">Sugestões (clique para adicionar):</label>
+                                <div id="skill-suggestion-container" class="flex flex-wrap gap-2">
+                                    <button type="button" class="skill-suggestion-btn">Pacote Office</button>
+                                    <button type="button" class="skill-suggestion-btn">Excel Avançado</button>
+                                    <button type="button" class="skill-suggestion-btn">Comunicação Efetiva</button>
+                                    <button type="button" class="skill-suggestion-btn">Trabalho em Equipa</button>
+                                    <button type="button" class="skill-suggestion-btn">Liderança</button>
+                                    <button type="button" class="skill-suggestion-btn">Proatividade</button>
+                                    <button type="button" class="skill-suggestion-btn">Organização</button>
+                                    <button type="button" class="skill-suggestion-btn">Atendimento ao Cliente</button>
+                                    <button type="button" class="skill-suggestion-btn">Gestão de Tempo</button>
+                                </div>
+                                <!-- Fim do Bloco Adicionado -->
+
                             </fieldset>
                             </div>
                         </form>
@@ -363,34 +500,94 @@
                             <!-- ALTERAÇÃO: A classe padrão do preview agora é "template-modern" -->
                             <div id="resume-preview" class="resume-preview bg-white text-gray-900 template-modern">
                                 <!-- Cabeçalho --><header class="pb-6">
-                                    <h1 id="resume-name" class="text-4xl font-bold">Seu Nome</h1>
-                                    <h2 id="resume-job-title" class="text-xl font-medium text-gray-600 mt-1">Seu Cargo</h2>
+                                    <!-- DADO DE EXEMPLO ADICIONADO -->
+                                    <h1 id="resume-name" class="text-4xl font-bold demo-element" style="animation-delay: 100ms;">Ana Maria Silva</h1>
+                                    <h2 id="resume-job-title" class="text-xl font-medium text-gray-600 mt-1 demo-element" style="animation-delay: 200ms;">Desenvolvedora Front-End</h2>
                                 <div id="contact-info" class="flex justify-center items-center gap-x-4 gap-y-2 mt-4 text-sm flex-wrap">
-                                    <a href="#" id="resume-email-container" class="text-gray-700 hover:text-blue-600 transition-colors"><span id="resume-email"></span></a>
-                                    <a href="#" id="resume-phone-container" class="text-gray-700 hover:text-blue-600 transition-colors"><span id="resume-phone"></span></a>
-                                    <div id="resume-address-container" class="text-gray-700"><span id="resume-address"></span></div>
-                                    <a href="#" id="resume-linkedin-container" target="_blank" class="text-gray-700 hover:text-blue-600 transition-colors"><span id="resume-linkedin"></span></a>
+                                    <!-- DADO DE EXEMPLO ADICIONADO -->
+                                    <a href="#" id="resume-email-container" class="text-gray-700 hover:text-blue-600 transition-colors demo-element" style="animation-delay: 300ms;"><span id="resume-email">ana.silva@email.com</span></a>
+                                    <a href="#" id="resume-phone-container" class="text-gray-700 hover:text-blue-600 transition-colors demo-element" style="animation-delay: 400ms;"><span id="resume-phone">(11) 98765-4321</span></a>
+                                    <div id="resume-address-container" class="text-gray-700 demo-element" style="animation-delay: 500ms;"><span id="resume-address">São Paulo, SP</span></div>
+                                    <!-- ALTERAÇÃO: Container do LinkedIn removido e substituído pelo container da Idade -->
+                                    <div id="resume-age-container" class="text-gray-700" style="display: none;"><span id="resume-age"></span></div>
                                 </div>
                             </header>
 
                             <main class="mt-8 space-y-8">
                                 <section id="summary-section">
-                                    <h3 class="section-title">Resumo Profissional</h3>
-                                    <p id="resume-summary" class="text-gray-700 leading-relaxed"></p>
+                                    <h3 class="section-title demo-element" style="animation-delay: 600ms;">Resumo Profissional</h3>
+                                    <!-- DADO DE EXEMPLO ADICIONADO -->
+                                    <p id="resume-summary" class="text-gray-700 leading-relaxed demo-element" style="animation-delay: 650ms;">Desenvolvedora front-end proativa com 3+ anos de experiência na criação de interfaces de usuário responsivas e performáticas com React e Vue.js. Apaixonada por design limpo e em busca de novos desafios para aplicar minhas habilidades em UI/UX.</p>
                                 </section>
                                 <section id="experience-section">
-                                    <h3 class="section-title">Experiência Profissional</h3>
-                                    <div id="resume-experience-list" class="space-y-6"></div>
+                                    <h3 class="section-title demo-element" style="animation-delay: 750ms;">Experiência Profissional</h3>
+                                    <!-- DADO DE EXEMPLO ADICIONADO -->
+                                    <div id="resume-experience-list" class="space-y-6">
+                                        <div class="demo-element" style="animation-delay: 800ms;">
+                                            <div class="flex justify-between items-baseline flex-wrap">
+                                                <div class="pr-4">
+                                                    <h4 class="text-lg font-semibold">Desenvolvedora Front-End Pleno</h4>
+                                                    <p class="text-md text-gray-700">Tech Solutions &bull; São Paulo, SP</p>
+                                                </div>
+                                                <p class="text-sm text-gray-500 text-right whitespace-nowrap">Jan 2022 - Atual</p>
+                                            </div>
+                                            <p class="mt-2 text-gray-600 leading-relaxed">Liderança no desenvolvimento do novo portal do cliente usando React, resultando em um aumento de 25% na retenção de usuários. Otimização de performance (Core Web Vitals) e mentoria de desenvolvedores júnior.</p>
+                                        </div>
+                                        <div class="demo-element" style="animation-delay: 900ms;">
+                                            <div class="flex justify-between items-baseline flex-wrap">
+                                                <div class="pr-4">
+                                                    <h4 class="text-lg font-semibold">Desenvolvedora Front-End Júnior</h4>
+                                                    <p class="text-md text-gray-700">Web Agil &bull; Remoto</p>
+                                                </div>
+                                                <p class="text-sm text-gray-500 text-right whitespace-nowrap">Mar 2020 - Dez 2021</p>
+                                            </div>
+                                            <p class="mt-2 text-gray-600 leading-relaxed">Desenvolvimento e manutenção de landing pages e e-commerces em Vue.js, garantindo total responsividade e acessibilidade (WCAG).</p>
+                                        </div>
+                                    </div>
                                 </section>
                                 <section id="education-section">
-                                    <h3 class="section-title">Formação Acadêmica</h3>
-                                    <div id="resume-education-list" class="space-y-4"></div>
+                                    <h3 class="section-title demo-element" style="animation-delay: 1000ms;">Formação Acadêmica</h3>
+                                    <!-- DADO DE EXEMPLO ADICIONADO -->
+                                    <div id="resume-education-list" class="space-y-4">
+                                        <div class="demo-element" style="animation-delay: 1050ms;">
+                                            <div class="flex justify-between items-baseline flex-wrap">
+                                                <div class="pr-4">
+                                                    <h4 class="text-lg font-semibold">Análise e Desenvolvimento de Sistemas</h4>
+                                                    <p class="text-md text-gray-700">Universidade Estácio de Sá</p>
+                                                </div>
+                                                <p class="text-sm text-gray-500 text-right whitespace-nowrap">2018 - 2020</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </section>
                                 <section id="skills-section">
-                                    <h3 class="section-title">Habilidades</h3>
-                                    <div id="resume-skills"></div>
+                                    <h3 class="section-title demo-element" style="animation-delay: 1150ms;">Habilidades</h3>
+                                    <!-- DADO DE EXEMPLO ADICIONADO -->
+                                    <div id="resume-skills" class="demo-element" style="animation-delay: 1200ms;">
+                                        <span class="inline-block h-7 leading-7 bg-gray-200 rounded-full px-4 text-sm font-semibold text-gray-700 mr-2 mb-2 align-top">React</span>
+                                        <span class="inline-block h-7 leading-7 bg-gray-200 rounded-full px-4 text-sm font-semibold text-gray-700 mr-2 mb-2 align-top">JavaScript (ES6+)</span>
+                                        <span class="inline-block h-7 leading-7 bg-gray-200 rounded-full px-4 text-sm font-semibold text-gray-700 mr-2 mb-2 align-top">TypeScript</span>
+                                        <span class="inline-block h-7 leading-7 bg-gray-200 rounded-full px-4 text-sm font-semibold text-gray-700 mr-2 mb-2 align-top">Vue.js</span>
+                                        <span class="inline-block h-7 leading-7 bg-gray-200 rounded-full px-4 text-sm font-semibold text-gray-700 mr-2 mb-2 align-top">Tailwind CSS</span>
+                                        <span class="inline-block h-7 leading-7 bg-gray-200 rounded-full px-4 text-sm font-semibold text-gray-700 mr-2 mb-2 align-top">Metodologias Ágeis</span>
+                                    </div>
                                 </section>
                             </main>
+
+                            <!-- ADICIONADO: Container do QR Code do WhatsApp -->
+                            <div id="whatsapp-qr-code-container" class="items-center">
+                                <!-- ALTERAÇÃO: Corrigido 'classid' para 'id' e ajustado o espaçamento 'mb-2' -->
+                                <div id="qr-code-icon-container" class="flex flex-col items-center justify-center text-green-600 mb-2">
+                                    <!-- ALTERAÇÃO: Removido width/height, adicionado classes Tailwind w-5 h-5 -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                                        <path d="M19.05 4.91A9.816 9.816 0 0 0 12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.38 1.25 4.85L2 22l5.3-1.38c1.41.74 3 .12 4.75.12h.01c5.46 0 9.91-4.45 9.91-9.91a9.875 9.875 0 0 0-2.92-7.02zM12.04 20.12h-.01c-1.6 0-3.13-.38-4.5-1.04l-.32-.19-3.34.87.89-3.26-.21-.34a8.048 8.048 0 0 1-1.22-4.24c0-4.42 3.59-8.02 8.02-8.02s8.02 3.6 8.02 8.02-3.59 8.02-8.02 8.02zm4.5-6.03c-.28-.14-1.65-.81-1.9-.91-.25-.1-.43-.14-.61.14-.18.28-.72.91-.88 1.1-.16.19-.32.21-.59.07-.28-.14-1.18-.44-2.25-1.39S8.6 11.33 8.41 11.05c-.19-.28-.02-.43.12-.57.13-.13.28-.34.42-.51.14-.17.19-.28.28-.47.1-.19.05-.36-.02-.5-.07-.14-.61-1.47-.84-2.01-.23-.54-.46-.47-.61-.47-.14-.01-.32-.01-.5-.01s-.43.07-.66.31c-.23.24-.88.86-.88 2.1 0 1.24.9 2.43 1.03 2.61.13.19 1.77 2.71 4.3 3.81.59.25 1.05.4 1.41.51.59.19 1.13.16 1.56.1.48-.07 1.65-.68 1.88-1.34.24-.66.24-1.22.17-1.34-.07-.12-.25-.19-.53-.33z"/>
+                                    </svg>
+                                    <!-- ALTERAÇÃO: Removido font-semibold -->
+                                    <span class="text-xs">WhatsApp</span>
+                                </div>
+                                <img id="qr-code-img" alt="QR Code do WhatsApp" class="w-20 h-20"> <!-- w-20 h-20 (80px) -->
+                            </div>
+
                             </div>
                         </div>
                     </div>
@@ -534,14 +731,23 @@
 
 
     <script type="module">
+        // ADICIONADO: Flag para controlar o modo demo
+        let isDemoMode = true;
+
         document.addEventListener('DOMContentLoaded', async () => {
             // SOLUÇÃO DEFINITIVA: Espera que todas as fontes da página (incluindo 'Poppins')
             // estejam completamente carregadas antes de executar qualquer outro código.
             // Isto garante que o html2canvas sempre "verá" o texto com a fonte correta.
             await document.fonts.ready;
+            
+            // ADICIONADO: Ativa o modo demo ao carregar
+            // A classe é adicionada ao #resume-preview, não ao body
+            const resumePreview = document.getElementById('resume-preview');
+            resumePreview.classList.add('is-demo-mode');
+
 
             const form = document.getElementById('resume-form');
-            const resumePreview = document.getElementById('resume-preview');
+            // const resumePreview = document.getElementById('resume-preview'); // Já definido acima
             const templateSelector = document.getElementById('template-selector');
             const colorPalette = document.getElementById('color-palette');
 
@@ -560,6 +766,45 @@
             // --- LÓGICA DE ESCALA DA PRÉ-VISUALIZAÇÃO ---
             const previewWrapper = document.getElementById('preview-wrapper');
             
+            // --- ADICIONADO: LÓGICA DO QR CODE (MOVIDO PARA CIMA PARA CORRIGIR ERRO) ---
+            const qrCodeContainer = document.getElementById('whatsapp-qr-code-container');
+            const qrCodeImg = document.getElementById('qr-code-img');
+
+            // ALTERAÇÃO: Função do QR Code atualizada para a lógica do +55
+            async function generateOrUpdateQRCode(phoneNumber) {
+                if (!qrCodeContainer || !qrCodeImg || !window.QRCode) return;
+
+                // 1. Limpa a máscara e obtém apenas os dígitos
+                const cleanedPhone = phoneNumber.replace(/\D/g, ''); 
+                
+                // 2. Verifica se tem 10 ou 11 dígitos (DDD + número)
+                if (cleanedPhone.length < 10 || cleanedPhone.length > 11) {
+                     qrCodeContainer.style.display = 'none';
+                     qrCodeImg.src = '';
+                     return;
+                }
+
+                // 3. Adiciona o DDI 55 (Brasil) incondicionalmente
+                const finalPhone = `55${cleanedPhone}`;
+                const whatsappLink = `https://wa.me/${finalPhone}`;
+                
+                try {
+                    // 4. Gera o QR Code
+                    const dataUrl = await QRCode.toDataURL(whatsappLink, { 
+                        errorCorrectionLevel: 'M', // Nível de correção médio
+                        margin: 2, // Margem pequena
+                        width: 80 // Tamanho fixo de 80px
+                    });
+                    qrCodeImg.src = dataUrl; // Define a imagem
+                    qrCodeContainer.style.display = 'flex'; // Mostra o container
+                } catch (err) {
+                    console.error('Erro ao gerar QR Code:', err);
+                    qrCodeContainer.style.display = 'none';
+                    qrCodeImg.src = '';
+                }
+            }
+            // --- FIM DA ALTERAÇÃO DO QR CODE ---
+
             function scalePreview() {
                 if (!previewWrapper || !resumePreview) return;
                 
@@ -575,19 +820,65 @@
 
             // Ligar a função
             window.addEventListener('resize', scalePreview);
-            setTimeout(scalePreview, 100);
+            setTimeout(scalePreview, 100); // Garante a escala inicial correta
 
             // --- WIZARD LOGIC ---
+
+            // ADICIONADO: Função para limpar dados do demo e preparar para edição
+            function clearDemoData() {
+                // ALTERAÇÃO: Adiciona placeholders em vez de limpar completamente
+                document.getElementById('resume-name').textContent = 'Seu Nome';
+                document.getElementById('resume-job-title').textContent = 'Cargo Desejado';
+                document.getElementById('resume-email').textContent = '';
+                document.getElementById('resume-phone').textContent = '';
+                document.getElementById('resume-address').textContent = '';
+                document.getElementById('resume-age').textContent = ''; // ALTERAÇÃO: Antigo 'resume-linkedin'
+                document.getElementById('resume-summary').textContent = '';
+                document.getElementById('resume-experience-list').innerHTML = '';
+                document.getElementById('resume-education-list').innerHTML = '';
+                document.getElementById('resume-skills').innerHTML = '';
+                // ALTERAÇÃO: Garante que a seção de habilidades fique visível
+                document.getElementById('skills-section').style.display = 'block';
+
+                // ADICIONADO: Limpa o QR Code
+                generateOrUpdateQRCode('');
+
+                // Esconde os containers de contacto que agora estão vazios
+                // ALTERAÇÃO: 'linkedin' substituído por 'age'
+                ['email', 'phone', 'address', 'age'].forEach(field => { 
+                     document.getElementById(`resume-${field}-container`).style.display = 'none';
+                });
+
+                // Adiciona os primeiros campos vazios no formulário
+                addExperience();
+                addEducation();
+                updateDynamicSections(); // Garante que as seções de exp/edu fiquem visíveis
+            }
+
+            // ADICIONADO: Função para gerir a transição
+            function startTransitionToLiveMode() {
+                isDemoMode = false;
+                resumePreview.classList.add('is-fading-out'); // Adiciona classe no preview
+
+                setTimeout(() => {
+                    resumePreview.classList.remove('is-demo-mode', 'is-fading-out');
+                    clearDemoData();
+                    // Agora sim, avança para o próximo passo
+                    showStep(currentStep + 1);
+                }, 300); // Duração da animação fadeOut (0.3s)
+            }
+
             function initWizard() {
                 wizardSteps = Array.from(form.querySelectorAll('fieldset'));
                 form.querySelectorAll('input, textarea').forEach(el => el.classList.add('rounded-lg'));
                 
-                // CORREÇÃO DEFINITIVA DO FLUXO:
-                // A lógica de clique foi movida para aqui, usando '.onclick'.
-                // Isto evita o conflito com 'addEventListener' que causava os saltos nos passos.
                 prevStepButton.onclick = () => { if (currentStep > 0) showStep(currentStep - 1); };
+                
+                // ALTERADO: Lógica do botão "Próximo" para lidar com o modo demo
                 nextStepButton.onclick = () => {
-                    if (currentStep < wizardSteps.length - 1) {
+                    if (isDemoMode && currentStep === 0) {
+                        startTransitionToLiveMode();
+                    } else if (currentStep < wizardSteps.length - 1) {
                         showStep(currentStep + 1);
                     } else {
                         showCompletionView();
@@ -596,6 +887,33 @@
 
                 showStep(0);
             }
+
+            // ADICIONADO: Função para aplicar a máscara no campo de telefone
+            function formatPhoneNumberInput(e) {
+                let value = e.target.value.replace(/\D/g, ''); // Remove tudo que não é dígito
+                
+                if (value.length > 11) {
+                    value = value.substring(0, 11); // Limita a 11 dígitos
+                }
+                
+                // Aplica a máscara (XX) X XXXX-XXXX (celular) ou (XX) XXXX-XXXX (fixo)
+                if (value.length > 10) {
+                    // (XX) X XXXX-XXXX
+                    value = value.replace(/^(\d{2})(\d{1})(\d{4})(\d{4})$/, '($1) $2 $3-$4');
+                } else if (value.length > 6) {
+                    // (XX) XXXX-XXXX
+                    value = value.replace(/^(\d{2})(\d{4})(\d{0,4})$/, '($1) $2-$3');
+                } else if (value.length > 2) {
+                    // (XX) XXXX
+                    value = value.replace(/^(\d{2})(\d{0,4})$/, '($1) $2');
+                } else if (value.length > 0) {
+                    // (XX
+                    value = value.replace(/^(\d{0,2})$/, '($1');
+                }
+                
+                e.target.value = value;
+            }
+            // --- FIM DA FUNÇÃO ADICIONADA ---
 
             function showStep(stepIndex) {
                 if (stepIndex < 0 || stepIndex >= wizardSteps.length) return;
@@ -606,10 +924,6 @@
 
                 const nextStepElement = wizardSteps[stepIndex];
 
-                // CORREÇÃO DEFINITIVA: O bug acontecia porque a altura do passo era medida
-                // antes de o navegador o ter renderizado completamente. `requestAnimationFrame`
-                // agenda a medição da altura para o momento exato em que o navegador está
-                // pronto, garantindo que o valor é sempre o correto e que os passos nunca "somem".
                 requestAnimationFrame(() => {
                     if (nextStepElement) {
                         stepsContainer.style.height = `${nextStepElement.scrollHeight}px`;
@@ -626,13 +940,37 @@
                 stepTitle.textContent = topic;
                 progressBar.style.width = `${((currentStep + 1) / wizardSteps.length) * 100}%`;
                 prevStepButton.disabled = currentStep === 0;
-                nextStepButton.textContent = currentStep === wizardSteps.length - 1 ? 'Concluir' : 'Próximo';
+                
+                // ALTERADO: Muda o texto do botão no modo demo
+                if (isDemoMode && currentStep === 0) {
+                    nextStepButton.textContent = 'Começar'; // <-- Texto alterado
+                } else {
+                    nextStepButton.textContent = currentStep === wizardSteps.length - 1 ? 'Concluir' : 'Próximo';
+                }
             }
-
-            // REMOVIDO: Os event listeners originais foram removidos para resolver o conflito.
-            // prevStepButton.addEventListener('click', () => { if (currentStep > 0) showStep(currentStep - 1); });
-            // nextStepButton.addEventListener('click', () => { ... });
+            
             initWizard();
+
+            // ADICIONADO: Atribui a função de máscara ao campo de telefone
+            document.getElementById('phone').addEventListener('input', formatPhoneNumberInput);
+
+            // ADICIONADO: Restringe o campo de idade para aceitar apenas números
+            document.getElementById('age').addEventListener('input', (e) => {
+                let value = e.target.value.replace(/\D/g, ''); // Remove não-dígitos
+                if (value.length > 2) {
+                    value = value.substring(0, 2); // Limita a 2 dígitos
+                }
+                e.target.value = value;
+            });
+
+            // ADICIONADO: Gera o QR Code para o modo demo
+            if (isDemoMode) {
+                // Usa o número de telefone de exemplo do HTML
+                const demoPhone = document.getElementById('resume-phone').textContent;
+                if (demoPhone) {
+                    generateOrUpdateQRCode(demoPhone);
+                }
+            }
 
             function showCompletionView() {
                 form.classList.add('hidden');
@@ -665,9 +1003,6 @@
                     }
                 };
                 
-                // CORREÇÃO: Em vez de voltar para o início (passo 0), agora o sistema
-                // volta para o último passo do formulário. Isto permite que você
-                // edite facilmente o seu currículo sem perder nenhum dado.
                 showStep(wizardSteps.length - 1);
             }
 
@@ -696,6 +1031,9 @@
 
             // --- ATUALIZAÇÃO EM TEMPO REAL ---
             form.addEventListener('input', (e) => {
+                // ADICIONADO: Bloqueia a atualização em tempo real durante o modo demo
+                if (isDemoMode) return;
+
                 const input = e.target;
                 const value = input.value;
                 const targetId = input.dataset.target;
@@ -711,18 +1049,28 @@
                         targetElement.textContent = value || '';
                         break;
                     
+                    // ALTERAÇÃO: 'resume-linkedin' removido deste grupo
                     case 'resume-email':
                     case 'resume-phone':
                     case 'resume-address':
-                    case 'resume-linkedin':
                         const container = document.getElementById(`${targetId}-container`);
                         container.style.display = value ? 'inline-flex' : 'none';
                         targetElement.textContent = value;
-                        if (targetId === 'resume-linkedin') {
-                            container.href = value.startsWith('http') ? value : `https://` + value;
-                            targetElement.textContent = value.replace(/(^\w+:|^)\/\//, '');
-                        } else if (targetId === 'resume-email') { container.href = `mailto:${value}`; 
-                        } else if (targetId === 'resume-phone') { container.href = `tel:${value}`; }
+                        // if (targetId === 'resume-linkedin') { // Lógica antiga do LinkedIn removida
+                        // } else 
+                        if (targetId === 'resume-email') { container.href = `mailto:${value}`; 
+                        } else if (targetId === 'resume-phone') { 
+                            container.href = `tel:${value}`; 
+                            // ADICIONADO: Gera o QR Code em tempo real
+                            generateOrUpdateQRCode(value);
+                        }
+                        break;
+
+                    // ADICIONADO: Novo 'case' para formatar a idade
+                    case 'resume-age':
+                        const ageContainer = document.getElementById('resume-age-container');
+                        ageContainer.style.display = value ? 'inline-flex' : 'none';
+                        targetElement.textContent = value ? `${value} anos` : '';
                         break;
 
                     case 'resume-skills':
@@ -738,21 +1086,30 @@
                                 targetElement.appendChild(pill);
                             });
                         } else {
-                            skillsSection.style.display = 'none';
+                            // ALTERAÇÃO: Não esconde mais a seção, apenas limpa o conteúdo
+                            skillsSection.style.display = 'block';
+                            targetElement.innerHTML = ''; 
                         }
                         break;
                 }
             });
 
-            ['email', 'phone', 'address', 'linkedin'].forEach(field => {
-                 document.getElementById(`resume-${field}-container`).style.display = 'none';
-            });
+            // ALTERADO: Não executa esta parte se estiver no modo demo (será chamado após a transição)
+            if (!isDemoMode) {
+                // ALTERAÇÃO: 'linkedin' substituído por 'age'
+                ['email', 'phone', 'address', 'age'].forEach(field => {
+                    document.getElementById(`resume-${field}-container`).style.display = 'none';
+                });
+            }
             
             // --- SEÇÕES DINÂMICAS (ACORDEÃO) ---
             let experienceCount = 0;
             let educationCount = 0;
 
             const addExperience = () => {
+                // ADICIONADO: Bloqueia a adição de campos no modo demo
+                if (isDemoMode) return;
+
                 experienceCount++;
                 const list = document.getElementById('experience-list');
                 const newItem = document.createElement('div');
@@ -781,12 +1138,18 @@
                                 <input type="text" placeholder="Início (Ex: Jan 2020)" class="w-1/2 p-2 border rounded-lg experience-start-date">
                                 <input type="text" placeholder="Fim (Ex: Atual)" class="w-1/2 p-2 border rounded-lg experience-end-date">
                             </div>
-                            <div class="relative">
-                                <textarea placeholder="Principais responsabilidades e conquistas..." class="w-full p-2 border rounded-lg h-24 pr-10 experience-description"></textarea>
-                                <button type="button" title="Melhorar com IA" class="enhance-experience absolute top-2 right-2 text-indigo-500 hover:text-indigo-700 p-1 rounded-full hover:bg-indigo-100 transition-colors">
-                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
-                                </button>
-                            </div>
+                            
+                            <!-- ALTERAÇÃO: Removido o 'div relative' e o botão de dentro da textarea -->
+                            <textarea placeholder="Principais responsabilidades e conquistas..." class="w-full p-2 border rounded-lg h-24 experience-description"></textarea>
+                            
+                            <!-- ALTERAÇÃO: Adicionado botão de IA e texto de instrução (com estilo mais leve) -->
+                            <button type="button" title="Melhorar com IA" class="enhance-experience mt-2 w-full flex items-center justify-center gap-2 bg-indigo-100 text-indigo-700 font-semibold py-2 px-4 rounded-full hover:bg-indigo-200 transition-colors text-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkles"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+                                Escrever com IA
+                            </button>
+                            <p class="text-xs text-gray-500 mt-2 text-center">Descreva suas atividades e clique no botão para a IA aprimorar o texto.</p>
+                            <!-- Fim da Alteração -->
+
                         </div>
                     </div>
                 `;
@@ -799,6 +1162,9 @@
             };
 
             const addEducation = () => {
+                // ADICIONADO: Bloqueia a adição de campos no modo demo
+                if (isDemoMode) return;
+
                 educationCount++;
                 const list = document.getElementById('education-list');
                 const newItem = document.createElement('div');
@@ -823,8 +1189,10 @@
                             <input type="text" placeholder="Curso/Formação (Ex: Bacharelado)" class="w-full p-2 border rounded-lg education-degree">
                             <input type="text" placeholder="Instituição de Ensino" class="w-full p-2 border rounded-lg education-institution">
                             <div class="flex gap-3">
-                                 <input type="text" placeholder="Início (Ex: 2016)" class="w-full p-2 border rounded-lg education-start-date">
-                                 <input type="text" placeholder="Fim (Ex: 2020)" class="w-full p-2 border rounded-lg education-end-date">
+                                 <!-- ALTERAÇÃO: Adicionada classe 'numeric-input' -->
+                                 <input type="text" placeholder="Início (Ex: 2016)" class="w-full p-2 border rounded-lg education-start-date numeric-input">
+                                 <!-- ALTERAÇÃO: Adicionada classe 'numeric-input' -->
+                                 <input type="text" placeholder="Fim (Ex: 2020)" class="w-full p-2 border rounded-lg education-end-date numeric-input">
                             </div>
                         </div>
                     </div>
@@ -841,6 +1209,9 @@
             function setupAccordionListeners(containerId) {
                 const container = document.getElementById(containerId);
                 container.addEventListener('click', (e) => {
+                    // ADICIONADO: Bloqueia o acordeão no modo demo
+                    if (isDemoMode) return;
+                    
                     const removeButton = e.target.closest('.remove-section-btn');
                     const header = e.target.closest('.accordion-header');
 
@@ -850,6 +1221,12 @@
                             itemToRemove.remove();
                             updateDynamicSections();
                             setTimeout(() => showStep(currentStep), 200); // Recalcula altura
+                            
+                            // ADICIONADO: Desmarca botões de atalho se a lista ficar vazia
+                            const educationList = document.getElementById('education-list');
+                            if (educationList.children.length === 0) {
+                                document.querySelectorAll('.education-shortcut-btn').forEach(btn => btn.classList.remove('selected'));
+                            }
                         }
                         return; // Impede que o acordeão abra/feche ao remover
                     }
@@ -866,6 +1243,9 @@
                 });
 
                 container.addEventListener('input', (e) => {
+                    // ADICIONADO: Bloqueia o acordeão no modo demo
+                    if (isDemoMode) return;
+
                     const item = e.target.closest('.accordion-item');
                     if (!item) return;
 
@@ -884,12 +1264,29 @@
                         subtitleEl.textContent = institution;
                     }
                 });
+
+                // ADICIONADO: Listener para forçar apenas números nos campos de data da formação
+                if (containerId === 'education-list') {
+                    container.addEventListener('input', (e) => {
+                        if (e.target.classList.contains('numeric-input')) {
+                            e.target.value = e.target.value.replace(/\D/g, '');
+                        }
+
+                        // ADICIONADO: Desmarca botões de atalho se o campo for editado manually
+                        if (e.target.classList.contains('education-degree')) {
+                            document.querySelectorAll('.education-shortcut-btn').forEach(btn => btn.classList.remove('selected'));
+                        }
+                    });
+                }
             }
 
             setupAccordionListeners('experience-list');
             setupAccordionListeners('education-list');
 
             const updateDynamicSections = () => {
+                // ADICIONADO: Bloqueia a atualização no modo demo
+                if (isDemoMode) return;
+
                 // Atualiza Experiência
                 const experienceFormItems = document.querySelectorAll('#experience-list > .accordion-item');
                 const experienceResumeList = document.getElementById('resume-experience-list');
@@ -913,13 +1310,14 @@
                                     </div>
                                     <p class="text-sm text-gray-500 text-right whitespace-nowrap">${startDate} ${startDate && endDate ? ' - ' : ''} ${endDate}</p>
                                 </div>
-                                <p class="mt-2 text-gray-600 leading-relaxed">${description}</p>
+                                ${description ? `<p class="mt-2 text-gray-600 leading-relaxed">${description}</p>` : ''}
                             </div>
                         `;
                     }
                 });
                 // MELHORIA: Esconde a seção no preview se estiver vazia
-                experienceSection.style.display = experienceResumeList.children.length > 0 ? 'block' : 'none';
+                // ALTERAÇÃO: A seção agora fica sempre visível
+                experienceSection.style.display = 'block';
 
                 // Atualiza Formação
                 const educationFormItems = document.querySelectorAll('#education-list > .accordion-item');
@@ -947,20 +1345,111 @@
                     }
                 });
                 // MELHORIA: Esconde a seção no preview se estiver vazia
-                educationSection.style.display = educationResumeList.children.length > 0 ? 'block' : 'none';
+                // ALTERAÇÃO: A seção agora fica sempre visível
+                educationSection.style.display = 'block';
             };
 
-            document.getElementById('add-experience').addEventListener('click', addExperience);
-            document.getElementById('add-education').addEventListener('click', addEducation);
+            // ALTERAÇÃO: Adicionado recálculo de altura ao adicionar item
+            document.getElementById('add-experience').addEventListener('click', () => {
+                addExperience();
+                setTimeout(() => showStep(currentStep), 200); // Recalcula altura
+            });
+            document.getElementById('add-education').addEventListener('click', () => {
+                addEducation();
+                setTimeout(() => showStep(currentStep), 200); // Recalcula altura
+            });
+            
             form.addEventListener('input', (e) => {
+                // ADICIONADO: Bloqueia a atualização no modo demo
+                if (isDemoMode) return;
+                
                 if(e.target.closest('#experience-list') || e.target.closest('#education-list')) {
                     updateDynamicSections();
                 }
             });
 
-            addExperience();
-            addEducation();
-            updateDynamicSections(); // Chamada inicial para esconder seções vazias
+            // ALTERADO: Não executa esta parte se estiver no modo demo (será chamado após a transição)
+            if (!isDemoMode) {
+                // addExperience(); // Movido para clearDemoData
+                // addEducation(); // Movido para clearDemoData
+                updateDynamicSections(); // Chamada inicial para esconder seções vazias
+            }
+
+            // --- ADICIONADO: LÓGICA DOS ATALHOS DE FORMAÇÃO ---
+            const shortcutButtons = document.querySelectorAll('.education-shortcut-btn');
+            shortcutButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Pega o texto do botão
+                    const degreeText = button.dataset.degree;
+                    const educationList = document.getElementById('education-list');
+
+                    // ALTERAÇÃO: Lógica para seleção única
+                    // 1. Desmarca todos os botões
+                    shortcutButtons.forEach(btn => btn.classList.remove('selected'));
+                    // 2. Marca o botão clicado
+                    button.classList.add('selected');
+                    
+                    // 3. Limpa a lista de formações existentes
+                    educationList.innerHTML = '';
+
+                    // 4. Chama a função existente para criar UM novo item
+                    addEducation();
+                    
+                    // 5. Encontra o item que acabou de ser criado (o único)
+                    const newItem = educationList.firstElementChild;
+                    
+                    if (newItem) {
+                        // 6. Encontra o campo de "Curso" e preenche
+                        const degreeInput = newItem.querySelector('.education-degree');
+                        if (degreeInput) {
+                            degreeInput.value = degreeText;
+                            // Dispara o evento 'input' para atualizar o título do acordeão
+                            degreeInput.dispatchEvent(new Event('input', { bubbles: true }));
+                        }
+                    }
+                    // 7. Recalcula a altura do passo
+                    setTimeout(() => showStep(currentStep), 200);
+                });
+            });
+
+            // --- ADICIONADO: LÓGICA DAS SUGESTÕES DE HABILIDADES ---
+            const skillsInput = document.getElementById('skills');
+            const suggestionButtons = document.querySelectorAll('.skill-suggestion-btn');
+
+            function updateSkillButtonStates() {
+                const currentSkills = (skillsInput.value || '')
+                    .split(',')
+                    .map(s => s.trim().toLowerCase())
+                    .filter(s => s);
+                
+                suggestionButtons.forEach(button => {
+                    const skillText = button.textContent.toLowerCase();
+                    button.disabled = currentSkills.includes(skillText);
+                });
+            }
+
+            suggestionButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const skillText = button.textContent;
+                    const currentValue = skillsInput.value.trim();
+                    
+                    if (currentValue) {
+                        skillsInput.value = `${currentValue}, ${skillText}`;
+                    } else {
+                        skillsInput.value = skillText;
+                    }
+                    
+                    // Dispara o evento 'input' para atualizar o preview e desabilitar o botão
+                    skillsInput.dispatchEvent(new Event('input', { bubbles: true }));
+                });
+            });
+
+            skillsInput.addEventListener('input', updateSkillButtonStates);
+            // --- FIM DA LÓGICA DE SUGESTÕES ---
+
+
+            // --- LÓGICA DO QR CODE ---
+            // A lógica foi movida para o topo do script para evitar erros de inicialização.
 
             // --- LÓGICA DA IA (GEMINI) ---
             const apiKey = "";
@@ -970,7 +1459,7 @@
             async function callGeminiAPI(prompt, button) {
                 const originalButtonContent = button.innerHTML;
                 button.disabled = true;
-                button.innerHTML = spinnerIcon;
+                button.innerHTML = spinnerIcon + 'Aprimorando...'; // Adiciona texto ao spinner
 
                 try {
                     const payload = {
@@ -1017,7 +1506,11 @@
                 const enhancedText = await callGeminiAPI(prompt, button);
                 if (enhancedText) {
                     textarea.value = enhancedText;
+                    // Dispara 'input' no textarea para atualizar a secção dinâmica
                     textarea.dispatchEvent(new Event('input', { bubbles: true }));
+                    // E dispara 'input' no form para atualizar o preview (necessário?)
+                    form.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+                    updateDynamicSections(); // Força a atualização
                 }
             });
 
@@ -1027,7 +1520,7 @@
                 button.disabled = true;
                 button.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Gerando...`;
             
-                const resumePreview = document.getElementById('resume-preview');
+                // const resumePreview = document.getElementById('resume-preview'); // Já definido no topo
                 // Clona o elemento para não afetar a visualização principal
                 const clone = resumePreview.cloneNode(true);
                 clone.id = 'resume-clone-for-pdf';
@@ -1037,6 +1530,9 @@
                 clone.style.left = '-9999px';
                 clone.style.top = '0';
                 clone.style.zIndex = '-1';
+                // Remove o modo demo para garantir que os placeholders não apareçam no PDF
+                clone.classList.remove('is-demo-mode', 'is-fading-out');
+                
                 document.body.appendChild(clone);
                 
                 const resumeName = document.getElementById('name').value.trim().replace(/ /g, '_') || 'curriculo';
@@ -1062,18 +1558,18 @@
             
                         } catch (pdfError) {
                             console.error("ERRO ao criar ou salvar o PDF:", pdfError);
-                            alert("Ocorreu um erro ao gerar o PDF. Verifique o console para mais detalhes.");
+                            // alert("Ocorreu um erro ao gerar o PDF. Verifique o console para mais detalhes.");
                         }
                     }).catch(err => {
                         console.error("ERRO no html2canvas:", err);
-                        alert("Ocorreu um erro ao renderizar o currículo. Verifique o console para mais detalhes.");
+                        // alert("Ocorreu um erro ao renderizar o currículo. Verifique o console para mais detalhes.");
                     }).finally(() => {
                         // Limpa o clone do DOM e restaura o botão
                         document.body.removeChild(clone);
                         button.disabled = false;
                         button.innerHTML = originalContent;
                     });
-                }, 500); // Reduzido o tempo de espera
+                }, 100); // Reduzido o tempo de espera
             }
 
             // --- LÓGICA DO SCROLLER DE AVALIAÇÕES ---
@@ -1098,7 +1594,6 @@
     </script>
 </body>
 </html>
-
 
 
 
