@@ -2092,7 +2092,8 @@
             
             // Espera a resposta com a URL
             const blobUrl = await donePromise;
-            document.body.removeChild(iframe);
+            // CORREÇÃO: A linha abaixo (original 1569) foi MOVIDA para o final da função.
+            // document.body.removeChild(iframe);
 
             // Inicia o download
             const a = document.createElement('a');
@@ -2102,6 +2103,9 @@
             a.click();
             document.body.removeChild(a);
 
+            // CORREÇÃO: A linha foi movida para aqui, para ser executada APÓS o download.
+            document.body.removeChild(iframe);
+
             button.disabled = false;
             button.innerHTML = originalContent;
         }
@@ -2109,5 +2113,4 @@
     </script>
 </body>
 </html>
-
 
