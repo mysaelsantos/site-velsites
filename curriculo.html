@@ -2050,12 +2050,21 @@
                 }),
                 // --- FIM DA CORREÇÃO ---
 
-                education: Array.from(document.querySelectorAll('#resume-education-list > div')).map(block => ({
-                    degree: block.querySelector('h4')?.textContent || '',
-                    institution: block.querySelector('p.text-md')?.textContent || '',
-                    start: block.querySelector('.text-sm.text-gray-500')?.textContent.split('-')[0]?.trim() || '',
-                    end: block.querySelector('.text-sm.text-gray-500')?.textContent.split('-')[1]?.trim() || ''
-                })),
+                // --- CORREÇÃO APLICADA AQUI ---
+                education: Array.from(document.querySelectorAll('#resume-education-list > div')).map(block => {
+                    // Adiciona a lógica segura para tratar as datas
+                    const dateText = block.querySelector('.text-sm.text-gray-500')?.textContent || '';
+                    const dates = dateText.split('-');
+
+                    return {
+                        degree: block.querySelector('h4')?.textContent || '',
+                        institution: block.querySelector('p.text-md')?.textContent || '',
+                        start: dates[0]?.trim() || '', // Seguro
+                        end: dates[1]?.trim() || '',   // Seguro
+                    };
+                }),
+                // --- FIM DA CORREÇÃO ---
+                
                 skills: Array.from(document.querySelectorAll('#resume-skills .inline-block')).map(s => s.textContent),
                 profilePicDataUrl: document.getElementById('profile-pic-img')?.src || null,
                 qrDataUrl: document.getElementById('qr-code-img')?.src || null
@@ -2100,4 +2109,5 @@
     </script>
 </body>
 </html>
+
 
