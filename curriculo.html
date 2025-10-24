@@ -2030,14 +2030,26 @@
                 maritalStatus: document.getElementById('resume-marital-status').textContent,
                 cnh: document.getElementById('resume-cnh').textContent,
                 summary: document.getElementById('resume-summary').textContent,
-                experiences: Array.from(document.querySelectorAll('#resume-experience-list > div')).map(block => ({
-                    title: block.querySelector('h4')?.textContent || '',
-                    company: (block.querySelector('p.text-md')?.textContent || '').split('•')[0].trim(), // Pega só a empresa
-                    location: (block.querySelector('p.text-md')?.textContent || '').split('•')[1]?.trim() || '', // Pega só a localização
-                    start: block.querySelector('.text-sm.text-gray-500')?.textContent.split('-')[0]?.trim() || '',
-                    end: block.querySelector('.text-sm.text-gray-500')?.textContent.split('-')[1]?.trim() || '',
-                    description: block.querySelector('.mt-2')?.innerHTML || '' // Usa innerHTML para manter quebras de linha
-                })),
+                
+                // --- INÍCIO DA CORREÇÃO ---
+                experiences: Array.from(document.querySelectorAll('#resume-experience-list > div')).map(block => {
+                    // Separamos a lógica para evitar erros se '•' ou '-' não existirem.
+                    const companyText = block.querySelector('p.text-md')?.textContent || '';
+                    const parts = companyText.split('•');
+                    const dateText = block.querySelector('.text-sm.text-gray-500')?.textContent || '';
+                    const dates = dateText.split('-');
+
+                    return {
+                        title: block.querySelector('h4')?.textContent || '',
+                        company: parts[0]?.trim() || '',
+                        location: parts[1]?.trim() || '', // Se parts[1] for undefined, retorna ''
+                        start: dates[0]?.trim() || '',
+                        end: dates[1]?.trim() || '', // Se dates[1] for undefined, retorna ''
+                        description: block.querySelector('.mt-2')?.innerHTML || '' // Usa innerHTML para manter quebras de linha
+                    };
+                }),
+                // --- FIM DA CORREÇÃO ---
+
                 education: Array.from(document.querySelectorAll('#resume-education-list > div')).map(block => ({
                     degree: block.querySelector('h4')?.textContent || '',
                     institution: block.querySelector('p.text-md')?.textContent || '',
