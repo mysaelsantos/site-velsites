@@ -1,0 +1,266 @@
+/* Arquivo: export.css
+  Estilos fixos para a geração do PDF.
+  Este CSS usa as fontes locais que devem estar na pasta 'fonts/'.
+*/
+
+/* --- CONFIGURAÇÃO DAS FONTES (Conforme pedido) --- */
+@font-face {
+  font-family: "Poppins";
+  src: url("fonts/Poppins-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: "Poppins";
+  src: url("fonts/Poppins-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: block;
+}
+
+/* --- VARIÁVEIS E ESTILOS GLOBAIS --- */
+:root {
+  /* A cor do tema será definida via JS */
+  --theme-color: #002e9e; 
+  --text-color: #333;
+  --text-color-light: #555;
+  --text-color-white: #ffffff;
+  --border-color: #e5e7eb;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-size: 10pt;
+  line-height: 1.5;
+  color: var(--text-color);
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+  /* Garante que as fontes sejam carregadas antes do html2canvas */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: var(--theme-color);
+}
+
+p {
+  margin: 0 0 1rem 0;
+}
+
+/* --- ESTRUTURA DO LAYOUT A4 --- */
+/*
+  O layout é baseado no "template-modern", com uma barra lateral.
+  Dimensões A4 em pixels (a 96 DPI): 794px x 1123px
+  Padding: 40px
+*/
+.resume-preview {
+  width: 794px;
+  min-height: 1123px;
+  background-color: white;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative; /* Para o html2canvas "ver" o elemento */
+}
+
+/* --- CABEÇALHO --- */
+header {
+  width: 100%;
+  height: 140px;
+  background-color: var(--theme-color);
+  color: var(--text-color-white);
+  padding: 40px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative; /* Para a foto de perfil */
+}
+
+#header-content {
+  max-width: calc(100% - 120px);
+}
+
+#resume-name {
+  font-size: 2.25rem; /* 36px */
+  font-weight: 600;
+  color: var(--text-color-white);
+  margin-bottom: 0.25rem;
+  word-break: break-word;
+}
+
+#resume-job-title {
+  font-size: 1.125rem; /* 18px */
+  font-weight: 400;
+  color: var(--text-color-white);
+  opacity: 0.8;
+  margin: 0;
+  word-break: break-word;
+}
+
+/* Foto de Perfil */
+#profile-pic-container {
+  display: none; /* Escondido por padrão */
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  overflow: hidden;
+  background-color: #e5e7eb;
+  position: absolute;
+  top: 40px;
+  right: 40px;
+}
+
+#profile-pic-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+/* --- BARRA LATERAL (ASIDE) --- */
+#sidebar {
+  width: 35%; /* Aprox. 278px */
+  min-height: calc(1123px - 140px);
+  background-color: #f9fafb; /* bg-gray-50 */
+  padding: 30px 40px;
+  box-sizing: border-box;
+  word-break: break-word;
+}
+
+#sidebar h3 {
+  font-size: 1.1rem; /* 18px */
+  color: var(--theme-color);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+#contact-info {
+  margin-bottom: 2rem;
+}
+
+#contact-info div {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-color-light);
+}
+
+/* Ícones SVG (embutidos no JS) */
+#contact-info svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+/* Habilidades (Skills) */
+#skills-section {
+  margin-bottom: 2rem;
+}
+
+#resume-skills span {
+  display: inline-block;
+  background-color: #eef2ff; /* indigo-100 */
+  color: #4338ca; /* indigo-700 */
+  font-size: 0.8rem; /* 13px */
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* QR Code */
+#whatsapp-qr-code-container {
+  display: none; /* Escondido por padrão */
+  text-align: center;
+  margin-top: 2rem;
+}
+
+#qr-code-img {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+}
+
+
+/* --- CONTEÚDO PRINCIPAL (MAIN) --- */
+#main-content {
+  width: 65%; /* Aprox. 516px */
+  min-height: calc(1123px - 140px);
+  padding: 30px 40px;
+  box-sizing: border-box;
+}
+
+#main-content section {
+  margin-bottom: 2rem;
+}
+
+#main-content h3 {
+  font-size: 1.1rem; /* 18px */
+  color: var(--theme-color);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+#resume-summary {
+  color: var(--text-color-light);
+  word-break: break-word;
+}
+
+/* Itens de Experiência e Educação */
+.resume-item {
+  margin-bottom: 1.5rem;
+}
+
+.resume-item h4 {
+  font-size: 1rem; /* 16px */
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 0.1rem;
+  word-break: break-word;
+}
+
+.item-subtitle {
+  font-size: 0.9rem; /* 14px */
+  font-weight: 600;
+  color: var(--text-color-light);
+  margin-bottom: 0.1rem;
+  word-break: break-word;
+}
+
+.item-date {
+  font-size: 0.8rem; /* 13px */
+  font-weight: 400;
+  color: var(--text-color-light);
+  margin-bottom: 0.5rem;
+}
+
+.item-description {
+  font-size: 0.9rem; /* 14px */
+  color: var(--text-color-light);
+  word-break: break-word;
+}
+/* Remove o <p> padrão da descrição */
+.item-description p {
+  margin: 0;
+}
