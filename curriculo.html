@@ -6,23 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerador de Currículo Gratuito - Crie seu CV Profissional</title>
     <!-- Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- ALTERAÇÃO: Voltamos às bibliotecas originais, mas substituímos html2canvas por dom-to-image-more -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script> -->
-    <!-- ALTERAÇÃO: Adicionado 'defer' para melhorar o carregamento -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image-more/2.6.0/dom-to-image-more.min.js" defer></script> 
-    
+    <!-- jsPDF e html2canvas para exportar PDF --><script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <!-- ADICIONADO: Biblioteca QR Code --><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.1/qrcode.min.js"></script>
-    
-    <!-- ALTERAÇÃO: A fonte Poppins foi movida do <style> para <link>s no <head> -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
     <style>
-        /* REMOVIDO: A importação da fonte foi movida para o <head> */
-        /* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap'); */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
         :root {
             --theme-color: #002e9e; /* Cor primária do Vel Sites */
@@ -1390,21 +1378,8 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                     <span>Baixar PDF</span>`;
                 nextStepButton.classList.add('flex', 'items-center', 'justify-center', 'gap-2');
-
-                // --- ALTERAÇÃO: Verifica se a biblioteca carregou ANTES de ligar a função ao botão ---
-                if (typeof window.domtoimage !== 'undefined') {
-                    nextStepButton.onclick = () => exportResumeAsPdf(nextStepButton);
-                    nextStepButton.disabled = false; // Garante que o botão está ativo
-                } else {
-                    console.error("Erro: A biblioteca dom-to-image não carregou. O botão de exportar PDF foi desativado.");
-                    // Informa o utilizador no próprio botão
-                    nextStepButton.innerHTML = '<span>Erro ao carregar exportador</span>'; 
-                    nextStepButton.disabled = true; // Desativa o botão
-                    // Remove classes de estilo ativo e adiciona estilo de erro/desativado se necessário
-                    nextStepButton.classList.remove('btn-primary');
-                    nextStepButton.classList.add('bg-red-500', 'cursor-not-allowed'); 
-                }
-                // --- FIM DA ALTERAÇÃO ---
+                // ALTERAÇÃO: A chamada da função foi atualizada
+                nextStepButton.onclick = () => exportResumeViaIframe(nextStepButton);
             }
 
             function showWizardView() {
@@ -1947,147 +1922,61 @@
             });
 
             // --- EXPORTAR PARA PDF ---
-            // ALTERAÇÃO: A função foi completamente substituída pela "Solução 1"
-            // (Nova lógica de clone + fatiamento de página) para corrigir o bug de
-            // alinhamento e compressão do PDF.
             async function exportResumeAsPdf(button) {
-                const originalContent = button.innerHTML;
+                 const originalContent = button.innerHTML;
                 button.disabled = true;
                 button.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Gerando...`;
-
-                // Adiciona um overlay para "esconder" a renderização do clone
-                const overlay = document.createElement('div');
-                overlay.style.position = 'fixed';
-                overlay.style.inset = '0';
-                overlay.style.backgroundColor = 'white'; // Fundo branco para garantir opacidade
-                overlay.style.zIndex = '9998';
-                document.body.appendChild(overlay);
-
-                try {
-                    await document.fonts.ready; // garante fontes carregadas
-
-                    const resumePreview = document.getElementById('resume-preview');
-                    const clone = resumePreview.cloneNode(true);
-                    clone.id = 'resume-clone-for-pdf';
-
-                    // Ajustes para renderização fiel (visível no topo)
-                    clone.style.position = 'absolute'; 
-                    clone.style.left = '0';
-                    clone.style.top = `${window.scrollY}px`; 
-                    clone.style.opacity = '1'; 
-                    clone.style.pointerEvents = 'none';
-                    clone.style.transform = 'none'; 
-                    clone.style.zIndex = '9999'; 
-                    clone.style.width = '794px'; 
-                    clone.style.height = 'auto'; 
-                    clone.style.boxShadow = 'none'; 
-                    clone.style.backgroundColor = 'white'; // Garante fundo branco no clone
-
-                    // desativa animações/transitions dentro do clone
-                    clone.querySelectorAll('*').forEach(el => {
-                        el.style.animation = 'none';
-                        el.style.transition = 'none';
+            
+                // const resumePreview = document.getElementById('resume-preview'); // Já definido no topo
+                // Clona o elemento para não afetar a visualização principal
+                const clone = resumePreview.cloneNode(true);
+                clone.id = 'resume-clone-for-pdf';
+                // Reseta transformações e move para fora da tela para renderização correta
+                clone.style.transform = 'none';
+                clone.style.position = 'absolute';
+                clone.style.left = '-9999px';
+                clone.style.top = '0';
+                clone.style.zIndex = '-1';
+                // Remove o modo demo para garantir que os placeholders não apareçam no PDF
+                clone.classList.remove('is-demo-mode', 'is-fading-out');
+                
+                document.body.appendChild(clone);
+                
+                const resumeName = document.getElementById('name').value.trim().replace(/ /g, '_') || 'curriculo';
+            
+                // Pequeno delay para garantir que o DOM foi atualizado com o clone
+                setTimeout(() => {
+                    html2canvas(clone, { 
+                        scale: 2, // Aumenta a resolução para melhor qualidade de impressão
+                        useCORS: true, 
+                        logging: true,
+                        letterRendering: true,
+                        allowTaint: true
+                    }).then(canvas => {
+                        try {
+                            const { jsPDF } = window.jspdf;
+                            const imgData = canvas.toDataURL('image/png');
+                            const pdf = new jsPDF({ orientation: 'portrait', unit: 'pt', format: 'a4' });
+                            const pdfWidth = pdf.internal.pageSize.getWidth();
+                            const pdfHeight = pdf.internal.pageSize.getHeight();
+                            
+                            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                            pdf.save(`${resumeName}.pdf`);
+            
+                        } catch (pdfError) {
+                            console.error("ERRO ao criar ou salvar o PDF:", pdfError);
+                            // alert("Ocorreu um erro ao gerar o PDF. Verifique o console para mais detalhes.");
+                        }
+                    }).catch(err => {
+                        console.error("ERRO no html2canvas:", err);
+                        // alert("Ocorreu um erro ao renderizar o currículo. Verifique o console para mais detalhes.");
+                    }).finally(() => {
+                        // Limpa o clone do DOM e restaura o botão
+                        document.body.removeChild(clone);
+                        button.disabled = false;
+                        button.innerHTML = originalContent;
                     });
-                    
-                    // Remove o SVG externo do WhatsApp (mantido da tentativa anterior)
-                    const externalSvg = clone.querySelector('img[src="https://files.catbox.moe/cvyrae.svg"]');
-                    if (externalSvg && externalSvg.parentNode) {
-                         externalSvg.parentNode.removeChild(externalSvg); 
-                    }
-
-
-                    document.body.appendChild(clone);
-
-                    // espera imagens internas carregarem (Foto perfil, QR Code gerado)
-                    const imgs = Array.from(clone.querySelectorAll('img'));
-                    await Promise.all(imgs.map(img => {
-                        if (!img.src || !img.parentNode) return Promise.resolve(); 
-                        if (img.complete) return Promise.resolve();
-                        // Adiciona CORS anônimo para imagens externas (se houver)
-                        img.crossOrigin = "anonymous"; 
-                        return new Promise(res => { img.onload = img.onerror = res; });
-                    }));
-                    
-                    // Pequena pausa para garantir renderização
-                    await new Promise(resolve => setTimeout(resolve, 200)); // Aumentado ligeiramente
-
-
-                    // --- ALTERAÇÃO: Usa domtoimage.toPng em vez de html2canvas ---
-                    // Adicionado 'window.' para garantir que a biblioteca seja encontrada no escopo global.
-                    // Adicionado check para garantir que a biblioteca existe (segunda camada de segurança)
-                    if (typeof window.domtoimage === 'undefined') {
-                        throw new Error("A biblioteca dom-to-image não foi carregada corretamente.");
-                    }
-                    const dataUrl = await window.domtoimage.toPng(clone, {
-                        quality: 1.0, // Qualidade máxima
-                        bgcolor: '#ffffff', // Fundo branco explícito
-                        width: clone.offsetWidth,
-                        height: clone.offsetHeight,
-                    });
-                    // --- FIM DA ALTERAÇÃO ---
-
-                    // remove clone assim que tivermos a DataURL
-                    document.body.removeChild(clone);
-
-                    // --- Lógica de Fatiamento (mantida, mas usa DataURL diretamente) ---
-                    const { jsPDF } = window.jspdf;
-                    const pdf = new jsPDF({ orientation: 'portrait', unit: 'pt', format: 'a4' });
-                    const pdfWidth = pdf.internal.pageSize.getWidth(); // Largura A4 em pt
-                    const pdfHeight = pdf.internal.pageSize.getHeight(); // Altura A4 em pt
-
-                    // Cria uma imagem temporária para obter as dimensões da DataURL
-                    const tempImage = new Image();
-                    tempImage.src = dataUrl;
-                    await new Promise(resolve => { tempImage.onload = resolve; }); // Espera a imagem carregar
-
-                    const imgWidth = tempImage.width;
-                    const imgHeight = tempImage.height;
-                    const ratio = imgWidth / pdfWidth; // Proporção pixel/ponto
-
-                    let remainingHeight = imgHeight;
-                    let positionY = 0;
-
-                    // Fatiar em páginas sem distorcer
-                    while (remainingHeight > 0) {
-                        const sliceHeightPx = Math.min(remainingHeight, Math.floor(pdfHeight * ratio));
-                        
-                        // Cria um canvas temporário para a fatia
-                        const pageCanvas = document.createElement('canvas');
-                        pageCanvas.width = imgWidth;
-                        pageCanvas.height = sliceHeightPx;
-                        const ctx = pageCanvas.getContext('2d');
-
-                        // Desenha a fatia da imagem original no canvas temporário
-                        ctx.drawImage(tempImage, 0, positionY, imgWidth, sliceHeightPx, 0, 0, imgWidth, sliceHeightPx);
-
-                        const pageData = pageCanvas.toDataURL('image/png', 1.0);
-                        const renderedHeightPt = sliceHeightPx / ratio; 
-
-                        if (positionY > 0) pdf.addPage();
-                        pdf.addImage(pageData, 'PNG', 0, 0, pdfWidth, renderedHeightPt);
-
-                        positionY += sliceHeightPx;
-                        remainingHeight -= sliceHeightPx;
-                    }
-                    // --- Fim da Lógica de Fatiamento ---
-
-
-                    const resumeName = (document.getElementById('name').value || 'curriculo').trim().replace(/\s+/g, '_');
-                    pdf.save(`${resumeName}.pdf`);
-                } catch (err) {
-                    console.error('Erro ao gerar PDF:', err);
-                } finally {
-                     // Remove o overlay e restaura o botão
-                    if (overlay && overlay.parentNode) {
-                        document.body.removeChild(overlay);
-                    }
-                    const errorClone = document.getElementById('resume-clone-for-pdf');
-                    if (errorClone && errorClone.parentNode) {
-                        document.body.removeChild(errorClone);
-                    }
-                    button.disabled = false;
-                    button.innerHTML = originalContent;
-                }
+                }, 100); // Reduzido o tempo de espera
             }
 
             // --- LÓGICA DO SCROLLER DE AVALIAÇÕES ---
@@ -2109,13 +1998,94 @@
                 });
             }
         });
+
+        // --- SUBSTITUIÇÃO DA FUNÇÃO DE EXPORTAR PDF ---
+        // A função 'exportResumeAsPdf' foi removida e substituída pela 'exportResumeViaIframe'.
+
+        async function exportResumeViaIframe(button) {
+            const originalContent = button.innerHTML;
+            button.disabled = true;
+            button.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" 
+                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" 
+                stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" 
+                d="M4 12a8 8 0 018-8V0C5.373 0 
+                0 5.373 0 12h4zm2 5.291A7.962 
+                7.962 0 014 12H0c0 3.042 1.135 
+                5.824 3 7.938l3-2.647z"></path>
+            </svg>Gerando...`;
+
+            // Recolhe os dados do DOM
+            const data = {
+                type: 'EXPORT_CV',
+                themeColor: getComputedStyle(document.documentElement)
+                .getPropertyValue('--theme-color').trim(),
+                name: document.getElementById('resume-name').textContent,
+                role: document.getElementById('resume-job-title').textContent,
+                email: document.getElementById('resume-email').textContent,
+                phone: document.getElementById('resume-phone').textContent,
+                address: document.getElementById('resume-address').textContent,
+                age: (document.getElementById('resume-age').textContent || '').replace(/\D/g, ''),
+                maritalStatus: document.getElementById('resume-marital-status').textContent,
+                cnh: document.getElementById('resume-cnh').textContent,
+                summary: document.getElementById('resume-summary').textContent,
+                experiences: Array.from(document.querySelectorAll('#resume-experience-list > div')).map(block => ({
+                    title: block.querySelector('h4')?.textContent || '',
+                    company: (block.querySelector('p.text-md')?.textContent || '').split('•')[0].trim(), // Pega só a empresa
+                    location: (block.querySelector('p.text-md')?.textContent || '').split('•')[1]?.trim() || '', // Pega só a localização
+                    start: block.querySelector('.text-sm.text-gray-500')?.textContent.split('-')[0]?.trim() || '',
+                    end: block.querySelector('.text-sm.text-gray-500')?.textContent.split('-')[1]?.trim() || '',
+                    description: block.querySelector('.mt-2')?.innerHTML || '' // Usa innerHTML para manter quebras de linha
+                })),
+                education: Array.from(document.querySelectorAll('#resume-education-list > div')).map(block => ({
+                    degree: block.querySelector('h4')?.textContent || '',
+                    institution: block.querySelector('p.text-md')?.textContent || '',
+                    start: block.querySelector('.text-sm.text-gray-500')?.textContent.split('-')[0]?.trim() || '',
+                    end: block.querySelector('.text-sm.text-gray-500')?.textContent.split('-')[1]?.trim() || ''
+                })),
+                skills: Array.from(document.querySelectorAll('#resume-skills .inline-block')).map(s => s.textContent),
+                profilePicDataUrl: document.getElementById('profile-pic-img')?.src || null,
+                qrDataUrl: document.getElementById('qr-code-img')?.src || null
+            };
+
+            // Cria o iframe
+            const iframe = document.createElement('iframe');
+            iframe.style.position = 'fixed';
+            iframe.style.left = '-9999px';
+            iframe.src = 'export.html'; // O novo template
+            document.body.appendChild(iframe);
+
+            // Espera o iframe carregar
+            await new Promise(resolve => iframe.onload = resolve);
+
+            // Prepara-se para receber a URL do blob
+            const donePromise = new Promise(resolve => {
+                window.addEventListener('message', (e) => {
+                if (e.data?.type === 'EXPORT_DONE') resolve(e.data.blobUrl);
+                }, { once: true });
+            });
+
+            // Envia os dados para o iframe
+            iframe.contentWindow.postMessage(data, '*');
+            
+            // Espera a resposta com a URL
+            const blobUrl = await donePromise;
+            document.body.removeChild(iframe);
+
+            // Inicia o download
+            const a = document.createElement('a');
+            a.href = blobUrl;
+            a.download = (data.name ? data.name.replace(/\s+/g, '_') : 'curriculo') + '.pdf';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            button.disabled = false;
+            button.innerHTML = originalContent;
+        }
+
     </script>
 </body>
-</html>"
-
-
-
-
-
-
+</html>
 
