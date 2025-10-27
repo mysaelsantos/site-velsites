@@ -2082,38 +2082,48 @@
             // Espera o iframe carregar
             await new Promise(resolve => iframe.onload = resolve);
 
-            // Prepara-se para receber a URL do blob
-            const donePromise = new Promise(resolve => {
-                window.addEventListener('message', (e) => {
-                if (e.data?.type === 'EXPORT_DONE') resolve(e.data.blobUrl);
-                }, { once: true });
+            // --- CORREÇÃO: Promise que ouve SUCESSO ou ERRO ---
+            const exportPromise = new Promise((resolve, reject) => {
+                const messageListener = (e) => {
+                    if (e.data?.type === 'EXPORT_DONE') {
+                        window.removeEventListener('message', messageListener);
+                        resolve(e.data.blobUrl);
+                    } else if (e.data?.type === 'EXPORT_ERROR') {
+                        window.removeEventListener('message', messageListener);
+                        reject(new Error(e.data.error || 'Erro desconhecido na geração do PDF'));
+                    }
+                };
+                window.addEventListener('message', messageListener);
             });
+            // --- FIM DA CORREÇÃO ---
 
             // Envia os dados para o iframe
             iframe.contentWindow.postMessage(data, '*');
             
-            // Espera a resposta com a URL
-            const blobUrl = await donePromise;
-            // CORREÇÃO: A linha abaixo (original 1569) foi MOVIDA para o final da função.
-            // document.body.removeChild(iframe);
-
-            // Inicia o download
-            const a = document.createElement('a');
-            a.href = blobUrl;
-            a.download = (data.name ? data.name.replace(/\s+/g, '_') : 'curriculo') + '.pdf';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-
-            // CORREÇÃO: A linha foi movida para aqui, para ser executada APÓS o download.
-            document.body.removeChild(iframe);
-
-            button.disabled = false;
-            button.innerHTML = originalContent;
+            try {
+                const blobUrl = await exportPromise; // Espera pela promessa (sucesso ou erro)
+                
+                // --- O CÓDIGO DE DOWNLOAD SÓ EXECUTA EM CASO DE SUCESSO ---
+                const a = document.createElement('a');
+                a.href = blobUrl;
+                a.download = (data.name ? data.name.replace(/\s+/g, '_') : 'curriculo') + '.pdf';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            
+            } catch (err) {
+                // --- EM CASO DE ERRO, MOSTRA UM AVISO E REATIVA O BOTÃO ---
+                console.error("Falha ao gerar o PDF:", err);
+                // (Opcional) Poderíamos adicionar um aviso visual aqui se quiséssemos
+            } finally {
+                // --- ISTO EXECUTA SEMPRE (SUCESSO OU ERRO) ---
+                document.body.removeChild(iframe); // Remove o iframe
+                button.disabled = false;           // Reativa o botão
+                button.innerHTML = originalContent;  // Restaura o texto do botão
+            }
         }
 
     </script>
 </body>
 </html>
-
 
