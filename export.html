@@ -3,76 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerando PDF...</title>
-    <!-- Bibliotecas para gerar o PDF -->
+    <title>Exportação de Currículo</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carrega as bibliotecas de PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <!-- Estilos do template do PDF -->
+    
+    <!-- Carrega as Fontes do Google (para garantir que estão disponíveis) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Carrega os nossos estilos customizados (o ficheiro que criámos acima) -->
     <link rel="stylesheet" href="export.css">
-</head>
-<body>
-
-    <!-- 
-      Este container tem o tamanho exato de uma folha A4 (794x1123px).
-      O export.js irá preenchê-lo com os dados recebidos do index.html.
-    -->
-    <div id="resume-export-preview" class="resume-preview">
-        <!-- O conteúdo será injetado aqui -->
-        
-        <!-- Cabeçalho (Estrutura base) -->
-        <header>
-            <div id="header-content">
-                <h1 id="resume-name"></h1>
-                <h2 id="resume-job-title"></h2>
-            </div>
-            <div id="profile-pic-container">
-                <img id="profile-pic-img" src="" alt="Foto de Perfil">
-            </div>
-        </header>
-        
-        <!-- Coluna de Contacto e Skills -->
-        <aside id="sidebar">
-            <section id="contact-info">
-                <h3>Contacto</h3>
-                <!-- Itens de contacto serão injetados aqui -->
-            </section>
-            
-            <section id="skills-section">
-                <h3>Habilidades</h3>
-                <div id="resume-skills">
-                    <!-- Skills serão injetadas aqui -->
-                </div>
-            </section>
-
-            <div id="whatsapp-qr-code-container">
-                <img id="qr-code-img" alt="QR Code do WhatsApp">
-            </div>
-        </aside>
-
-        <!-- Conteúdo Principal -->
-        <main id="main-content">
-            <section id="summary-section">
-                <h3>Resumo Profissional</h3>
-                <p id="resume-summary"></p>
-            </section>
-
-            <section id="experience-section">
-                <h3>Experiência Profissional</h3>
-                <div id="resume-experience-list">
-                    <!-- Experiências serão injetadas aqui -->
-                </div>
-            </section>
-            
-            <section id="education-section">
-                <h3>Formação Acadêmica</h3>
-                <div id="resume-education-list">
-                    <!-- Formações serão injetadas aqui -->
-                </div>
-            </section>
-        </main>
-    </div>
-
-    <!-- Script que ouve a mensagem e gera o PDF -->
+    
+    <!-- Carrega o script de exportação -->
     <script src="export.js" type="module"></script>
+</head>
+<body class="bg-white">
+    <!-- 
+      Este container irá receber o currículo.
+      O export.js vai injetar o HTML do currículo aqui dentro.
+    -->
+    <div id="resume-export-container">
+        <!-- Ex: <div id="resume-preview" class="resume-preview template-modern">...</div> -->
+    </div>
 </body>
 </html>
+
