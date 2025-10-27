@@ -267,3 +267,12 @@ main section:last-child {
     padding-right: 1rem;
 }
 
+/* --- ADICIONADO: Classes do Tailwind usadas no export.js ---
+  Isto remove a dependência do script do Tailwind CDN e
+  corrige a "condição de corrida" (race condition).
+*/
+.flex { display: flex; }
+.justify-between { justify-content: space-between; }
+.items-start { align-items: flex-start; }
+.pr-4 { padding-right: 1rem; }
+
