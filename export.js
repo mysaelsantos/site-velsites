@@ -151,16 +151,34 @@ window.addEventListener('message', async (e) => {
     container.innerHTML = resumeHTML;
 
     // --- 2. GERAÇÃO DO PDF ---
+    console.log("[EXPORT.JS] HTML injetado. A iniciar geração do PDF...");
+
     // Aguarda que o HTML injetado seja "pintado" pelo navegador.
     // Isto substitui o setTimeout(500) inseguro.
-    await new Promise(resolve => requestAnimationFrame(resolve)); 
+    await new Promise(resolve => requestAnimationFrame(resolve));
+    console.log("[EXPORT.JS] requestAnimationFrame concluído.");
 
     try {
         const { jsPDF } = window.jspdf;
+        if (!jsPDF) {
+            throw new Error("Biblioteca jsPDF não foi carregada.");
+        }
+        console.log("[EXPORT.JS] jsPDF carregado.");
+
         const element = document.getElementById('resume-preview');
+        if (!element) {
+            throw new Error("Elemento #resume-preview não encontrado.");
+        }
+        console.log("[EXPORT.JS] Elemento #resume-preview encontrado.");
         
         // Espera as fontes estarem prontas
-        await document.fonts.ready;
+        try {
+            await document.fonts.ready;
+            console.log("[EXPORT.JS] Fontes estão prontas (document.fonts.ready).");
+        } catch (fontErr) {
+            console.warn("[EXPORT.JS] Erro ao esperar por document.fonts.ready:", fontErr);
+            // Continua mesmo assim, mas regista o aviso.
+        }
         
         const canvas = await html2canvas(element, {
             scale: 2, // Melhor resolução
@@ -169,26 +187,32 @@ window.addEventListener('message', async (e) => {
             letterRendering: true,
             allowTaint: true
         });
+        console.log("[EXPORT.JS] html2canvas concluído com sucesso.");
 
         const imgData = canvas.toDataURL('image/png');
+        console.log("[EXPORT.JS] canvas.toDataURL concluído.");
+
         const pdf = new jsPDF({ orientation: 'portrait', unit: 'pt', format: 'a4' });
         const pdfWidth = pdf.internal.pageSize.getWidth();
         const pdfHeight = pdf.internal.pageSize.getHeight();
         
         pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        console.log("[EXPORT.JS] pdf.addImage concluído.");
         
         // Converte o PDF para Blob
         const blob = pdf.getBlob();
+        console.log("[EXPORT.JS] pdf.getBlob concluído.");
+
         const blobUrl = URL.createObjectURL(blob);
+        console.log("[EXPORT.JS] createObjectURL concluído. A enviar mensagem 'EXPORT_DONE'.");
 
         // Envia a URL do Blob de volta para o curriculo.html
         window.parent.postMessage({ type: 'EXPORT_DONE', blobUrl: blobUrl }, '*');
 
     } catch (err) {
-        console.error("Erro ao gerar PDF:", err);
-        // Informa o pai em caso de erro (opcional)
-        window.parent.postMessage({ type: 'EXPORT_ERROR', error: err.message }, '*');
+        console.error("[EXPORT.JS] Erro CRÍTICO ao gerar PDF:", err);
+        // Informa o pai em caso de erro
+        window.parent.postMessage({ type: 'EXPORT_ERROR', error: (err.message || 'Erro desconhecido') }, '*');
     }
 });
-
 
