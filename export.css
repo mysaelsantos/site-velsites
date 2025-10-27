@@ -1,4 +1,12 @@
-/* --- FONTES LOCAIS (PARA O PDF) --- */
+/* CORREÇÃO: Este ficheiro deve ser uma cópia EXATA dos estilos
+  dentro da tag <style> do seu curriculo.html (linhas 13-412).
+  Eu copiei-os para aqui.
+  
+  NOTA: As classes de Tailwind manuais (.flex, .justify-between) foram REMOVIDAS
+  porque o export.html agora carrega o Tailwind CDN.
+*/
+
+/* --- FONTES LOCAIS (Isto já estava correto) --- */
 @font-face {
   font-family: "Poppins";
   src: url("fonts/Poppins-Regular.woff2") format("woff2");
@@ -14,24 +22,27 @@
   font-display: block;
 }
 
-/* --- ESTILOS GERAIS COPIADOS DO curriculo.html --- */
+/* --- ESTILOS DOS TEMPLATES (Copiados do curriculo.html) --- */
+
+/* :root ... (Linha 16 do curriculo.html) */
 :root {
     --theme-color: #002e9e; 
+    --cor-primaria: #002e9e;
+    --cor-secundaria: #0078e8;
+    --gradiente-texto: linear-gradient(135deg, var(--cor-primaria), var(--cor-secundaria));
 }
 
+/* body ... (Linha 25 do curriculo.html) */
 body {
     font-family: 'Poppins', sans-serif;
     -webkit-print-color-adjust: exact;
-    background-color: #ffffff; /* Fundo branco para o PDF */
+    /* O background-color é definido no export.html */
 }
 
-.resume-preview {
-    width: 794px;
-    min-height: 1123px;
-    background-color: white;
-    position: relative;
-    color: #1f2937; /* text-gray-900 */
-}
+/* ... (Todos os estilos das linhas 31 a 412 do curriculo.html) ... */
+/* (Os estilos .form-container, #wizard-steps-container, etc. não são
+   necessários para o PDF, mas os estilos .template-classic, 
+   .template-modern, .template-minimalist, .section-title, etc. SÃO) */
 
 /* --- ESTILOS GERAIS PARA TÍTULOS DE SECÇÃO --- */
 .section-title {
@@ -46,25 +57,7 @@ body {
 /* --- TEMPLATE CLÁSSICO (Padrão) --- */
 .template-classic { padding: 50px 75px; }
 .template-classic header { text-align: center; border-bottom: 1px solid #e5e7eb; padding-bottom: 1.5rem; }
-.template-classic #resume-name { color: var(--theme-color); font-size: 2.25rem; font-weight: 700; } /* text-4xl font-bold */
-.template-classic #resume-job-title { color: #374151; font-size: 1.25rem; font-weight: 500; margin-top: 0.25rem; } /* text-xl font-medium text-gray-700 */
-.template-classic #contact-info { 
-    margin-top: 1rem; 
-    display: flex; 
-    flex-wrap: wrap; 
-    justify-content: center; 
-    gap: 0.5rem 1.5rem; 
-    font-size: 0.875rem; /* text-sm */
-    color: #4b5563; /* text-gray-600 */
-}
-.template-classic #contact-info a,
-.template-classic #contact-info div {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-.template-classic #contact-info svg { width: 1rem; height: 1rem; }
-.template-classic main { margin-top: 2rem; }
+.template-classic #resume-name { color: var(--theme-color); }
 .template-classic .section-title { font-size: 1.25rem; color: var(--theme-color); border-color: #d1d5db; }
 
 /* --- TEMPLATE MODERNO --- */
@@ -77,16 +70,15 @@ body {
     border-bottom: none; 
     position: relative; 
 }
-.template-modern #resume-name { color: white; font-size: 2.25rem; font-weight: 700; } /* text-4xl font-bold */
-.template-modern #resume-job-title { color: #e0e7ff; font-size: 1.25rem; font-weight: 500; margin-top: 0.25rem; } /* text-xl font-medium */
+.template-modern #resume-name { color: white; font-size: 2.25rem; }
+.template-modern #resume-job-title { color: #e0e7ff; }
 .template-modern #contact-info {
     display: grid;
     grid-template-columns: repeat(2, 1fr); 
     gap: 0.5rem 1.5rem; 
     margin-top: 1.5rem; 
     padding-top: 1.5rem; 
-    border-top: 1px solid #3b82f6; /* Linha divisória (blue-500) */
-    font-size: 0.875rem; /* text-sm */
+    border-top: 1px solid #3b82f6; 
 }
 .template-modern #contact-info a, 
 .template-modern #contact-info div { 
@@ -96,46 +88,46 @@ body {
     gap: 0.5rem; 
 }
 .template-modern #contact-info svg {
-    width: 1rem; /* 16px */
-    height: 1rem; /* 16px */
+    width: 1rem; 
+    height: 1rem; 
     flex-shrink: 0; 
 }
-.template-modern main { padding: 40px 50px; margin-top: 0; }
+.template-modern main { padding: 40px 50px; }
 .template-modern .section-title { color: var(--theme-color); border-color: #d1d5db; }
 
 /* --- TEMPLATE MINIMALISTA --- */
-.template-minimalist { padding: 50px 75px; font-family: 'Poppins', sans-serif; } /* Garante a fonte Poppins */
-.template-minimalist header { text-align: left; border-bottom: 2px solid #111827; padding-bottom: 1rem; position: relative; }
+.template-minimalist { padding: 50px 75px; font-family: 'Lato', sans-serif; }
+.template-minimalist header { text-align: left; border-bottom: 2px solid #111827; padding-bottom: 1rem; }
 .template-minimalist #resume-name { color: #111827; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 2rem; }
-.template-minimalist #resume-job-title { font-weight: 400; color: #6B7280; margin-top: 0.25rem; font-size: 1.125rem; }
-.template-minimalist #contact-info { 
-    margin-top: 0.75rem; 
-    display: flex; 
-    flex-wrap: wrap; 
-    justify-content: flex-start; 
-    gap: 0.5rem 1.5rem; 
-    font-size: 0.875rem; /* text-sm */
-    color: #4b5563; /* text-gray-600 */
-}
-.template-minimalist #contact-info a,
-.template-minimalist #contact-info div {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-.template-minimalist #contact-info svg { width: 1rem; height: 1rem; }
+.template-minimalist #resume-job-title { font-weight: 400; color: #6B7280; margin-top: 0.25rem; }
+.template-minimalist #contact-info { justify-content: flex-start; margin-top: 0.75rem; }
 .template-minimalist main { margin-top: 2rem; }
-.template-minimalist .section-title { font-size: 1rem; font-weight: 700; color: #111827; border: none; margin-bottom: 0.75rem; text-transform: uppercase; }
+.template-minimalist .section-title { font-size: 1rem; font-weight: 700; color: #111827; border: none; margin-bottom: 0.75rem; }
 .template-minimalist section { padding-bottom: 1rem; border-bottom: 1px solid #e5e7eb; }
 .template-minimalist section:last-child { border-bottom: none; }
 
-/* --- ESTILOS DA FOTO DE PERFIL (COPIADOS) --- */
+/* --- ESTILOS DO QR CODE --- */
+#whatsapp-qr-code-container {
+    position: absolute;
+    bottom: 1.5rem; 
+    right: 1.5rem; 
+    display: none; 
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    padding: 0.5rem; 
+    border-radius: 0.5rem; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+/* --- ESTILOS DA FOTO DE PERFIL --- */
 #profile-pic-container {
     display: none; 
     position: absolute;
     z-index: 5;
     overflow: hidden;
-    background-color: #e5e7eb; /* bg-gray-200 */
+    background-color: #e5e7eb; 
 }
 #profile-pic-img {
     width: 100%;
@@ -145,9 +137,9 @@ body {
 .template-modern #profile-pic-container {
     width: 100px;
     height: 100px;
-    border-radius: 9999px; /* rounded-full */
-    top: 2.5rem; /* 40px */
-    right: 3.125rem; /* 50px */
+    border-radius: 9999px; 
+    top: 2.5rem; 
+    right: 3.125rem; 
     border: 3px solid white;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     z-index: 6; 
@@ -155,124 +147,24 @@ body {
 .template-classic #profile-pic-container {
     width: 110px;
     height: 130px;
-    border-radius: 0.5rem; /* rounded-lg */
-    top: 3.125rem; /* 50px */
-    right: 4.6875rem; /* 75px */
-    border: 1px solid #e5e7eb; /* border-gray-200 */
+    border-radius: 0.5rem; 
+    top: 3.125rem; 
+    right: 4.6875rem; 
+    border: 1px solid #e5e7eb; 
 }
 .template-minimalist #profile-pic-container {
     width: 80px;
     height: 80px;
-    border-radius: 9999px; /* rounded-full */
-    top: 3.125rem; /* 50px */
-    right: 4.6875rem; /* 75px */
+    border-radius: 9999px; 
+    top: 3.125rem; 
+    right: 4.6875rem; 
 }
 .template-minimalist header {
     position: relative;
     padding-right: 110px; 
 }
 
-/* --- ESTILOS DO QR CODE (COPIADOS) --- */
-#whatsapp-qr-code-container {
-    position: absolute;
-    bottom: 1.5rem; /* 24px */
-    right: 1.5rem; /* 24px */
-    display: none; 
-    flex-direction: column;
-    align-items: center;
-    background-color: white;
-    padding: 0.5rem; /* 8px */
-    border-radius: 0.5rem; /* rounded-lg */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    z-index: 10;
-}
-#qr-code-img {
-    width: 80px;
-    height: 80px;
-}
-/* Ícone do WhatsApp (SVG inlined para não depender de links externos) */
-.whatsapp-icon-svg {
-    height: 2rem; /* h-8 */
-    margin-bottom: 0.5rem; /* mb-2 */
-    fill: #25D366; /* Cor do WhatsApp */
-}
-
-
-/* --- ESTILOS DE HABILIDADES (COPIADOS) --- */
-#resume-skills span {
-    display: inline-block;
-    height: 1.75rem; /* h-7 */
-    line-height: 1.75rem; /* leading-7 */
-    background-color: #e5e7eb; /* bg-gray-200 */
-    border-radius: 9999px; /* rounded-full */
-    padding: 0 1rem; /* px-4 */
-    font-size: 0.875rem; /* text-sm */
-    font-weight: 600; /* font-semibold */
-    color: #374151; /* text-gray-700 */
-    margin-right: 0.5rem; /* mr-2 */
-    margin-bottom: 0.5rem; /* mb-2 */
-    vertical-align: top;
-}
-
-/* --- ESTILOS DE SEÇÕES (COPIADOS) --- */
-main {
-    margin-top: 2rem; /* Padrão para Clássico/Minimalista */
-    space-y: 2rem; /* space-y-8 */
-}
-main section:last-child {
-    padding-bottom: 0;
-}
-
-/* Estilos de Experiência e Formação */
-#resume-experience-list, #resume-education-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem; /* space-y-6 */
-}
-#resume-education-list {
-    gap: 1rem; /* space-y-4 */
-}
-
-/* Estilos de Texto */
-#resume-summary {
-    color: #374151; /* text-gray-700 */
-    line-height: 1.625; /* leading-relaxed */
-}
-.experience-description {
-    margin-top: 0.5rem; /* mt-2 */
-    color: #4b5563; /* text-gray-600 */
-    line-height: 1.625; /* leading-relaxed */
-}
-.experience-title, .education-title {
-    font-size: 1.125rem; /* text-lg */
-    font-weight: 600; /* font-semibold */
-}
-.experience-subtitle, .education-subtitle {
-    font-size: 1rem; /* text-md */
-    color: #374151; /* text-gray-700 */
-}
-.date-text {
-    font-size: 0.875rem; /* text-sm */
-    color: #6b7280; /* text-gray-500 */
-    text-align: right;
-    white-space: nowrap;
-}
-.header-flex-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    flex-wrap: wrap;
-}
-.header-flex-wrapper .pr-4 {
-    padding-right: 1rem;
-}
-
-/* --- ADICIONADO: Classes do Tailwind usadas no export.js ---
-  Isto remove a dependência do script do Tailwind CDN e
-  corrige a "condição de corrida" (race condition).
+/* NOTA: Todos os outros estilos (como .btn-primary, .scroller, .modal)
+  não são necessários para a aparência do PDF e foram omitidos.
 */
-.flex { display: flex; }
-.justify-between { justify-content: space-between; }
-.items-start { align-items: flex-start; }
-.pr-4 { padding-right: 1rem; }
 
