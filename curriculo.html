@@ -1922,62 +1922,9 @@
             });
 
             // --- EXPORTAR PARA PDF ---
-            async function exportResumeAsPdf(button) {
-                 const originalContent = button.innerHTML;
-                button.disabled = true;
-                button.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Gerando...`;
-            
-                // const resumePreview = document.getElementById('resume-preview'); // Já definido no topo
-                // Clona o elemento para não afetar a visualização principal
-                const clone = resumePreview.cloneNode(true);
-                clone.id = 'resume-clone-for-pdf';
-                // Reseta transformações e move para fora da tela para renderização correta
-                clone.style.transform = 'none';
-                clone.style.position = 'absolute';
-                clone.style.left = '-9999px';
-                clone.style.top = '0';
-                clone.style.zIndex = '-1';
-                // Remove o modo demo para garantir que os placeholders não apareçam no PDF
-                clone.classList.remove('is-demo-mode', 'is-fading-out');
-                
-                document.body.appendChild(clone);
-                
-                const resumeName = document.getElementById('name').value.trim().replace(/ /g, '_') || 'curriculo';
-            
-                // Pequeno delay para garantir que o DOM foi atualizado com o clone
-                setTimeout(() => {
-                    html2canvas(clone, { 
-                        scale: 2, // Aumenta a resolução para melhor qualidade de impressão
-                        useCORS: true, 
-                        logging: true,
-                        letterRendering: true,
-                        allowTaint: true
-                    }).then(canvas => {
-                        try {
-                            const { jsPDF } = window.jspdf;
-                            const imgData = canvas.toDataURL('image/png');
-                            const pdf = new jsPDF({ orientation: 'portrait', unit: 'pt', format: 'a4' });
-                            const pdfWidth = pdf.internal.pageSize.getWidth();
-                            const pdfHeight = pdf.internal.pageSize.getHeight();
-                            
-                            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-                            pdf.save(`${resumeName}.pdf`);
-            
-                        } catch (pdfError) {
-                            console.error("ERRO ao criar ou salvar o PDF:", pdfError);
-                            // alert("Ocorreu um erro ao gerar o PDF. Verifique o console para mais detalhes.");
-                        }
-                    }).catch(err => {
-                        console.error("ERRO no html2canvas:", err);
-                        // alert("Ocorreu um erro ao renderizar o currículo. Verifique o console para mais detalhes.");
-                    }).finally(() => {
-                        // Limpa o clone do DOM e restaura o botão
-                        document.body.removeChild(clone);
-                        button.disabled = false;
-                        button.innerHTML = originalContent;
-                    });
-                }, 100); // Reduzido o tempo de espera
-            }
+            /* REMOVIDO: A função 'exportResumeAsPdf' antiga e não utilizada 
+                foi removida para limpeza e clareza.
+            */
 
             // --- LÓGICA DO SCROLLER DE AVALIAÇÕES ---
             const scrollers = document.querySelectorAll(".scroller");
@@ -2000,7 +1947,7 @@
         });
 
         // --- SUBSTITUIÇÃO DA FUNÇÃO DE EXPORTAR PDF ---
-        // A função 'exportResumeAsPdf' foi removida e substituída pela 'exportResumeViaIframe'.
+        // A função 'exportResumeAsPdf' foi removida (acima) e 'exportResumeViaIframe' foi corrigida.
 
         async function exportResumeViaIframe(button) {
             const originalContent = button.innerHTML;
@@ -2016,61 +1963,61 @@
                 5.824 3 7.938l3-2.647z"></path>
             </svg>Gerando...`;
 
-            // Recolhe os dados do DOM
+            // --- CORREÇÃO CRÍTICA ---
+            // Os dados agora são lidos diretamente do FORMULÁRIO (#resume-form),
+            // e não da PRÉ-VISUALIZAÇÃO (#resume-preview).
+            // Isto corrige o bug onde o PDF era gerado com dados errados ou vazios.
             const data = {
                 type: 'EXPORT_CV',
-                // ADICIONADO: Envia a classe do template atual (ex: "template-modern")
+                // Estilo (lido da pré-visualização, o que está correto)
                 templateClass: document.getElementById('resume-preview').className.match(/template-\w+/)[0] || 'template-classic',
-                themeColor: getComputedStyle(document.documentElement)
-                .getPropertyValue('--theme-color').trim(),
-                name: document.getElementById('resume-name').textContent,
-                role: document.getElementById('resume-job-title').textContent,
-                email: document.getElementById('resume-email').textContent,
-                phone: document.getElementById('resume-phone').textContent,
-                address: document.getElementById('resume-address').textContent,
-                age: (document.getElementById('resume-age').textContent || '').replace(/\D/g, ''),
-                maritalStatus: document.getElementById('resume-marital-status').textContent,
-                cnh: document.getElementById('resume-cnh').textContent,
-                summary: document.getElementById('resume-summary').textContent,
+                themeColor: getComputedStyle(document.documentElement).getPropertyValue('--theme-color').trim(),
                 
-                // --- INÍCIO DA CORREÇÃO ---
-                experiences: Array.from(document.querySelectorAll('#resume-experience-list > div')).map(block => {
-                    // Separamos a lógica para evitar erros se '•' ou '-' não existirem.
-                    const companyText = block.querySelector('p.text-md')?.textContent || '';
-                    const parts = companyText.split('•');
-                    const dateText = block.querySelector('.text-sm.text-gray-500')?.textContent || '';
-                    const dates = dateText.split('-');
-
+                // Dados Pessoais (lidos do formulário)
+                name: document.getElementById('name').value,
+                role: document.getElementById('job-title').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                address: document.getElementById('address').value,
+                age: document.getElementById('age').value, // O preview adiciona " anos"
+                maritalStatus: document.getElementById('marital-status').value,
+                cnh: document.getElementById('cnh').value,
+                summary: document.getElementById('summary').value,
+                
+                // Experiências (lidas do formulário .accordion-item)
+                experiences: Array.from(document.querySelectorAll('#experience-list > .accordion-item')).map(item => {
                     return {
-                        title: block.querySelector('h4')?.textContent || '',
-                        company: parts[0]?.trim() || '',
-                        location: parts[1]?.trim() || '', // Se parts[1] for undefined, retorna ''
-                        start: dates[0]?.trim() || '',
-                        end: dates[1]?.trim() || '', // Se dates[1] for undefined, retorna ''
-                        description: block.querySelector('.mt-2')?.innerHTML || '' // Usa innerHTML para manter quebras de linha
+                        title: item.querySelector('.experience-job-title').value,
+                        company: item.querySelector('.experience-company').value,
+                        location: item.querySelector('.experience-location').value,
+                        start: item.querySelector('.experience-start-date').value,
+                        end: item.querySelector('.experience-end-date').value,
+                        description: item.querySelector('.experience-description').value.replace(/\n/g, '<br>') // Mantém a formatação
                     };
                 }),
-                // --- FIM DA CORREÇÃO ---
 
-                // --- CORREÇÃO APLICADA AQUI ---
-                education: Array.from(document.querySelectorAll('#resume-education-list > div')).map(block => {
-                    // Adiciona a lógica segura para tratar as datas
-                    const dateText = block.querySelector('.text-sm.text-gray-500')?.textContent || '';
-                    const dates = dateText.split('-');
-
+                // Formação (lida do formulário .accordion-item)
+                education: Array.from(document.querySelectorAll('#education-list > .accordion-item')).map(item => {
                     return {
-                        degree: block.querySelector('h4')?.textContent || '',
-                        institution: block.querySelector('p.text-md')?.textContent || '',
-                        start: dates[0]?.trim() || '', // Seguro
-                        end: dates[1]?.trim() || '',   // Seguro
+                        degree: item.querySelector('.education-degree').value,
+                        institution: item.querySelector('.education-institution').value,
+                        start: item.querySelector('.education-start-date').value,
+                        end: item.querySelector('.education-end-date').value,
                     };
                 }),
-                // --- FIM DA CORREÇÃO ---
                 
-                skills: Array.from(document.querySelectorAll('#resume-skills .inline-block')).map(s => s.textContent),
+                // Habilidades (lidas do input #skills)
+                skills: (document.getElementById('skills').value || '')
+                    .split(',')
+                    .map(s => s.trim())
+                    .filter(s => s), // Remove strings vazias
+                
+                // Imagens (lidas da pré-visualização, o que está correto para src)
                 profilePicDataUrl: document.getElementById('profile-pic-img')?.src || null,
                 qrDataUrl: document.getElementById('qr-code-img')?.src || null
             };
+            // --- FIM DA CORREÇÃO ---
+
 
             // Cria o iframe
             const iframe = document.createElement('iframe');
@@ -2126,4 +2073,5 @@
     </script>
 </body>
 </html>
+
 
