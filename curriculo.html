@@ -2019,6 +2019,8 @@
             // Recolhe os dados do DOM
             const data = {
                 type: 'EXPORT_CV',
+                // ADICIONADO: Envia a classe do template atual (ex: "template-modern")
+                templateClass: document.getElementById('resume-preview').className.match(/template-\w+/)[0] || 'template-classic',
                 themeColor: getComputedStyle(document.documentElement)
                 .getPropertyValue('--theme-color').trim(),
                 name: document.getElementById('resume-name').textContent,
@@ -2113,4 +2115,5 @@
     </script>
 </body>
 </html>
+
 
