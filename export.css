@@ -1,9 +1,4 @@
-/* Arquivo: export.css
-  Estilos fixos para a geração do PDF.
-  Este CSS usa as fontes locais que devem estar na pasta 'fonts/'.
-*/
-
-/* --- CONFIGURAÇÃO DAS FONTES (Conforme pedido) --- */
+/* --- FONTES LOCAIS (PARA O PDF) --- */
 @font-face {
   font-family: "Poppins";
   src: url("fonts/Poppins-Regular.woff2") format("woff2");
@@ -19,248 +14,256 @@
   font-display: block;
 }
 
-/* --- VARIÁVEIS E ESTILOS GLOBAIS --- */
+/* --- ESTILOS GERAIS COPIADOS DO curriculo.html --- */
 :root {
-  /* A cor do tema será definida via JS */
-  --theme-color: #002e9e; 
-  --text-color: #333;
-  --text-color-light: #555;
-  --text-color-white: #ffffff;
-  --border-color: #e5e7eb;
+    --theme-color: #002e9e; 
 }
 
 body {
-  font-family: "Poppins", sans-serif;
-  font-weight: 400;
-  font-size: 10pt;
-  line-height: 1.5;
-  color: var(--text-color);
-  background-color: #f0f0f0;
-  margin: 0;
-  padding: 0;
-  /* Garante que as fontes sejam carregadas antes do html2canvas */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font-family: 'Poppins', sans-serif;
+    -webkit-print-color-adjust: exact;
+    background-color: #ffffff; /* Fundo branco para o PDF */
 }
 
-h1, h2, h3, h4 {
-  font-family: "Poppins", sans-serif;
-  font-weight: 600;
-  margin: 0 0 0.5rem 0;
-  color: var(--theme-color);
-}
-
-p {
-  margin: 0 0 1rem 0;
-}
-
-/* --- ESTRUTURA DO LAYOUT A4 --- */
-/*
-  O layout é baseado no "template-modern", com uma barra lateral.
-  Dimensões A4 em pixels (a 96 DPI): 794px x 1123px
-  Padding: 40px
-*/
 .resume-preview {
-  width: 794px;
-  min-height: 1123px;
-  background-color: white;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  display: flex;
-  flex-wrap: wrap;
-  position: relative; /* Para o html2canvas "ver" o elemento */
+    width: 794px;
+    min-height: 1123px;
+    background-color: white;
+    position: relative;
+    color: #1f2937; /* text-gray-900 */
 }
 
-/* --- CABEÇALHO --- */
-header {
-  width: 100%;
-  height: 140px;
-  background-color: var(--theme-color);
-  color: var(--text-color-white);
-  padding: 40px;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  position: relative; /* Para a foto de perfil */
+/* --- ESTILOS GERAIS PARA TÍTULOS DE SECÇÃO --- */
+.section-title {
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    border-bottom-width: 1px;
 }
 
-#header-content {
-  max-width: calc(100% - 120px);
+/* --- TEMPLATE CLÁSSICO (Padrão) --- */
+.template-classic { padding: 50px 75px; }
+.template-classic header { text-align: center; border-bottom: 1px solid #e5e7eb; padding-bottom: 1.5rem; }
+.template-classic #resume-name { color: var(--theme-color); font-size: 2.25rem; font-weight: 700; } /* text-4xl font-bold */
+.template-classic #resume-job-title { color: #374151; font-size: 1.25rem; font-weight: 500; margin-top: 0.25rem; } /* text-xl font-medium text-gray-700 */
+.template-classic #contact-info { 
+    margin-top: 1rem; 
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: center; 
+    gap: 0.5rem 1.5rem; 
+    font-size: 0.875rem; /* text-sm */
+    color: #4b5563; /* text-gray-600 */
 }
-
-#resume-name {
-  font-size: 2.25rem; /* 36px */
-  font-weight: 600;
-  color: var(--text-color-white);
-  margin-bottom: 0.25rem;
-  word-break: break-word;
+.template-classic #contact-info a,
+.template-classic #contact-info div {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
+.template-classic #contact-info svg { width: 1rem; height: 1rem; }
+.template-classic main { margin-top: 2rem; }
+.template-classic .section-title { font-size: 1.25rem; color: var(--theme-color); border-color: #d1d5db; }
 
-#resume-job-title {
-  font-size: 1.125rem; /* 18px */
-  font-weight: 400;
-  color: var(--text-color-white);
-  opacity: 0.8;
-  margin: 0;
-  word-break: break-word;
+/* --- TEMPLATE MODERNO --- */
+.template-modern { padding: 0; }
+.template-modern header { 
+    background-color: var(--theme-color); 
+    color: white; 
+    text-align: left; 
+    padding: 40px 50px 30px; 
+    border-bottom: none; 
+    position: relative; 
 }
+.template-modern #resume-name { color: white; font-size: 2.25rem; font-weight: 700; } /* text-4xl font-bold */
+.template-modern #resume-job-title { color: #e0e7ff; font-size: 1.25rem; font-weight: 500; margin-top: 0.25rem; } /* text-xl font-medium */
+.template-modern #contact-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 0.5rem 1.5rem; 
+    margin-top: 1.5rem; 
+    padding-top: 1.5rem; 
+    border-top: 1px solid #3b82f6; /* Linha divisória (blue-500) */
+    font-size: 0.875rem; /* text-sm */
+}
+.template-modern #contact-info a, 
+.template-modern #contact-info div { 
+    color: #c7d2fe; 
+    display: flex; 
+    align-items: center; 
+    gap: 0.5rem; 
+}
+.template-modern #contact-info svg {
+    width: 1rem; /* 16px */
+    height: 1rem; /* 16px */
+    flex-shrink: 0; 
+}
+.template-modern main { padding: 40px 50px; margin-top: 0; }
+.template-modern .section-title { color: var(--theme-color); border-color: #d1d5db; }
 
-/* Foto de Perfil */
+/* --- TEMPLATE MINIMALISTA --- */
+.template-minimalist { padding: 50px 75px; font-family: 'Poppins', sans-serif; } /* Garante a fonte Poppins */
+.template-minimalist header { text-align: left; border-bottom: 2px solid #111827; padding-bottom: 1rem; position: relative; }
+.template-minimalist #resume-name { color: #111827; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 2rem; }
+.template-minimalist #resume-job-title { font-weight: 400; color: #6B7280; margin-top: 0.25rem; font-size: 1.125rem; }
+.template-minimalist #contact-info { 
+    margin-top: 0.75rem; 
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: flex-start; 
+    gap: 0.5rem 1.5rem; 
+    font-size: 0.875rem; /* text-sm */
+    color: #4b5563; /* text-gray-600 */
+}
+.template-minimalist #contact-info a,
+.template-minimalist #contact-info div {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.template-minimalist #contact-info svg { width: 1rem; height: 1rem; }
+.template-minimalist main { margin-top: 2rem; }
+.template-minimalist .section-title { font-size: 1rem; font-weight: 700; color: #111827; border: none; margin-bottom: 0.75rem; text-transform: uppercase; }
+.template-minimalist section { padding-bottom: 1rem; border-bottom: 1px solid #e5e7eb; }
+.template-minimalist section:last-child { border-bottom: none; }
+
+/* --- ESTILOS DA FOTO DE PERFIL (COPIADOS) --- */
 #profile-pic-container {
-  display: none; /* Escondido por padrão */
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border: 3px solid white;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  overflow: hidden;
-  background-color: #e5e7eb;
-  position: absolute;
-  top: 40px;
-  right: 40px;
+    display: none; 
+    position: absolute;
+    z-index: 5;
+    overflow: hidden;
+    background-color: #e5e7eb; /* bg-gray-200 */
 }
-
 #profile-pic-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.template-modern #profile-pic-container {
+    width: 100px;
+    height: 100px;
+    border-radius: 9999px; /* rounded-full */
+    top: 2.5rem; /* 40px */
+    right: 3.125rem; /* 50px */
+    border: 3px solid white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    z-index: 6; 
+}
+.template-classic #profile-pic-container {
+    width: 110px;
+    height: 130px;
+    border-radius: 0.5rem; /* rounded-lg */
+    top: 3.125rem; /* 50px */
+    right: 4.6875rem; /* 75px */
+    border: 1px solid #e5e7eb; /* border-gray-200 */
+}
+.template-minimalist #profile-pic-container {
+    width: 80px;
+    height: 80px;
+    border-radius: 9999px; /* rounded-full */
+    top: 3.125rem; /* 50px */
+    right: 4.6875rem; /* 75px */
+}
+.template-minimalist header {
+    position: relative;
+    padding-right: 110px; 
 }
 
-
-/* --- BARRA LATERAL (ASIDE) --- */
-#sidebar {
-  width: 35%; /* Aprox. 278px */
-  min-height: calc(1123px - 140px);
-  background-color: #f9fafb; /* bg-gray-50 */
-  padding: 30px 40px;
-  box-sizing: border-box;
-  word-break: break-word;
-}
-
-#sidebar h3 {
-  font-size: 1.1rem; /* 18px */
-  color: var(--theme-color);
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 0.5rem;
-  margin-bottom: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-#contact-info {
-  margin-bottom: 2rem;
-}
-
-#contact-info div {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
-  margin-bottom: 0.75rem;
-  color: var(--text-color-light);
-}
-
-/* Ícones SVG (embutidos no JS) */
-#contact-info svg {
-  width: 14px;
-  height: 14px;
-  flex-shrink: 0;
-  margin-top: 3px;
-}
-
-/* Habilidades (Skills) */
-#skills-section {
-  margin-bottom: 2rem;
-}
-
-#resume-skills span {
-  display: inline-block;
-  background-color: #eef2ff; /* indigo-100 */
-  color: #4338ca; /* indigo-700 */
-  font-size: 0.8rem; /* 13px */
-  font-weight: 600;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  margin-right: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
-/* QR Code */
+/* --- ESTILOS DO QR CODE (COPIADOS) --- */
 #whatsapp-qr-code-container {
-  display: none; /* Escondido por padrão */
-  text-align: center;
-  margin-top: 2rem;
+    position: absolute;
+    bottom: 1.5rem; /* 24px */
+    right: 1.5rem; /* 24px */
+    display: none; 
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    padding: 0.5rem; /* 8px */
+    border-radius: 0.5rem; /* rounded-lg */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 10;
 }
-
 #qr-code-img {
-  width: 100px;
-  height: 100px;
-  margin: 0 auto;
+    width: 80px;
+    height: 80px;
+}
+/* Ícone do WhatsApp (SVG inlined para não depender de links externos) */
+.whatsapp-icon-svg {
+    height: 2rem; /* h-8 */
+    margin-bottom: 0.5rem; /* mb-2 */
+    fill: #25D366; /* Cor do WhatsApp */
 }
 
 
-/* --- CONTEÚDO PRINCIPAL (MAIN) --- */
-#main-content {
-  width: 65%; /* Aprox. 516px */
-  min-height: calc(1123px - 140px);
-  padding: 30px 40px;
-  box-sizing: border-box;
+/* --- ESTILOS DE HABILIDADES (COPIADOS) --- */
+#resume-skills span {
+    display: inline-block;
+    height: 1.75rem; /* h-7 */
+    line-height: 1.75rem; /* leading-7 */
+    background-color: #e5e7eb; /* bg-gray-200 */
+    border-radius: 9999px; /* rounded-full */
+    padding: 0 1rem; /* px-4 */
+    font-size: 0.875rem; /* text-sm */
+    font-weight: 600; /* font-semibold */
+    color: #374151; /* text-gray-700 */
+    margin-right: 0.5rem; /* mr-2 */
+    margin-bottom: 0.5rem; /* mb-2 */
+    vertical-align: top;
 }
 
-#main-content section {
-  margin-bottom: 2rem;
+/* --- ESTILOS DE SEÇÕES (COPIADOS) --- */
+main {
+    margin-top: 2rem; /* Padrão para Clássico/Minimalista */
+    space-y: 2rem; /* space-y-8 */
+}
+main section:last-child {
+    padding-bottom: 0;
 }
 
-#main-content h3 {
-  font-size: 1.1rem; /* 18px */
-  color: var(--theme-color);
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 0.5rem;
-  margin-bottom: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+/* Estilos de Experiência e Formação */
+#resume-experience-list, #resume-education-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; /* space-y-6 */
+}
+#resume-education-list {
+    gap: 1rem; /* space-y-4 */
 }
 
+/* Estilos de Texto */
 #resume-summary {
-  color: var(--text-color-light);
-  word-break: break-word;
+    color: #374151; /* text-gray-700 */
+    line-height: 1.625; /* leading-relaxed */
+}
+.experience-description {
+    margin-top: 0.5rem; /* mt-2 */
+    color: #4b5563; /* text-gray-600 */
+    line-height: 1.625; /* leading-relaxed */
+}
+.experience-title, .education-title {
+    font-size: 1.125rem; /* text-lg */
+    font-weight: 600; /* font-semibold */
+}
+.experience-subtitle, .education-subtitle {
+    font-size: 1rem; /* text-md */
+    color: #374151; /* text-gray-700 */
+}
+.date-text {
+    font-size: 0.875rem; /* text-sm */
+    color: #6b7280; /* text-gray-500 */
+    text-align: right;
+    white-space: nowrap;
+}
+.header-flex-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+}
+.header-flex-wrapper .pr-4 {
+    padding-right: 1rem;
 }
 
-/* Itens de Experiência e Educação */
-.resume-item {
-  margin-bottom: 1.5rem;
-}
-
-.resume-item h4 {
-  font-size: 1rem; /* 16px */
-  font-weight: 600;
-  color: var(--text-color);
-  margin-bottom: 0.1rem;
-  word-break: break-word;
-}
-
-.item-subtitle {
-  font-size: 0.9rem; /* 14px */
-  font-weight: 600;
-  color: var(--text-color-light);
-  margin-bottom: 0.1rem;
-  word-break: break-word;
-}
-
-.item-date {
-  font-size: 0.8rem; /* 13px */
-  font-weight: 400;
-  color: var(--text-color-light);
-  margin-bottom: 0.5rem;
-}
-
-.item-description {
-  font-size: 0.9rem; /* 14px */
-  color: var(--text-color-light);
-  word-break: break-word;
-}
-/* Remove o <p> padrão da descrição */
-.item-description p {
-  margin: 0;
-}
