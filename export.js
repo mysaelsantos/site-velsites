@@ -151,9 +151,9 @@ window.addEventListener('message', async (e) => {
     container.innerHTML = resumeHTML;
 
     // --- 2. GERAÇÃO DO PDF ---
-    // Aguarda um momento para o Tailwind aplicar os estilos ao HTML injetado
-    // e para as fontes carregarem.
-    await new Promise(resolve => setTimeout(resolve, 500)); 
+    // Aguarda que o HTML injetado seja "pintado" pelo navegador.
+    // Isto substitui o setTimeout(500) inseguro.
+    await new Promise(resolve => requestAnimationFrame(resolve)); 
 
     try {
         const { jsPDF } = window.jspdf;
@@ -190,4 +190,5 @@ window.addEventListener('message', async (e) => {
         window.parent.postMessage({ type: 'EXPORT_ERROR', error: err.message }, '*');
     }
 });
+
 
