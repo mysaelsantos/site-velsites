@@ -181,11 +181,14 @@ window.addEventListener('message', async (e) => {
     // --- 2. GERAÇÃO DO PDF ---
     console.log("[EXPORT.JS] HTML injetado. A iniciar geração do PDF...");
 
-    // CORREÇÃO CRÍTICA:
-    // REMOVIDA: A espera insegura de 1000ms (setTimeout) foi removida.
-    // Agora, o script prossegue diretamente para a geração.
-    // await new Promise(resolve => setTimeout(resolve, 1000));
-    // console.log("[EXPORT.JS] Espera de 1000ms concluída.");
+    // CORREÇÃO CRÍTICA: RE-ADICIONANDO ESPERA
+    // É NECESSÁRIO esperar um momento para que o browser
+    // aplique os estilos do 'tailwind.min.css' (carregado no export.html)
+    // ao HTML que acabámos de injetar (container.innerHTML = resumeHTML).
+    // Sem esta espera, html2canvas tenta "fotografar" um layout quebrado.
+    await new Promise(resolve => setTimeout(resolve, 500));
+    console.log("[EXPORT.JS] Espera de 500ms concluída.");
+
 
     try {
         // Assegura que as bibliotecas estão carregadas
@@ -240,4 +243,5 @@ window.addEventListener('message', async (e) => {
         window.parent.postMessage({ type: 'EXPORT_ERROR', error: (err.message || 'Erro desconhecido') }, '*');
     }
 });
+
 
