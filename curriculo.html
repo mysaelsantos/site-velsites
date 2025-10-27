@@ -1963,58 +1963,62 @@
                 5.824 3 7.938l3-2.647z"></path>
             </svg>Gerando...`;
 
-            // --- CORREÇÃO CRÍTICA ---
-            // Os dados agora são lidos diretamente do FORMULÁRIO (#resume-form),
-            // e não da PRÉ-VISUALIZAÇÃO (#resume-preview).
-            // Isto corrige o bug onde o PDF era gerado com dados errados ou vazios.
+            // --- CORREÇÃO DE ROBUSTEZ NA RECOLHA DE DADOS ---
+            // Adicionadas verificações de segurança para evitar erros 'null'
+            // se um elemento não for encontrado.
             const data = {
                 type: 'EXPORT_CV',
-                // Estilo (lido da pré-visualização, o que está correto)
-                templateClass: document.getElementById('resume-preview').className.match(/template-\w+/)[0] || 'template-classic',
+                
+                // Estilo (agora mais seguro)
+                templateClass: (document.getElementById('resume-preview')?.className.match(/template-\w+/) || ['template-classic'])[0],
                 themeColor: getComputedStyle(document.documentElement).getPropertyValue('--theme-color').trim(),
                 
                 // Dados Pessoais (lidos do formulário)
-                name: document.getElementById('name').value,
-                role: document.getElementById('job-title').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                address: document.getElementById('address').value,
-                age: document.getElementById('age').value, // O preview adiciona " anos"
-                maritalStatus: document.getElementById('marital-status').value,
-                cnh: document.getElementById('cnh').value,
-                summary: document.getElementById('summary').value,
+                name: document.getElementById('name')?.value || '',
+                role: document.getElementById('job-title')?.value || '',
+                email: document.getElementById('email')?.value || '',
+                phone: document.getElementById('phone')?.value || '',
+                address: document.getElementById('address')?.value || '',
+                age: document.getElementById('age')?.value || '',
+                maritalStatus: document.getElementById('marital-status')?.value || '',
+                cnh: document.getElementById('cnh')?.value || '',
+                summary: document.getElementById('summary')?.value || '',
                 
-                // Experiências (lidas do formulário .accordion-item)
+                // Experiências (agora mais seguro)
                 experiences: Array.from(document.querySelectorAll('#experience-list > .accordion-item')).map(item => {
                     return {
-                        title: item.querySelector('.experience-job-title').value,
-                        company: item.querySelector('.experience-company').value,
-                        location: item.querySelector('.experience-location').value,
-                        start: item.querySelector('.experience-start-date').value,
-                        end: item.querySelector('.experience-end-date').value,
-                        description: item.querySelector('.experience-description').value.replace(/\n/g, '<br>') // Mantém a formatação
+                        title: item.querySelector('.experience-job-title')?.value || '',
+                        company: item.querySelector('.experience-company')?.value || '',
+                        location: item.querySelector('.experience-location')?.value || '',
+                        start: item.querySelector('.experience-start-date')?.value || '',
+                        end: item.querySelector('.experience-end-date')?.value || '',
+                        description: (item.querySelector('.experience-description')?.value || '').replace(/\n/g, '<br>')
                     };
                 }),
 
-                // Formação (lida do formulário .accordion-item)
+                // Formação (agora mais seguro)
                 education: Array.from(document.querySelectorAll('#education-list > .accordion-item')).map(item => {
                     return {
-                        degree: item.querySelector('.education-degree').value,
-                        institution: item.querySelector('.education-institution').value,
-                        start: item.querySelector('.education-start-date').value,
-                        end: item.querySelector('.education-end-date').value,
+                        degree: item.querySelector('.education-degree')?.value || '',
+                        institution: item.querySelector('.education-institution')?.value || '',
+                        start: item.querySelector('.education-start-date')?.value || '',
+                        end: item.querySelector('.education-end-date')?.value || '',
                     };
                 }),
                 
-                // Habilidades (lidas do input #skills)
-                skills: (document.getElementById('skills').value || '')
+                // Habilidades (seguro)
+                skills: (document.getElementById('skills')?.value || '')
                     .split(',')
                     .map(s => s.trim())
-                    .filter(s => s), // Remove strings vazias
+                    .filter(s => s),
                 
-                // Imagens (lidas da pré-visualização, o que está correto para src)
-                profilePicDataUrl: document.getElementById('profile-pic-img')?.src || null,
-                qrDataUrl: document.getElementById('qr-code-img')?.src || null
+                // Imagens (agora mais seguro, verifica se o src está vazio)
+                profilePicDataUrl: document.getElementById('profile-pic-img')?.src?.startsWith('data:image') 
+                    ? document.getElementById('profile-pic-img').src 
+                    : null,
+                qrDataUrl: document.getElementById('qr-code-img')?.src?.startsWith('data:image') 
+                    ? document.getElementById('qr-code-img').src 
+                    : null
             };
             // --- FIM DA CORREÇÃO ---
 
@@ -2073,5 +2077,6 @@
     </script>
 </body>
 </html>
+
 
 
