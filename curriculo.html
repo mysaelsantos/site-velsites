@@ -1,0 +1,371 @@
+
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gerador de Currículo Gratuito - Crie seu CV Profissional com IA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.1/qrcode.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        html {
+            scroll-behavior: smooth;
+            /* For Firefox */
+            scrollbar-width: thin;
+            scrollbar-color: #c1c1c1 #f1f1f1;
+        }
+        :root {
+            --theme-color: #002e9e;
+            --cor-primaria: #002e9e;
+            --cor-secundaria: #0078e8;
+            --gradiente-texto: linear-gradient(135deg, var(--cor-primaria), var(--cor-secundaria));
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            -webkit-print-color-adjust: exact;
+            background-color: #f9fafb;
+        }
+        
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        #wizard-steps-container {
+            position: relative;
+            transition: height 0.4s ease-in-out;
+        }
+
+        .wizard-step {
+            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+            position: absolute;
+            width: 100%;
+        }
+        
+        .wizard-step:not(.step-active) {
+            opacity: 0;
+            transform: translateX(20px);
+            pointer-events: none;
+        }
+        
+        .wizard-step.step-active {
+            opacity: 1;
+            transform: translateX(0);
+            position: relative; 
+        }
+
+        #wizard-nav {
+            position: sticky;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-top: 1px solid #e5e7eb;
+            margin: 0 -1.5rem -1.5rem;
+            border-bottom-left-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
+        }
+
+        .resume-preview {
+            width: 794px;
+            background-color: white;
+            transition: all 0.3s ease-in-out;
+            transform-origin: top left;
+            position: relative;
+        }
+
+        .resume-preview-paginated {
+            height: 1123px;
+            overflow: hidden;
+        }
+        
+        .pagination-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .pagination-btn {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 9999px;
+            border: 1px solid #d1d5db;
+            background-color: white;
+            color: #374151;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .pagination-btn:hover {
+            background-color: #f3f4f6;
+        }
+        .pagination-btn.active {
+            background-color: var(--theme-color);
+            color: white;
+            border-color: var(--theme-color);
+        }
+        
+        @media print {
+            body > *:not(.resume-preview-for-print) {
+                display: none;
+            }
+            .resume-preview-for-print {
+                display: block !important;
+                box-shadow: none;
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                min-height: auto;
+                transform: none !important;
+                position: static !important;
+                left: unset !important;
+                top: unset !important;
+            }
+            body {
+                margin: 0;
+                padding: 0;
+            }
+        }
+
+        .section-title {
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding-bottom: 0.2rem;
+            margin-bottom: 0.65rem;
+            border-bottom-width: 1px;
+            font-size: 0.9rem;
+        }
+        
+        .template-classic { padding: 40px 60px; font-size: 0.85rem; }
+        .template-classic header { text-align: center; border-bottom: 1px solid #e5e7eb; padding-bottom: 1rem; position: relative;}
+        .template-classic #resume-name { color: var(--theme-color); font-size: 2.2rem; }
+        .template-classic #resume-job-title { font-size: 1.1rem; }
+        .template-classic #contact-info {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.5rem 1.5rem;
+            font-size: 0.8rem;
+        }
+        .template-classic #contact-info a, 
+        .template-classic #contact-info div { 
+            display: flex; 
+            align-items: center; 
+            gap: 0.375rem;
+        }
+        .template-classic #contact-info svg {
+            width: 0.9rem;
+            height: 0.9rem;
+            flex-shrink: 0;
+        }
+        .template-classic .section-title { font-size: 1rem; color: var(--theme-color); border-color: #d1d5db; }
+        .template-classic h4 { font-size: 0.95rem; }
+        .template-classic p { font-size: 0.85rem; }
+        
+        .template-modern { padding: 0; font-size: 0.85rem; }
+        .template-modern header { 
+            background-color: var(--theme-color); 
+            color: white; 
+            text-align: left; 
+            padding: 25px 40px 15px;
+            border-bottom: none; 
+            position: relative;
+        }
+        .template-modern #resume-name { color: white; font-size: 1.8rem; }
+        .template-modern #resume-job-title { color: #e0e7ff; font-size: 1rem; }
+        .template-modern #contact-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.3rem 1.25rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #3b82f6;
+            font-size: 0.8rem;
+        }
+        .template-modern #contact-info a, 
+        .template-modern #contact-info div { 
+            color: #c7d2fe; 
+            display: flex; 
+            align-items: center; 
+            gap: 0.5rem;
+        }
+        .template-modern #contact-info svg {
+            width: 0.9rem;
+            height: 0.9rem;
+            flex-shrink: 0;
+        }
+        .template-modern main { padding: 25px 40px; }
+        .template-modern .section-title { color: var(--theme-color); border-color: #d1d5db; }
+        .template-modern h4 { font-size: 0.95rem; }
+        .template-modern p { font-size: 0.85rem; }
+
+        .template-minimalist { padding: 40px 60px; font-family: 'Lato', sans-serif; font-size: 0.8rem; }
+        .template-minimalist header { text-align: left; border-bottom: 2px solid #111827; padding-bottom: 0.6rem; position: relative; }
+        .template-minimalist #resume-name { color: #111827; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 1.6rem; }
+        .template-minimalist #resume-job-title { font-weight: 400; color: #6B7280; margin-top: 0.15rem; font-size: 1rem; }
+        .template-minimalist #contact-info { 
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start; 
+            margin-top: 0.6rem; 
+            gap: 0.5rem 1.5rem;
+            font-size: 0.75rem;
+        }
+        .template-minimalist #contact-info a, 
+        .template-minimalist #contact-info div { 
+            display: flex; 
+            align-items: center; 
+            gap: 0.5rem;
+        }
+        .template-minimalist #contact-info svg {
+            width: 0.9rem;
+            height: 0.9rem;
+            flex-shrink: 0;
+            color: #4b5563;
+        }
+        .template-minimalist main { margin-top: 1.2rem; }
+        .template-minimalist .section-title { font-size: 0.8rem; font-weight: 700; color: #111827; border: none; margin-bottom: 0.4rem; }
+        .template-minimalist section { padding-bottom: 0.6rem; border-bottom: 1px solid #e5e7eb; }
+        .template-minimalist section:last-child { border-bottom: none; }
+        .template-minimalist h4 { font-size: 0.9rem; }
+        .template-minimalist p { font-size: 0.8rem; }
+
+        .gradient-text {
+            background: var(--gradiente-texto);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #002e9e, #0078e8);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 120, 232, 0.3);
+        }
+
+        .footer-logo { width: 130px; height: auto; }
+        .footer-social-icon { transition: all 0.3s ease; }
+        .footer-social-icon:hover { background-color: rgba(255, 255, 255, 0.4) !important; transform: scale(1.1); }
+        
+        .scroller__inner {
+            padding-block: 1rem; display: flex; flex-wrap: nowrap; gap: 1rem;
+        }
+        
+        .scroller[data-animated="true"] {
+            overflow: hidden;
+            -webkit-mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+            mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+        }
+        
+        .scroller[data-animated="true"] .scroller__inner {
+            width: max-content;
+            animation: scroll 80s linear infinite;
+        }
+
+        .scroller[data-direction="right"] .scroller__inner {
+            animation-direction: reverse;
+        }
+
+        @keyframes scroll { to { transform: translate(calc(-50% - .5rem)); } }
+
+        #whatsapp-qr-code-container {
+            position: absolute;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            flex-direction: column;
+            align-items: center;
+            background-color: white;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
+        
+        #profile-pic-container {
+            display: none;
+            position: absolute;
+            z-index: 5;
+            overflow: hidden;
+            background-color: #e5e7eb;
+        }
+        #profile-pic-container.visible {
+            display: block;
+        }
+        #profile-pic-img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .template-modern #profile-pic-container {
+            width: 100px; height: 100px; border-radius: 9999px; top: 2.5rem; right: 3.125rem; border: 3px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); z-index: 6; 
+        }
+        .template-classic #profile-pic-container {
+            width: 110px; height: 130px; border-radius: 0.5rem; top: 3.125rem; right: 4.6875rem; border: 1px solid #e5e7eb;
+        }
+        .template-minimalist #profile-pic-container {
+            width: 80px; height: 80px; border-radius: 9999px; top: 3.125rem; right: 4.6875rem;
+        }
+        .template-minimalist header.has-photo {
+            padding-right: 110px;
+        }
+        
+        .template-modern header.has-photo #contact-info {
+            border-top: none;
+            position: relative;
+        }
+        .template-modern header.has-photo #contact-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 1px;
+            width: calc(100% - 170px); /* Space for photo (100px) + right offset (50px) + gap (20px) */
+            background-color: #3b82f6;
+        }
+
+        /* Custom Scrollbar Styles */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.27.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>
